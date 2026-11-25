@@ -1,0 +1,2340 @@
+{
+  "generado": "2026-11-25 15:34:44",
+  "fuente": "https://ofi5.mef.gob.pe/invierteWS/Ssi/traeDetInvSSI",
+  "monto_inversion": "COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO (S/) (a+b+c+d), tal como lo devolvió el SSI",
+  "monto_final": "el que se escribe en la hoja: igual al descargado, salvo 0 sospechoso o sin dato (se mantiene el de la corrida anterior)",
+  "lista_de_cuis": "C:\\Users\\HP\\OneDrive\\daily-new-inv\\nata_apuntes\\test_responses\\cuis_2026-11-25_153444.json",
+  "resumen": {
+    "cuis_consultados": 229,
+    "con_dato": 227,
+    "no_encontrados_en_ssi": 2,
+    "sin_respuesta_del_servicio": 0,
+    "no_registrados_en_invierte_monto_0": 6,
+    "insertados_fuera_de_todos_cuis": [],
+    "segundos": 3.5,
+    "comparacion": {
+      "corrida_anterior": "monto_ssi_2026-11-25_152425.json",
+      "montos_que_cambiaron": 0,
+      "cambios_mayores_a_10_pct": 0,
+      "ceros_sospechosos_se_mantuvo_el_anterior": 0
+    }
+  },
+  "datos": [
+    {
+      "cui": 2000270,
+      "recien_insertado": true,
+      "nombre_inversion": "GESTION DE PROYECTOS",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "uei": "",
+      "tipo_inversion": "PROYECTO GENERICO",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2000351,
+      "recien_insertado": true,
+      "nombre_inversion": "OPERACION Y MANTENIMIENTO",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "uei": "",
+      "tipo_inversion": "PROYECTO GENERICO",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2001621,
+      "recien_insertado": true,
+      "nombre_inversion": "ESTUDIOS DE PRE-INVERSION",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "uei": "",
+      "tipo_inversion": "PROYECTO GENERICO",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2016766,
+      "recien_insertado": true,
+      "nombre_inversion": "INICIATIVA A LA COMPETITIVIDAD",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "uei": "",
+      "tipo_inversion": "PROYECTO GENERICO",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2064096,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DE LA INFRAESTRUCTURA EDUCATIVA DE LA ESCUELA SUPERIOR DE FORMACION ARTISTICA PUBLICA FRANCISCO LASO - GREGORIO ALBARRACIN LANCHIPA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 29478919.96,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 29478919.96,
+      "observacion": ""
+    },
+    {
+      "cui": 2106687,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DE LA PROVISION DE AGUA PARA DESARROLLO AGRICOLA EN EL VALLE DE TACNA - VILAVILANI II - FASE I",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 297648394.42,
+      "resultado": "ok",
+      "uei": "gerencia de infraestructura del proyecto especial afianzamiento y ampliación de los recursos hidricos de tacna",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 297648394.42,
+      "observacion": ""
+    },
+    {
+      "cui": 2148795,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DE LA CARRETERA TA-109: TRAMO TICACO-CANDARAVE, TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 195499257.81,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 195499257.81,
+      "observacion": ""
+    },
+    {
+      "cui": 2158997,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO MEDIANTE EL CANAL SAYLLANI EN LA COMISIÓN DE REGANTES DE ESTIQUE-TALABAYA, DISTRITOS DE ESTIQUE Y ESTIQUE PAMPA - PROVINCIA DE TARATA - REGION TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5861813.82,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 5861813.82,
+      "observacion": ""
+    },
+    {
+      "cui": 2173274,
+      "recien_insertado": true,
+      "nombre_inversion": "CONSTRUCCION DE SISTEMA DE ALMACENAMIENTO Y REGULACION DE LOS RECURSOS HIDRICOS EMBALSE CALIENTES SANTA CRUZ - CANDARAVE",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 61175923.92,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 61175923.92,
+      "observacion": ""
+    },
+    {
+      "cui": 2192844,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE SALUD DEL HOSPITAL HIPOLITO UNANUE DE TACNA, DISTRITO DE TACNA, PROVINCIA TACNA - REGION TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 633486449.64,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 633486449.64,
+      "observacion": ""
+    },
+    {
+      "cui": 2195115,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO EN EL COMITÉ DE REGANTES CALACALA, DISTRITO CAIRANI, PROVINCIA CANDARAVE, REGIÓN TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 42715567.25,
+      "resultado": "ok",
+      "uei": "gerencia de infraestructura del proyecto especial afianzamiento y ampliación de los recursos hidricos de tacna",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 42715567.25,
+      "observacion": ""
+    },
+    {
+      "cui": 2195474,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO, AMPLIACION DE LA GESTION INTEGRAL DEL SERVICIO DE AGUA POTABLE Y ALCANTARILLADO EN EL DISTRITO DE TARATA, PROVINCIA DE TARATA, TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 42440178.6,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 42440178.6,
+      "observacion": ""
+    },
+    {
+      "cui": 2234731,
+      "recien_insertado": true,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. 440 EN LA JUNTA VECINAL VILLA EL TRIUNFO, EN EL DISTRITO DE CIUDAD NUEVA, PROVINCIA DE TACNA ¿ TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5483836.16,
+      "resultado": "ok",
+      "uei": "GERENCIA REGIONAL DE INFRAESTRUCTURA",
+      "tipo_inversion": "PROYECTO DE INVERSION",
+      "monto_final": 5483836.16,
+      "observacion": ""
+    },
+    {
+      "cui": 2234835,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA PRESTACION DEL SERVICIO DE ARCHIVO DOCUMENTARIO DEL ARCHIVO REGIONAL DE TACNA - REGION TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 39744531.63,
+      "resultado": "ok",
+      "monto_final": 39744531.63,
+      "observacion": ""
+    },
+    {
+      "cui": 2267049,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS EDUCATIVOS DE LA I.E.I. N° 326 EN LA LOCALIDAD DE ALTO CAMILACA, DISTRITO DE CAMILACA - CANDARAVE - TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 1277903.97,
+      "resultado": "ok",
+      "monto_final": 1277903.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2286276,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. NRO 473 EN LA ASOCIACIÓN DE VIVIENDA KABUL, EN EL DISTRITO CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA DE TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11894444.18,
+      "resultado": "ok",
+      "monto_final": 11894444.18,
+      "observacion": ""
+    },
+    {
+      "cui": 2287967,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. NRO 463 EN LA ASOCIACIÓN DE VIVIENDA 5 DE NOVIEMBRE, EN EL DISTRITO CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA DE TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5189369.16,
+      "resultado": "ok",
+      "monto_final": 5189369.16,
+      "observacion": ""
+    },
+    {
+      "cui": 2289009,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCACION TECNICO PRODUCTIVA-CETPRO JORGE CHAVEZ, DISTRITO CORONEL GREGORIO ALBARRACIN LANCHIPA-TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 8303229.0,
+      "resultado": "ok",
+      "monto_final": 8303229.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2291770,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PREVENCIÓN Y CONTROL DE LA TUBERCULOSIS EN LA REGIÓN TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8508193.28,
+      "resultado": "ok",
+      "monto_final": 8508193.28,
+      "observacion": ""
+    },
+    {
+      "cui": 2291796,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACIÓN DE LOS SERVICIOS DE GESTIÓN EDUCATIVA Y PEDAGÓGICA DE LA UNIDAD DE GESTIÓN EDUCATIVA LOCAL (UGEL - CANDARAVE ), PROVINCIA DE CANDARAVE - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13526202.68,
+      "resultado": "ok",
+      "monto_final": 13526202.68,
+      "observacion": ""
+    },
+    {
+      "cui": 2300229,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. NRO 478 EN LA ASOCIACIÓN DE VIVIENDA RIO SECO, EN EL DISTRITO CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA DE TACNA - TACNA.",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 1918276.0,
+      "resultado": "ok",
+      "monto_final": 1918276.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2300851,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA GESTION INTEGRAL DE RESIDUOS SOLIDOS HOSPITALARIOS DE LOS ESTABLECIMIENTOS DE SALUD DE LA REGION TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 8648871.0,
+      "resultado": "ok",
+      "monto_final": 8648871.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2302998,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA PRESTACIÓN DEL SERVICIO DE GESTIÓN EDUCATIVA EN LA DIRECCIÓN REGIONAL SECTORIAL DE EDUCACIÓN TACNA, DISTRITO CORONEL GREGORIO ALBARRACÍN LANCHIPA, TACNA - TACNA.",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 64838448.03,
+      "resultado": "ok",
+      "monto_final": 64838448.03,
+      "observacion": ""
+    },
+    {
+      "cui": 2307889,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA INSTITUCION EDUCATIVA INICIAL N 471 - BELLAVISTA, DISTRITO TACNA, PROVINCIA TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8185973.36,
+      "resultado": "ok",
+      "monto_final": 8185973.36,
+      "observacion": ""
+    },
+    {
+      "cui": 2311527,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS EDUCATIVOS DE LA INSTITUCION EDUCATIVA MANUEL A. ODRIA, DISTRITO DE CIUDAD NUEVA - TACNA - TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 13581910.89,
+      "resultado": "ok",
+      "monto_final": 13581910.89,
+      "observacion": ""
+    },
+    {
+      "cui": 2312705,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DE LA RED PRIMARIA Y SECUNDARIA DEL SERVICIO DE ELECTRIFICACION EN LA ZONA RURAL DE LAS LOCALIDADES DE MIRAVE Y OCONCHAY, DISTRITO DE ILABAYA - JORGE BASADRE - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5697861.17,
+      "resultado": "ok",
+      "monto_final": 5697861.17,
+      "observacion": ""
+    },
+    {
+      "cui": 2313929,
+      "recien_insertado": false,
+      "nombre_inversion": "AMPLIACION Y MEJORAMIENTO DE LOS SERVICIOS EDUCATIVOS DE LA INSTITUCION EDUCATIVA LUIS ALBERTO SANCHEZ, DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 85744902.04,
+      "resultado": "ok",
+      "monto_final": 85744902.04,
+      "observacion": ""
+    },
+    {
+      "cui": 2314973,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE EDUCACION EN LA I.E. CHAMPAGNAT EN EL DISTRITO DE TACNA, PROVINCIA DE TACNA - TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 31056232.4,
+      "resultado": "ok",
+      "monto_final": 31056232.4,
+      "observacion": ""
+    },
+    {
+      "cui": 2318752,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. CUNA JARDIN CLARITA GAMBETTA, EN EL DISTRITO DE TACNA, PROVINCIA DE TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13244103.91,
+      "resultado": "ok",
+      "monto_final": 13244103.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2322500,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA CADENA PRODUCTIVA DEL GANADO OVINO EN LAS PROVINCIAS DE CANDARAVE Y TARATA, REGION TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13925243.06,
+      "resultado": "ok",
+      "monto_final": 13925243.06,
+      "observacion": ""
+    },
+    {
+      "cui": 2329532,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I N 466 - LOS EDILES, DISTRITO GREGORIO ALBARRACÍN, TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7617745.97,
+      "resultado": "ok",
+      "monto_final": 7617745.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2331743,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE ENERGIA ELECTRICA EN EL COMPLEJO ZOFRATACNA, DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 30620566.76,
+      "resultado": "ok",
+      "monto_final": 30620566.76,
+      "observacion": ""
+    },
+    {
+      "cui": 2338068,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SISTEMA DE CONDUCCIÓN Y DISTRIBUCIÓN DE AGUA DE LAS SECCIONES DE RIEGO N01, N02, N 03, N04, PALLATA, TOTORA, CATARINE Y SECCION LA ESPERANZA DEL COMITÉ DE RIEGO SANTA CRUZ EN EL DISTRITO DE CANDARAVE, PROVINCIA DE CANDARAVE - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 33628132.61,
+      "resultado": "ok",
+      "monto_final": 33628132.61,
+      "observacion": ""
+    },
+    {
+      "cui": 2342135,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DE LOS SERVICIOS EDUCATIVOS DEL NIVEL SECUNDARIO DE LA INSTITUCION EDUCATIVA MARISCAL CACERES, DISTRITO DE CIUDAD NUEVA - TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19097733.93,
+      "resultado": "ok",
+      "monto_final": 19097733.93,
+      "observacion": ""
+    },
+    {
+      "cui": 2351043,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN EL NIVEL PRIMARIO EN LA INSTITUCIÓN EDUCATIVA EDUARDO PEREZ GAMBOA EN EL DISTRITO DE TACNA - PROVINCIA DE TACNA - REGIÓN TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13054102.06,
+      "resultado": "ok",
+      "monto_final": 13054102.06,
+      "observacion": ""
+    },
+    {
+      "cui": 2365370,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACIÓN DE LOS SERVICIOS TURÍSTICOS DEL CORREDOR TURÍSTICO: VALLE VIEJO - MICULLA, PROVINCIA DE TACNA, REGIÓN TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 18917005.49,
+      "resultado": "ok",
+      "monto_final": 18917005.49,
+      "observacion": ""
+    },
+    {
+      "cui": 2366644,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS TURÍSTICOS DEL CIRCUITO TURÍSTICO TARATA - CAMINO INCA TICACO EN LA PROVINCIA DE TARATA - REGION TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10733758.28,
+      "resultado": "ok",
+      "monto_final": 10733758.28,
+      "observacion": ""
+    },
+    {
+      "cui": 2366707,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACIÓN DE LOS SERVICIOS TURÍSTICOS EN LA RUTA TURÍSTICA CANDARAVE - YUCAMANI - VALLE DE GEISERS EN EL DISTRITO DE CANDARAVE, PROVINCIA DE CANDARAVE - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9854370.05,
+      "resultado": "ok",
+      "monto_final": 9854370.05,
+      "observacion": ""
+    },
+    {
+      "cui": 2372296,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD PEATONAL Y VEHICULAR EN EL SECTOR 28 DE AGOSTO PROMUVI ZONA NORTE II-C, DISTRITO DE POCOLLAY - TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9112994.74,
+      "resultado": "ok",
+      "monto_final": 9112994.74,
+      "observacion": ""
+    },
+    {
+      "cui": 2376665,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN SUPERIOR EN EL IESPP. JOSÉ JIMÉNEZ BORJA EN EL DISTRITO DE TACNA, TACNA - TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 39734036.84,
+      "resultado": "ok",
+      "monto_final": 39734036.84,
+      "observacion": ""
+    },
+    {
+      "cui": 2385650,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCACIÓN DE PRIMARIA Y SECUNDARIA DE LA I.E. N° 42063 JOSÉ MARÍA ARGUEDAS ALTAMIRANO EN EL DISTRITO DE PALCA, PROVINCIA DE TACNA-TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6157736.64,
+      "resultado": "ok",
+      "monto_final": 6157736.64,
+      "observacion": ""
+    },
+    {
+      "cui": 2400586,
+      "recien_insertado": false,
+      "nombre_inversion": "RENOVACIÓN DE PUENTE PEATONAL EN EL(LA) INFRAESTRUCTURA DEL PUENTE COLGANTE EN EL SECTOR PILAVIRA EN EL DISTRITO DE TICACO, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1344403.01,
+      "resultado": "ok",
+      "monto_final": 1344403.01,
+      "observacion": ""
+    },
+    {
+      "cui": 2403949,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN INICIAL EN LA I.E.I. N°355 ANDRES AVELINO CACERES EN LA ASOC. DE VIV. ANDRES AVELINO CACERES/CIUDAD PERDIDA - DISTRITO DE TACNA - PROVINCIA DE TACNA - REGIÓN TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 4049137.15,
+      "resultado": "ok",
+      "monto_final": 4049137.15,
+      "observacion": ""
+    },
+    {
+      "cui": 2410521,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO DE LA COMISIÓN DE REGANTES YUNGA, DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 27830229.2,
+      "resultado": "ok",
+      "monto_final": 27830229.2,
+      "observacion": ""
+    },
+    {
+      "cui": 2410528,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO EN LA COMISIÓN DE REGANTES LUPAJA, DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 16955529.87,
+      "resultado": "ok",
+      "monto_final": 16955529.87,
+      "observacion": ""
+    },
+    {
+      "cui": 2410530,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PREVENCION AL CONSUMO DE SUSTANCIAS PSICOACTIVAS (DROGAS) EN ESCOLARES, ADOLECENTES Y POBLACION COMUNITARIA DE LAS 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7957587.96,
+      "resultado": "ok",
+      "monto_final": 7957587.96,
+      "observacion": ""
+    },
+    {
+      "cui": 2415244,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIA Y SECUNDARIA DE LA I.E. 42199 JUAN VELASCO ALVARADO DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 93185799.62,
+      "resultado": "ok",
+      "monto_final": 93185799.62,
+      "observacion": ""
+    },
+    {
+      "cui": 2415249,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN EL NIVEL INICIAL Y PRIMARIO DE LA I.E. N°42259 - ANEXO MORRO SAMA , DISTRITO DE SAMA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10582566.22,
+      "resultado": "ok",
+      "monto_final": 10582566.22,
+      "observacion": ""
+    },
+    {
+      "cui": 2415283,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA IEI 300 SANTA MARÍA DE LA ESPERANZA EN EL DISTRITO DE ALTO DE LA ALIANZA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5358211.84,
+      "resultado": "ok",
+      "monto_final": 5358211.84,
+      "observacion": ""
+    },
+    {
+      "cui": 2415296,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN BÁSICA ESPECIAL DEL CEBE FÉLIX Y CAROLINA DE REPETTI DISTRITO DE POCOLLAY - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 34274387.04,
+      "resultado": "ok",
+      "monto_final": 34274387.04,
+      "observacion": ""
+    },
+    {
+      "cui": 2415568,
+      "recien_insertado": false,
+      "nombre_inversion": "AMPLIACION DE REDES DE AGUA POTABLE Y CREACION DE REDES DE ALCANTARILLADO EN LA ASOCIACIÓN DE VIVIENDA PUEBLO LIBRE Y PACIFICO 16 DE DICIEMBRE, DEL DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 14292612.13,
+      "resultado": "ok",
+      "monto_final": 14292612.13,
+      "observacion": ""
+    },
+    {
+      "cui": 2415715,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA ATENCION DE SERVICIOS DE SALUD BASICO DEL PUESTO DE SALUD LOS PALOS DEL DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7069272.03,
+      "resultado": "ok",
+      "monto_final": 7069272.03,
+      "observacion": ""
+    },
+    {
+      "cui": 2415742,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA ATENCION DE SERVICIOS DE SALUD BÁSICO DEL PUESTO DE SALUD LOS OLIVOS, DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6049654.14,
+      "resultado": "ok",
+      "monto_final": 6049654.14,
+      "observacion": ""
+    },
+    {
+      "cui": 2415771,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE INCLUSION SOCIOECONÓMICA Y CULTURAL DE LAS PERSONAS CON DISCAPACIDAD FÍSICA EN LAS 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4512389.48,
+      "resultado": "ok",
+      "monto_final": 4512389.48,
+      "observacion": ""
+    },
+    {
+      "cui": 2416619,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EVALUACION DEL DIAGNOSTICO ESPECIALIZADO DE LA DIRECCION DE LABORATORIOS DE SALUD PUBLICA DE LA DIRESA ¿TACNA, DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 27790976.96,
+      "resultado": "ok",
+      "monto_final": 27790976.96,
+      "observacion": ""
+    },
+    {
+      "cui": 2420615,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E 42016 MAXIMILIANA VELASQUEZ DE SOTILLO DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10425371.05,
+      "resultado": "ok",
+      "monto_final": 10425371.05,
+      "observacion": ""
+    },
+    {
+      "cui": 2420733,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN PRIMARIA Y SECUNDARIA DE LA I.E. 43505 GUSTAVO PONS MUZZO POCOLLAY DEL DISTRITO DE POCOLLAY - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 15212876.9,
+      "resultado": "ok",
+      "monto_final": 15212876.9,
+      "observacion": ""
+    },
+    {
+      "cui": 2420736,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN EL NIVEL PRIMARIA Y SECUNDARIA DE LA INSTITUCION EDUCATIVA PROCER MANUEL CALDERON DE LA BARCA, PROMUVI VIÑANI IV ETAPA - DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 56241592.0,
+      "resultado": "ok",
+      "monto_final": 56241592.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2420743,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE ATENCIÓN DE EMERGENCIAS DE LA COMPAÑÍA DE BOMBEROS TACNA Nº 24 DEL DISTRITO DE TACNA, PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 19907272.47,
+      "resultado": "ok",
+      "monto_final": 19907272.47,
+      "observacion": ""
+    },
+    {
+      "cui": 2420746,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE ELECTRIFICACIÓN RURAL DE LAS LOCALIDADES DE LA CUENCA DEL RÍO MAURE DEL LAS PROVINCIAS DE TACNA Y TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 17750393.5,
+      "resultado": "ok",
+      "monto_final": 17750393.5,
+      "observacion": ""
+    },
+    {
+      "cui": 2432302,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VEHICULAR Y PEATONAL EN LA AV. LOS PRODUCTORES TRAMO AV. JORGE BASADRE GROHOMAN ¿ AV. VILAUTA - POCOLLAY DEL DISTRITO DE POCOLLAY - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 17842076.14,
+      "resultado": "ok",
+      "monto_final": 17842076.14,
+      "observacion": ""
+    },
+    {
+      "cui": 2435785,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DEL SERVICIO DE AGUA POTABLE Y ALCANTARILLADO EN LA JUNTA VECINAL SANTA ANA DEL DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8086791.08,
+      "resultado": "ok",
+      "monto_final": 8086791.08,
+      "observacion": ""
+    },
+    {
+      "cui": 2446503,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA VIA VECINAL TA-611 EMP. PE-1S (TOMASIRI) - EMP. PE-1S D (PTE. LOS BAÑOS) DISTRITO DE SAMA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 93750695.84,
+      "resultado": "ok",
+      "monto_final": 93750695.84,
+      "observacion": ""
+    },
+    {
+      "cui": 2449186,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA VIA VECINAL TA-556 TRAMO: SUSAPAYA- SITAJARA -EMP. TA-103 EN LOS DISTRITOS DE SITAJARA Y SUSAPAYA DE LA PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 31591528.66,
+      "resultado": "ok",
+      "monto_final": 31591528.66,
+      "observacion": ""
+    },
+    {
+      "cui": 2454136,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SISTEMA PRODUCTIVO Y COMERCIALIZACIÓN DE LOS CULTIVOS DE CUCURBITÁCEAS EN LAS PROVINCIAS DE TACNA, CANDARAVE Y JORGE BASADRE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 4905744.56,
+      "resultado": "ok",
+      "monto_final": 4905744.56,
+      "observacion": ""
+    },
+    {
+      "cui": 2455750,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO INSTITUCIONAL DE LA SEDE CENTRAL DEL GOBIERNO REGIONAL DE TACNA DEL DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 105071596.27,
+      "resultado": "ok",
+      "monto_final": 105071596.27,
+      "observacion": ""
+    },
+    {
+      "cui": 2456051,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE TRANSITABILIDAD VEHICULAR Y PEATONAL EN LAS CALLES 14, 15 Y 16 DEL SECTOR PIEDRA BLANCA DEL DISTRITO DE CALANA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 1114915.57,
+      "resultado": "ok",
+      "monto_final": 1114915.57,
+      "observacion": ""
+    },
+    {
+      "cui": 2461104,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE LA DIRECCION DE SANEAMIENTO DE LA PROPIEDAD AGRARIA Y CATASTRO RURAL - DIRECCION REGIONAL DE AGRICULTURA, DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7338616.39,
+      "resultado": "ok",
+      "monto_final": 7338616.39,
+      "observacion": ""
+    },
+    {
+      "cui": 2465159,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE VEHICULO; EN EL(LA) ALDEA INFANTIL \"SAN PEDRO\" DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 430704.58,
+      "resultado": "ok",
+      "monto_final": 430704.58,
+      "observacion": ""
+    },
+    {
+      "cui": 2465331,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DE LA IEI 337 CAPITÁN SAMUEL ALCÁZAR DISTRITO DE ALTO DE LA ALIANZA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 4235513.86,
+      "resultado": "ok",
+      "monto_final": 4235513.86,
+      "observacion": ""
+    },
+    {
+      "cui": 2466695,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO MEDIANTE LA IMPLEMENTACIÓN DE TIC EN 25 INSTITUCIONES EDUCATIVAS DEL NIVEL DE PRIMARIA Y SECUNDARIA LAS PROVINCIAS DE TACNA Y TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 37350370.67,
+      "resultado": "ok",
+      "monto_final": 37350370.67,
+      "observacion": ""
+    },
+    {
+      "cui": 2467554,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA INFRAESTRUCTURA DE RIEGO DEL CANAL DE REGADÍO ACEQUIA GRANDE DISTRITO DE TARUCACHI - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7600363.55,
+      "resultado": "ok",
+      "monto_final": 7600363.55,
+      "observacion": ""
+    },
+    {
+      "cui": 2475538,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE CAPTACIÓN; EN EL(LA) SUPERFICIAL DE AGUA; EN LOS ANEXOS DE KALLAPUMA Y AYCHUTA, PERTENECIENTES A LA CUENCA DEL RÍO MAURE DISTRITO DE TARATA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3292509.83,
+      "resultado": "ok",
+      "monto_final": 3292509.83,
+      "observacion": ""
+    },
+    {
+      "cui": 2475997,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO MEDIANTE LA IMPLEMENTACIÓN DE TIC EN 70 INSTITUCIONES EDUCATIVAS DEL NIVEL DE PRIMARIA Y SECUNDARIA , EN LAS PROVINCIAS DE TACNA, TARATA Y CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 36729781.61,
+      "resultado": "ok",
+      "monto_final": 36729781.61,
+      "observacion": ""
+    },
+    {
+      "cui": 2476005,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA ATENCIÓN DE SERVICIOS DE SALUD BÁSICO DEL CENTRO DE SALUD LA NATIVIDAD DEL C.P. NUESTRA SRA. DE LA NATIVIDAD DEL DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 52015837.32,
+      "resultado": "ok",
+      "monto_final": 52015837.32,
+      "observacion": ""
+    },
+    {
+      "cui": 2476055,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE PROTECCION EN PUNTOS VULNERABLES POR INUNDACIONES EN LA CUENCA DEL RIO CAPLINA EN LOS DISTRITOS DE PACHIA, CALANA Y POCOLLAY DE LA PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 59980492.98,
+      "resultado": "ok",
+      "monto_final": 59980492.98,
+      "observacion": ""
+    },
+    {
+      "cui": 2478824,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL CENTRO DE CONVENCIONES JORGE BASADRE GROHMANN, DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 40592908.97,
+      "resultado": "ok",
+      "monto_final": 40592908.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2479021,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE COBERTURA; EN TRES II.EE. SECUNDARIA A NIVEL DEPARTAMENTAL",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4441682.09,
+      "resultado": "ok",
+      "monto_final": 4441682.09,
+      "observacion": ""
+    },
+    {
+      "cui": 2480454,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE AMBULANCIA URBANA Y AMBULANCIA RURAL; EN EL(LA) SISTEMA DE REFERENCIA Y CONTRA REFERENCIA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 9010437.2,
+      "resultado": "ok",
+      "monto_final": 9010437.2,
+      "observacion": ""
+    },
+    {
+      "cui": 2482057,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL INICIAL, PRIMARIO Y SECUNDARIA DE LA I.E. GUILLERMO AUZA ARCE EN EL DISTRITO DE ALTO DE LA ALIANZA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 77178031.76,
+      "resultado": "ok",
+      "monto_final": 77178031.76,
+      "observacion": ""
+    },
+    {
+      "cui": 2483478,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE SUPERFICIE DE RODADURA; EN EL(LA) VÍAS NACIONALES Y VECINALES QUE COMPRENDE LA AVENIDA JORGE BASADRE GROHMANN, DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 20463706.55,
+      "resultado": "ok",
+      "monto_final": 20463706.55,
+      "observacion": ""
+    },
+    {
+      "cui": 2486275,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VEHICULAR DE LA VIA VECINAL DE ACCESO A LA ZONA DE PRODUCCION PECUARIA SECTOR 8: EMP. PE-38 - EMP. TA-619 EN EL DISTRITO DE CIUDAD NUEVA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 7086844.15,
+      "resultado": "ok",
+      "monto_final": 7086844.15,
+      "observacion": ""
+    },
+    {
+      "cui": 2487751,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS PEDAGOGICOS Y ADMINISTRATIVOS DE LA UNIDAD DE GESTION EDUCATIVA LOCAL JORGE BASADRE EN EL DISTRITO LOCUMBA, PROVINCIA DE JORGE BASADRE Y DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 9393027.45,
+      "resultado": "ok",
+      "monto_final": 9393027.45,
+      "observacion": ""
+    },
+    {
+      "cui": 2487866,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE SISTEMA DE TELECOMUNICACIONES; EN SETENTA Y CUATRO ESTABLECIMIENTOS DE SALUD I.4, ESTABLECIMIENTOS DE SALUD I.2, ESTABLECIMIENTOS DE SALUD I.3, ESTABLECIMIENTOS DE SALUD I.1 DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 19605017.14,
+      "resultado": "ok",
+      "monto_final": 19605017.14,
+      "observacion": ""
+    },
+    {
+      "cui": 2488588,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE CANAL; EN EL(LA) TRASVASE PATAPUJO DEL SISTEMA HIDRÁULICA MAYOR UCHUSUMA CAPLINA ¿ CLASE B, DISTRITO DE TARATA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 18262320.66,
+      "resultado": "ok",
+      "monto_final": 18262320.66,
+      "observacion": ""
+    },
+    {
+      "cui": 2490258,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PROVISION DE AGUA PARA RIEGO, MEDIANTE SISTEMA DE REPRESAMIENTO EN LA CUENCA DEL RIO SAMA, DISTRITO DE INCLAN - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 565178971.8,
+      "resultado": "ok",
+      "monto_final": 565178971.8,
+      "observacion": ""
+    },
+    {
+      "cui": 2492640,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIA Y SECUNDARIA DE LA I.E. N° 42003 CORONEL GREGORIO ALBARRACIN DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 53202679.25,
+      "resultado": "ok",
+      "monto_final": 53202679.25,
+      "observacion": ""
+    },
+    {
+      "cui": 2496404,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO EN LA I.E. LOS ÁNGELES DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13874468.19,
+      "resultado": "ok",
+      "monto_final": 13874468.19,
+      "observacion": ""
+    },
+    {
+      "cui": 2496422,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. N° 479 TABUL, DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10390295.65,
+      "resultado": "ok",
+      "monto_final": 10390295.65,
+      "observacion": ""
+    },
+    {
+      "cui": 2496797,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SISTEMA DE AGUA POTABLE Y SANEAMIENTO RURAL EN EL ANEXO MAMUTA DEL CENTRO POBLADO KALLAPUMA DEL DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 1088757.26,
+      "resultado": "ok",
+      "monto_final": 1088757.26,
+      "observacion": ""
+    },
+    {
+      "cui": 2499034,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SISTEMA DE CONDUCCIÓN DEL SECTOR HIDRAULICO MAYOR UCHUSUMA CAPLINA CLASE B, TRAMO LA HACIENDA - BOCATOMA CHUSCHUCO, DE LA QUEBRADA VILAVILANI, DISTRITO DE PACHIA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 46117695.44,
+      "resultado": "ok",
+      "monto_final": 46117695.44,
+      "observacion": ""
+    },
+    {
+      "cui": 2499809,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y PUESTA EN VALOR DE LOS SERVICIOS DE INTERPRETACIÓN CULTURAL DEL SITIO ARQUEOLÓGICO DE MOQI ¿ SECTORES I, II, III Y IV, EN LA COMUNIDAD CAMPESINA DE CAMBAYA, DISTRITO DE CAMILACA - PROVINCIA DE CANDARAVE - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 15624936.97,
+      "resultado": "ok",
+      "monto_final": 15624936.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2499905,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO EN LAS SECCIONES DE TOMA PUEBLO (PISTALA), CAMBURIZA Y TOMA PUEBLO IV ETAPA (CHUCATAMANI), EN EL DISTRITO DE HEROES ALBARRACIN CHUCATAMANI - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7004785.59,
+      "resultado": "ok",
+      "monto_final": 7004785.59,
+      "observacion": ""
+    },
+    {
+      "cui": 2501097,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE AGUA POTABLE, ALCANTARILLADO Y PLANTA DE TRATAMIENTO DE AGUAS RESIDUALES EN LA LOCALIDAD DE ANCOMARCA DEL DISTRITO DE PALCA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6690611.27,
+      "resultado": "ok",
+      "monto_final": 6690611.27,
+      "observacion": ""
+    },
+    {
+      "cui": 2501859,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO EN LA VÍA DE ACCESO AL CEMENTERIO MUNICIPAL EN EL TRAMO INTERSECCIÓN AV. MUNICIPAL Y AV. CAUÑANI - RIO SECO, DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10739539.34,
+      "resultado": "ok",
+      "monto_final": 10739539.34,
+      "observacion": ""
+    },
+    {
+      "cui": 2502752,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VEHICULAR Y PEATONAL DE LA ASOC. VILLA INGENIO, VILLA UNIVERSITARIA, CAPANIQUE, A.V. VILLA EL SALVADOR, J.C. EL IMPERIO, A.V. LOS DAMASCOS, J.C. LAS CASUARINAS DISTRITO DE POCOLLAY - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 9116460.09,
+      "resultado": "ok",
+      "monto_final": 9116460.09,
+      "observacion": ""
+    },
+    {
+      "cui": 2506417,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO Y SECUNDARIO DE LA I.E. N° 42241 \"HERMOGENES ARENAS YAÑEZ\", DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 48775843.91,
+      "resultado": "ok",
+      "monto_final": 48775843.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2508316,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VEHICULAR Y PEATONAL EN ALTO CAMILACA DEL DISTRITO DE CAMILACA - PROVINCIA DE CANDARAVE - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 28526992.85,
+      "resultado": "ok",
+      "monto_final": 28526992.85,
+      "observacion": ""
+    },
+    {
+      "cui": 2509546,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN SUPERIOR TECNOLÓGICA EN EL IESTP \"RAMÓN COPAJA\", DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 41877493.2,
+      "resultado": "ok",
+      "monto_final": 41877493.2,
+      "observacion": ""
+    },
+    {
+      "cui": 2510182,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. N° 476 VILLA BELÉN, ASOC. DE VIVIENDA VILLA BELÉN DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5695570.23,
+      "resultado": "ok",
+      "monto_final": 5695570.23,
+      "observacion": ""
+    },
+    {
+      "cui": 2514741,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS TURISTICOS DE LOS BAÑOS TERMALES DEL C.P YABROCO YABROCO DEL DISTRITO DE SUSAPAYA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2880294.21,
+      "resultado": "ok",
+      "monto_final": 2880294.21,
+      "observacion": ""
+    },
+    {
+      "cui": 2514744,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE PROVISION DE AGUA PARA RIEGO EN EL SECTOR HIDRAULICO MAYOR UCHUSUMA-CAPLINA CLASE B, SECTOR CERRO BLANCO DEL DISTRITO DE CALANA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 58087010.7,
+      "resultado": "ok",
+      "monto_final": 58087010.7,
+      "observacion": ""
+    },
+    {
+      "cui": 2516604,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO EN LA I.E. N° 42013 ROSA DOMINGA PEREZ LIENDO DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 20238208.01,
+      "resultado": "ok",
+      "monto_final": 20238208.01,
+      "observacion": ""
+    },
+    {
+      "cui": 2521870,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL ACCESO AL SERVICIO DE AGUA POTABLE Y ALCANTARILLADO EN LOS ANEXOS DE POQUERA, CHULIBAYA Y TICAPAMPA RURAL DEL DISTRITO DE ILABAYA - PROVINCIA DE JORGE BASADRE - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9880471.13,
+      "resultado": "ok",
+      "monto_final": 9880471.13,
+      "observacion": ""
+    },
+    {
+      "cui": 2522688,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E.I. N°467 EN LA ASOCIACIÓN VILLA CAPLINA II ETAPA DEL DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5368914.6,
+      "resultado": "ok",
+      "monto_final": 5368914.6,
+      "observacion": ""
+    },
+    {
+      "cui": 2524952,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE PROVISIÓN DE AGUA PARA EL COMITÉ DE REGANTES DE ANCOMA Y EL SECTOR HIDRÁULICO MENOR CLASE C BAJO CAPLINA, EN EL DISTRITO DE PACHIA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 16400466.9,
+      "resultado": "ok",
+      "monto_final": 16400466.9,
+      "observacion": ""
+    },
+    {
+      "cui": 2525352,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA INFRAESTRUCTURA VIAL DEL CAMINO VECINAL TA 628 TRAMO AV. TARAPACA - KM 3+120 SECTOR CERRO BLANCO DEL DISTRITO DE CALANA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6776034.19,
+      "resultado": "ok",
+      "monto_final": 6776034.19,
+      "observacion": ""
+    },
+    {
+      "cui": 2525787,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA VIA VECINAL DE ACCESO VEHICULAR DESDE LA ASOCIACION ANCOMARCA HASTA EL RIO SECO EN LA ASOCIACION AGROPECUARIA SAN BARTOLOME DEL DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4971184.94,
+      "resultado": "ok",
+      "monto_final": 4971184.94,
+      "observacion": ""
+    },
+    {
+      "cui": 2526269,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO Y SECUNDARIO EN LA I.E. 42207 SAN PEDRO, VILA VILA DEL DISTRITO DE SAMA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10275476.66,
+      "resultado": "ok",
+      "monto_final": 10275476.66,
+      "observacion": ""
+    },
+    {
+      "cui": 2526298,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE CAMIONETA; EN EL(LA) AGENCIA AGRARIA TACNA, AGENCIA AGRARIA JORGE BASADRE, AGENCIA AGRARIA CANDARAVE Y AGENCIA AGRARIA TARATA DE LA DIRECCIÓN REGIONAL DE AGRICULTURA TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1485054.38,
+      "resultado": "ok",
+      "monto_final": 1485054.38,
+      "observacion": ""
+    },
+    {
+      "cui": 2526492,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE TV Y RADIO FM, MEDIANTE LA INSTALACIÓN DE ESTACIÓN DE RADIODIFUSIÓN DE BAJA POTENCIA EN LA LOCALIDAD DE, CHILUYO CHICO DEL DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 300572.0,
+      "resultado": "ok",
+      "monto_final": 300572.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2526640,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL PUENTE SAN BARTOLOME EN LA ASOCIACION AGROPECUARIA SAN BARTOLOME DEL DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7941341.25,
+      "resultado": "ok",
+      "monto_final": 7941341.25,
+      "observacion": ""
+    },
+    {
+      "cui": 2527257,
+      "recien_insertado": false,
+      "nombre_inversion": "RENOVACION DE LOSA DEPORTIVA Y JUEGOS INFANTILES E INCLUSIVOS; EN EL(LA) ALDEA INFANTIL SAN PEDRO DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 3022345.56,
+      "resultado": "ok",
+      "monto_final": 3022345.56,
+      "observacion": ""
+    },
+    {
+      "cui": 2528204,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIA Y SECUNDARIA DE LA I.E. MANUEL FLORES CALVO DISTRITO DE POCOLLAY - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 40926241.4,
+      "resultado": "ok",
+      "monto_final": 40926241.4,
+      "observacion": ""
+    },
+    {
+      "cui": 2529723,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA VIA RUTA TA-644 TRAMO: DESDE LA PROGRESIVA 00+000.00 HASTA LA PROGRESIVA 09+453.96 DEL DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 13981604.1,
+      "resultado": "ok",
+      "monto_final": 13981604.1,
+      "observacion": ""
+    },
+    {
+      "cui": 2531320,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DE LOS ECOSISTEMAS DE LOMAS Y DESIERTO COSTERO EN LAS PROVINCIAS DE TACNA Y JORGE BASADRE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 6098617.98,
+      "resultado": "ok",
+      "monto_final": 6098617.98,
+      "observacion": ""
+    },
+    {
+      "cui": 2533460,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA ATENCION DE SERVICIOS DE SALUD BASICO DEL PUESTO DE SALUD VILA VILA EN EL CENTRO POBLADO VILA VILA DEL DISTRITO DE SAMA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11908958.42,
+      "resultado": "ok",
+      "monto_final": 11908958.42,
+      "observacion": ""
+    },
+    {
+      "cui": 2534976,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE DISTRIBUCIÓN DE AGUA PARA RIEGO DE LA PROGRESIVA 0+475.49 A PROGRESIVA 3+580 EN EL COMITÉ DE USUARIOS DE KOVIRE EN LA LOCALIDAD DE EL PEDREGAL DISTRITO DE INCLAN - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6757582.76,
+      "resultado": "ok",
+      "monto_final": 6757582.76,
+      "observacion": ""
+    },
+    {
+      "cui": 2536221,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO EN LA I.E. N°42200 \"OMAR ZILBERT SALAS\", DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 12215635.08,
+      "resultado": "ok",
+      "monto_final": 12215635.08,
+      "observacion": ""
+    },
+    {
+      "cui": 2536268,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PROVISION DE 09 SISTEMAS DE ABASTECIMIENTO DE AGUA PARA RIEGO (MEDIANTE POZOS TUBULARES), A LOS USUARIOS DEL SECTOR HIDRAULICO DE AGUAS SUBTERRANEAS CLASE A LA YARADA DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 77795156.45,
+      "resultado": "ok",
+      "monto_final": 77795156.45,
+      "observacion": ""
+    },
+    {
+      "cui": 2536428,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE AULA, AMBIENTE ADMINISTRATIVO, SALA DE USOS MULTIPLES Y AMBIENTE DE SERVICIOS GENERALES; ADEMÁS DE OTROS ACTIVOS EN EL(LA) CENTRO DE DESARROLLO INTEGRAL DE LA FAMILIA \"LOS CABITOS\" DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10523781.14,
+      "resultado": "ok",
+      "monto_final": 10523781.14,
+      "observacion": ""
+    },
+    {
+      "cui": 2539756,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA PARA RIEGO EN LA INFRAESTRUCTURA CALACHACA-HUAYLILLAS TRAMO II SECTOR HIDRAULICO MAYOR UCHUSUMA-CAPLINA. CLASE B PARA LOS USUARIOS DEL VALLE DE TACNA DISTRITO DE TARATA - PROVINCIA DE TARATA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 22781638.78,
+      "resultado": "ok",
+      "monto_final": 22781638.78,
+      "observacion": ""
+    },
+    {
+      "cui": 2539900,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE APOYO AL DESARROLLO PRODUCTIVO DE LA CADENA DEL CULTIVO DEL OLIVO EN LA REGION TACNA EN 4 DISTRITOS DE LA PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 12723432.76,
+      "resultado": "ok",
+      "monto_final": 12723432.76,
+      "observacion": ""
+    },
+    {
+      "cui": 2543607,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE GRUPO ELECTROGENO, CAMA CAMILLA MULTIPROPOSITO Y GRUPO ELECTROGENO; RENOVACION DE SUMINISTRO DE ENERGIA ELECTRICA; EN EL(LA) EESS 28 DE AGOSTO - TACNA DISTRITO DE LA YARADA LOS PALOS, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 232654.95,
+      "resultado": "ok",
+      "monto_final": 232654.95,
+      "observacion": ""
+    },
+    {
+      "cui": 2546561,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN PRIMARIA EN LA I.E. 42020 ALMIRANTE MIGUEL GRAU TACNA DEL DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 25430669.3,
+      "resultado": "ok",
+      "monto_final": 25430669.3,
+      "observacion": ""
+    },
+    {
+      "cui": 2547132,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO DE NIVEL PRIMARIA EN LA I.E. N° 42073 MARIA PILAR VILLANUEVA BLANCO - C.P. BUENA VISTA DEL DISTRITO DE SAMA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO PERMANENTE",
+      "monto_inversion": 3818847.51,
+      "resultado": "ok",
+      "monto_final": 3818847.51,
+      "observacion": ""
+    },
+    {
+      "cui": 2549534,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE GRUPO ELECTROGENO, CAMA CAMILLA MULTIPROPOSITO Y GRUPO ELECTROGENO; RENOVACION DE SUMINISTRO DE ENERGIA ELECTRICA; EN EL(LA) EESS LEONCIO PRADO - TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 231716.33,
+      "resultado": "ok",
+      "monto_final": 231716.33,
+      "observacion": ""
+    },
+    {
+      "cui": 2553449,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO EDUCATIVO INICIAL EN LA I.E.I. N° 336 - VIRGEN DE LA NATIVIDAD, DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 4087039.9,
+      "resultado": "ok",
+      "monto_final": 4087039.9,
+      "observacion": ""
+    },
+    {
+      "cui": 2555003,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE VIDEO COLPOSCOPIO, MAMOGRAFO, RESONADOR MAGNETICO Y MONITOR DE FUNCIONES VITALES; ADEMÁS DE OTROS ACTIVOS EN EL(LA) EESS HOSPITAL HIPOLITO UNANUE DE TACNA - TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 20855371.91,
+      "resultado": "ok",
+      "monto_final": 20855371.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2556762,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE CERCO PERIMETRICO; ADQUISICION DE SUBESTACIÓN; EN EL(LA) EESS POLICLINICO MILITAR DE TACNA - TACNA - CSM DE LA 3RA BRIGADA DE CABALLERÍA TACNA - DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1312187.19,
+      "resultado": "ok",
+      "monto_final": 1312187.19,
+      "observacion": ""
+    },
+    {
+      "cui": 2557596,
+      "recien_insertado": false,
+      "nombre_inversion": "RENOVACION DE PTAR; EN EL(LA) LOCALIDAD DE TICAPAMPA DISTRITO DE ILABAYA, PROVINCIA JORGE BASADRE, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4623618.13,
+      "resultado": "ok",
+      "monto_final": 4623618.13,
+      "observacion": ""
+    },
+    {
+      "cui": 2558281,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PROVISION DE AGUA PARA EL SISTEMA DE AFIANZAMIENTO LAGUNA DE ARICOTA - SUBSISTEMA TACALAYA DISTRITO DE CAMILACA - PROVINCIA DE CANDARAVE - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 58459321.04,
+      "resultado": "ok",
+      "monto_final": 58459321.04,
+      "observacion": ""
+    },
+    {
+      "cui": 2558491,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE IMPRESORA; EN EL(LA) SUB DIRECCION DE LICENCIAS DE CONDUCIR, SEGURIDAD Y EDUCACION VIAL DE LA DIRECCION REGIONAL DE TRANSPORTES Y COMUNICACIONES - TACNA EN LA LOCALIDAD TACNA, DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 122472.66,
+      "resultado": "ok",
+      "monto_final": 122472.66,
+      "observacion": ""
+    },
+    {
+      "cui": 2560063,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE TRANSITABILIDAD PEATONAL Y VEHICULAR EN EL CENTRO POBLADO CAPLINA DEL DISTRITO DE PACHIA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4636416.1,
+      "resultado": "ok",
+      "monto_final": 4636416.1,
+      "observacion": ""
+    },
+    {
+      "cui": 2561102,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE PATRULLEROS; EN EL(LA) COM CENTRAL, COM G ALBARRACIN L, COM G VIGIL, COM ALTO ALIANZA, COM C NUEVA, COM POCOLLAY, COM LA NATIVIDAD, COM A B LEGUIA, COM PACHIA, COM LOCUMBA, COM LA YARADA, COM CAIRANI, COM SUSAPAYA, COM ESTIQUE, COM CANDARAVE, COM S INCLAN Y COM S LAS YARAS DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9496966.26,
+      "resultado": "ok",
+      "monto_final": 9496966.26,
+      "observacion": ""
+    },
+    {
+      "cui": 2566473,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DEL CENTRO DE INVESTIGACIÓN CIENTÍFICA DEL IMARPE- LOS PALOS, DISTRITO DE LA YARADA LOS PALOS - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 6309075.27,
+      "resultado": "ok",
+      "monto_final": 6309075.27,
+      "observacion": ""
+    },
+    {
+      "cui": 2567198,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL ALMACÉN CENTRAL DEL GOBIERNO REGIONAL DE TACNA, DISTRITO DE TACNA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 11480579.51,
+      "resultado": "ok",
+      "monto_final": 11480579.51,
+      "observacion": ""
+    },
+    {
+      "cui": 2571684,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE MOVILIDAD URBANA EN LAS VÍAS LOCALES DE LAS ASOCIACIONES DE VIVIENDA VILLA DEL SUR HABITAT, BENEDICTO XVI Y SANTA FE DEL DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA - PROVINCIA DE TACNA - DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9260766.09,
+      "resultado": "ok",
+      "monto_final": 9260766.09,
+      "observacion": ""
+    },
+    {
+      "cui": 2575403,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA VIA TA-558 EMP. TA 103 DESVIO AL SECTOR DE PUTINA, DISTRITO DE TICACO DE LA PROVINCIA DE TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6410310.16,
+      "resultado": "ok",
+      "monto_final": 6410310.16,
+      "observacion": ""
+    },
+    {
+      "cui": 2576296,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE MOVILIDAD URBANA EN LAS VIAS LOCALES DE LA JUNTA VECINAL COSTA VERDE DEL DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7706003.14,
+      "resultado": "ok",
+      "monto_final": 7706003.14,
+      "observacion": ""
+    },
+    {
+      "cui": 2586045,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE ESPACIO DE CIRCULACION INTERIOR ; EN EL(LA) I.E. 42005 JOSE ROSA ARA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 537837.51,
+      "resultado": "ok",
+      "monto_final": 537837.51,
+      "observacion": ""
+    },
+    {
+      "cui": 2586404,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE MAQUINA DE HEMODIALISIS, EQUIPO DE OSMOSIS INVERSA, MONITOR DE FUNCIONES VITALES Y BOMBA DE INFUSION; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2299390.2,
+      "resultado": "ok",
+      "monto_final": 2299390.2,
+      "observacion": ""
+    },
+    {
+      "cui": 2586949,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE CUNA DE CALOR RADIANTE, INCUBADORA DE TRANSPORTE, ESTERILIZADOR CON GENERADOR ELECTRICO DE VAPOR Y MONITOR MULTI PARAMETRO; ADEMÁS DE OTROS ACTIVOS EN EL(LA) TARATA DISTRITO DE TARATA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 2781320.62,
+      "resultado": "ok",
+      "monto_final": 2781320.62,
+      "observacion": ""
+    },
+    {
+      "cui": 2587673,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE PRÁCTICA DEPORTIVA Y/O RECREATIVA EN EL COMPLEJO DEPORTIVO DEL DISTRITO DE ESTIQUE-PAMPA DE LA PROVINCIA DE TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7310023.75,
+      "resultado": "ok",
+      "monto_final": 7310023.75,
+      "observacion": ""
+    },
+    {
+      "cui": 2588751,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE VOLQUETE, CARGADOR FRONTAL, MOTONIVELADORA Y TRACTOR DE ORUGAS; ADEMÁS DE OTROS ACTIVOS EN EL(LA) SUB GERENCIA DE EQUIPO MECANICO DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 27890510.49,
+      "resultado": "ok",
+      "monto_final": 27890510.49,
+      "observacion": ""
+    },
+    {
+      "cui": 2590416,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE MICROSCOPIO QUIRURGICO, FACOEMULSIFICADOR, EQUIPO DE OTROS ACTIVOS COMPLEMENTARIOS Y MOBILIARIO DE OTROS ACTIVOS COMPLEMENTARIOS; EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8690702.48,
+      "resultado": "ok",
+      "monto_final": 8690702.48,
+      "observacion": ""
+    },
+    {
+      "cui": 2590754,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE SISTEMA DE SEÑALIZACION Y AUTOMATIZACION; REMODELACION DE ZONA DE CAMPAMENTO; EN EL(LA) SERVICIOS OPERATIVOS O MISIONALES INSTITUCIONALES DE LOS CAMPAMENTOS PERIFERICOS DEL AYRO, KOVIRE Y CORACORANI DISTRITO DE SUSAPAYA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 17176040.18,
+      "resultado": "ok",
+      "monto_final": 17176040.18,
+      "observacion": ""
+    },
+    {
+      "cui": 2591172,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN EL TRAMO CARRETERA PE-1SD PUEBLO LIBRE ¿ CEMENTERIO - VIVIEROS ¿ COPACABANA ¿NARANJAL ¿ TIERRA PROMETIDA HASTA EMPALME TRAMO CARRETERA PE-1SD LATERAL 11 DISTRITO DE LA YARADA LOS PALOS DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 33819627.39,
+      "resultado": "ok",
+      "monto_final": 33819627.39,
+      "observacion": ""
+    },
+    {
+      "cui": 2591352,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN INICIAL EN I.E. 475 DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9646179.34,
+      "resultado": "ok",
+      "monto_final": 9646179.34,
+      "observacion": ""
+    },
+    {
+      "cui": 2593628,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE RESECTOSCOPIO, SISTEMA DE CIRUGIA CISTORESECTOSCOPICA, ELECTROBISTURI Y MOBILIARIO DE OTROS ACTIVOS COMPLEMENTARIOS; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5108653.25,
+      "resultado": "ok",
+      "monto_final": 5108653.25,
+      "observacion": ""
+    },
+    {
+      "cui": 2596637,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE ATENCIÓN DE SALUD BÁSICOS EN PALCA DISTRITO DE PALCA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 17435693.32,
+      "resultado": "ok",
+      "monto_final": 17435693.32,
+      "observacion": ""
+    },
+    {
+      "cui": 2596874,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE MONITOR DE FUNCIONES VITALES, BOMBA DE INFUSION, CAMA CAMILLA MULTIPROPOSITO Y MAQUINA DE ANESTESIA; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19565123.89,
+      "resultado": "ok",
+      "monto_final": 19565123.89,
+      "observacion": ""
+    },
+    {
+      "cui": 2600428,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE PRÁCTICA DEPORTIVA Y/O RECREATIVA EN EL A.H. LA ESPERANZA MZ 79, LT 03 - POLIDEPORTIVO ANGEL FACTOR GUILLEN DISTRITO DE ALTO DE LA ALIANZA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7895433.48,
+      "resultado": "ok",
+      "monto_final": 7895433.48,
+      "observacion": ""
+    },
+    {
+      "cui": 2601174,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE PILETA PUBLICA; EN EL(LA) FUENTE DE LA PLAZA DE ARMAS DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2192233.09,
+      "resultado": "ok",
+      "monto_final": 2192233.09,
+      "observacion": ""
+    },
+    {
+      "cui": 2604209,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE ALCANTARILLADO U OTRAS FORMAS DE DISPOSICIÓN SANITARIA DE EXCRETAS EN EL SISTEMA DE DESAGUE Y TRATAMIENTO DE AGUAS RESIDUALES PARA DISPOSICIÓN FINAL EN EL CENTRO POBLADO SANTA CRUZ DEL DISTRITO DE CANDARAVE DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5930859.29,
+      "resultado": "ok",
+      "monto_final": 5930859.29,
+      "observacion": ""
+    },
+    {
+      "cui": 2604936,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE INCUBADORA NEONATAL, INCUBADORA DE TRANSPORTE, MONITOR DE FUNCIONES VITALES Y VENTILADOR MECANICO; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 12737179.79,
+      "resultado": "ok",
+      "monto_final": 12737179.79,
+      "observacion": ""
+    },
+    {
+      "cui": 2605650,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE BOMBA DE AGUA Y TABLEROS DE DISTRIBUCIÓN DE BAJA TENSIÓN ; REPARACIÓN DE GENERADOR ELECTRICO; EN EL(LA) SERVICIO ES EL SISTEMA DE ABASTECIMIENTO DE AGUA EL POZO PA - 13 EL AYRO DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 386779.75,
+      "resultado": "ok",
+      "monto_final": 386779.75,
+      "observacion": ""
+    },
+    {
+      "cui": 2606855,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE ALCANTARILLADO U OTRAS FORMAS DE DISPOSICIÓN SANITARIA DE EXCRETAS EN EL SISTEMA DE DESAGUE Y PLANTA DE TRATAMIENTO DE AGUAS RESIDUALES EN LA LOCALIDADES DE TOTORA Y MULLINI DEL DISTRITO DE CANDARAVE DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3518472.13,
+      "resultado": "ok",
+      "monto_final": 3518472.13,
+      "observacion": ""
+    },
+    {
+      "cui": 2607723,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE MONITOR DE FUNCIONES VITALES, VENTILADOR MECANICO, EQUIPO ECOGRAFO Y CAMA CAMILLA MULTIPROPOSITO TIPO UCI; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4721393.77,
+      "resultado": "ok",
+      "monto_final": 4721393.77,
+      "observacion": ""
+    },
+    {
+      "cui": 2611011,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE POZO DE MONITOREO; EN EL(LA) SECTOR VIÑANI PVM-08; EN EL (LA) SECTOR HIDRAULICO DE AGUAS SUBTERRANEAS CLASE B- ACUIFERO CAPLINA DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1927312.78,
+      "resultado": "ok",
+      "monto_final": 1927312.78,
+      "observacion": ""
+    },
+    {
+      "cui": 2612946,
+      "recien_insertado": false,
+      "nombre_inversion": "RENOVACION DE RED DE DISTRIBUCION Y RED DE ALCANTARILLADO; EN EL(LA) SISTEMA DE AGUA POTABLE Y ALCANTARILLADO EN LA URBANIZACIÓN VILLA MAGISTERIAL EN EL DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4355985.51,
+      "resultado": "ok",
+      "monto_final": 4355985.51,
+      "observacion": ""
+    },
+    {
+      "cui": 2613179,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE TOMOGRAFO COMPUTARIZADO MULTICORTE, EQUIPO ECOGRAFO, EQUIPO DE RAYOS X DIGITAL Y DENSITOMETRO; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 26549185.51,
+      "resultado": "ok",
+      "monto_final": 26549185.51,
+      "observacion": ""
+    },
+    {
+      "cui": 2613557,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE AGUA POTABLE RURAL Y MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE ALCANTARILLADO U OTRAS FORMAS DE DISPOSICIÓN SANITARIA DE EXCRETAS EN LAS LOCALIDADES DE QUILAHUANI, PALLATA Y ARICOTA DISTRITO DE QUILAHUANI DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11132899.0,
+      "resultado": "ok",
+      "monto_final": 11132899.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2615250,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE MOVILIDAD URBANA EN AVENIDA MAGOLLO EN EL TRAMO EMPALME PE-1S (ROTONDA INGRESO A TACNA) ¿ EMPALME TA-635 (AV. CAPLINA) ¿ EMPALME AV. ZARUMILLA, DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 81294948.91,
+      "resultado": "ok",
+      "monto_final": 81294948.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2615631,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN SECUNDARIA Y SERVICIO DE EDUCACION PRIMARIA EN I.E. 43008 JORGE MARTORELL FLORES DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 21562569.61,
+      "resultado": "ok",
+      "monto_final": 21562569.61,
+      "observacion": ""
+    },
+    {
+      "cui": 2616295,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE HARDWARE GENERAL, ESCANER, IMPRESORA MULTIFUNCIONAL Y IMPRESORA PLOTTER; ADEMÁS DE OTROS ACTIVOS EN EL(LA) GOBIERNO REGIONAL DE TACNA -SEDE CENTRAL DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6364854.17,
+      "resultado": "ok",
+      "monto_final": 6364854.17,
+      "observacion": ""
+    },
+    {
+      "cui": 2617408,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACION PRIMARIA EN I.E. 443 SANTA TERESITA DE CENTRO POBLADO PROTER DISTRITO DE INCLAN DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19871708.82,
+      "resultado": "ok",
+      "monto_final": 19871708.82,
+      "observacion": ""
+    },
+    {
+      "cui": 2617548,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS OPERATIVOS O MISIONALES INSTITUCIONALES EN LA SUBGERENCIA DE GESTION AMBIENTAL DEL GOBIERNO REGIONAL DE TACNA DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3106896.27,
+      "resultado": "ok",
+      "monto_final": 3106896.27,
+      "observacion": ""
+    },
+    {
+      "cui": 2617569,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA CARRETERA VECINAL TA-635, EMPALME PE -1S ¿ EMPALME AVENIDA MAGOLLO DEL , DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 47891941.59,
+      "resultado": "ok",
+      "monto_final": 47891941.59,
+      "observacion": ""
+    },
+    {
+      "cui": 2618580,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE PUENTE PEATONAL Y ALCANTARILLA; EN EL(LA) FAUNA SILVESTRE DE LA COMUNIDAD CAMPESINA DE CORACORANI DISTRITO DE TARATA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1948629.87,
+      "resultado": "ok",
+      "monto_final": 1948629.87,
+      "observacion": ""
+    },
+    {
+      "cui": 2619348,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE BOMBA DE AGUA Y TABLEROS DE DISTRIBUCIÓN DE BAJA TENSIÓN ; EN EL(LA) POZOS PA 10 Y PA 12 ACUIFERO DEL AYRO DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1068272.46,
+      "resultado": "ok",
+      "monto_final": 1068272.46,
+      "observacion": ""
+    },
+    {
+      "cui": 2619349,
+      "recien_insertado": false,
+      "nombre_inversion": "REFORZAMIENTO ESTRUCTURAL DE PRESA; EN EL(LA) REPRESA PAUCARANI - ENCIMADO DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "CERRADO",
+      "monto_inversion": 9191090.15,
+      "resultado": "ok",
+      "monto_final": 9191090.15,
+      "observacion": ""
+    },
+    {
+      "cui": 2619354,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA POTABLE URBANO EN (PROVISIÓN DE RECURSO HÍDRICO PARA USO PRIORITARIO DE CONSUMO POBLACIONAL PARA EL C.P. BOCA DEL RIO) , DISTRITO DE SAMA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 33931339.54,
+      "resultado": "ok",
+      "monto_final": 33931339.54,
+      "observacion": ""
+    },
+    {
+      "cui": 2619541,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE POZO DE EXTRACCION; EN EL(LA) PA-19 Y PA-26 PARA EL SECTOR HIDRÁULICO MAYOR UCHUSUMA CAPLINA - CLASE B (POZO PARA AGUA DE USO POBLACIONAL), DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 3105769.72,
+      "resultado": "ok",
+      "monto_final": 3105769.72,
+      "observacion": ""
+    },
+    {
+      "cui": 2619942,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACIÓN DE EQUIPO DE BOMBEO; EN EL(LA) POZO IRHS-207 (ADQUISICION DE MOTOR, BOMBA, CAMISA DE REFRIGERACION, TABLERO DE CONTROL Y OTROS ACCESORIOS) Y VALVULA HORIZONTALES DISTRITO DE SAMA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 275349.11,
+      "resultado": "ok",
+      "monto_final": 275349.11,
+      "observacion": ""
+    },
+    {
+      "cui": 2620061,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCIÓN DE POZO DE MONITOREO; EN EL(LA) SECTOR VIÑANI PVM 07- EN EL (LA) SECTOR HIDRAULICO DE AGUAS SUBTERRANEAS CLASE B- ACUIFERO CAPLINA DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1797309.18,
+      "resultado": "ok",
+      "monto_final": 1797309.18,
+      "observacion": ""
+    },
+    {
+      "cui": 2620273,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE APOYO AL DESARROLLO PRODUCTIVO EN LA CADENA PRODUCTIVA AGROINDUSTRIAL DE LA VID, DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11488239.0,
+      "resultado": "ok",
+      "monto_final": 11488239.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2621147,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE EQUIPO DE OTROS ACTIVOS COMPLEMENTARIOS, BATIDORA, COCINA ELECTRICA Y SARTEN VOLCABLE; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 932523.69,
+      "resultado": "ok",
+      "monto_final": 932523.69,
+      "observacion": ""
+    },
+    {
+      "cui": 2621698,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE TERRENO; EN EL(LA) PREDIO DE LA COMUNIDAD CAMPESINA DE TALABAYA, PARA LA INVERSION: REFORZAMIENTO ESTRUCTURAL DE PRESA; EN EL(LA) REPRESA PAUCARANI - ENCIMADO DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2295303.04,
+      "resultado": "ok",
+      "monto_final": 2295303.04,
+      "observacion": ""
+    },
+    {
+      "cui": 2622372,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE AGUA POTABLE RURAL Y MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE ALCANTARILLADO U OTRAS FORMAS DE DISPOSICIÓN SANITARIA DE EXCRETAS EN SISTEMA DE AGUA Y DESAGUE DISTRITO DE CURIBAYA DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6586107.62,
+      "resultado": "ok",
+      "monto_final": 6586107.62,
+      "observacion": ""
+    },
+    {
+      "cui": 2622584,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE PROVISIÓN DE AGUA PARA RIEGO EN SISTEMA DE CONDUCCION Y ALMACENAMIENTO DEL CANAL TRONCAL 1 DISTRITO DE CURIBAYA DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 14608283.35,
+      "resultado": "ok",
+      "monto_final": 14608283.35,
+      "observacion": ""
+    },
+    {
+      "cui": 2624671,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE EDUCACIÓN SECUNDARIA EN I.E. 449 EDUARDO PEREZ GAMBOA , DE CENTRO POBLADO CIUDAD DE DIOS DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11442356.44,
+      "resultado": "ok",
+      "monto_final": 11442356.44,
+      "observacion": ""
+    },
+    {
+      "cui": 2625361,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE AGUA POTABLE RURAL Y MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE ALCANTARILLADO U OTRAS FORMAS DE DISPOSICIÓN SANITARIA DE EXCRETAS EN EL CENTRO POBLADO HUAYTIRE DISTRITO DE CANDARAVE DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 6058429.33,
+      "resultado": "ok",
+      "monto_final": 6058429.33,
+      "observacion": ""
+    },
+    {
+      "cui": 2625687,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACION PRIMARIA EN I.E. 42015 ZOILA SABEL CACERES DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 8636088.64,
+      "resultado": "ok",
+      "monto_final": 8636088.64,
+      "observacion": ""
+    },
+    {
+      "cui": 2628117,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE VIGILANCIA Y CONTROL EN LAS AREAS NATURALES PROTEGIDAS DEL AREA DE CONSERVACION REGIONAL VILACOTA MAURE DE LAS PROVINCIAS DE TARATA, CANDARAVE Y TACNA DEL DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 11064890.19,
+      "resultado": "ok",
+      "monto_final": 11064890.19,
+      "observacion": ""
+    },
+    {
+      "cui": 2628735,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE RESERVORIO Y LÍNEA DE CONDUCCIÓN; CONSTRUCCIÓN DE CERCO PERIMETRICO Y TABLEROS DE DISTRIBUCIÓN DE BAJA TENSIÓN ; EN EL(LA) DESDE EL PVM-07 Y PVM 08 HASTA EL RESERVORIO 09 DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 13493279.49,
+      "resultado": "ok",
+      "monto_final": 13493279.49,
+      "observacion": ""
+    },
+    {
+      "cui": 2629539,
+      "recien_insertado": false,
+      "nombre_inversion": "CONSTRUCCION DE MODULO DE ATENCION TEMPORAL; REMODELACION DE COBERTURA PARA PROTECCION DE ESTRUCTURAS; ADQUISICION DE EQUIPOS COMPLEMENTARIOS Y MOBILIARIO DE OFICINA; EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2686037.24,
+      "resultado": "ok",
+      "monto_final": 2686037.24,
+      "observacion": ""
+    },
+    {
+      "cui": 2630813,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE AGUA POTABLE RURAL EN LOS SISTEMAS DE AGUA POTABLE Y ALCANTARILLADO EN LA LOCALIDAD DE HUANUARA DISTRITO DE HUANUARA DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19489110.97,
+      "resultado": "ok",
+      "monto_final": 19489110.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2633001,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE CAMIONETA, CAMION CISTERNA Y RETROEXCAVADORA; EN EL(LA) UNIDAD DE EQUIPO MECANICO DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3906284.02,
+      "resultado": "ok",
+      "monto_final": 3906284.02,
+      "observacion": ""
+    },
+    {
+      "cui": 2633784,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE AMBULANCIA URBANA Y AMBULANCIA RURAL; EN ONCE ESTABLECIMIENTOS DE SALUD I.2, ESTABLECIMIENTOS DE SALUD I.1 A NIVEL DEPARTAMENTAL (TACNA)",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5236953.9,
+      "resultado": "ok",
+      "monto_final": 5236953.9,
+      "observacion": ""
+    },
+    {
+      "cui": 2634135,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE AMBULANCIA URBANA, AMBULANCIA URBANA Y AMBULANCIA RURAL; CONSTRUCCION DE COBERTURA PARA PROTECCION DE ESTRUCTURAS; EN EL(LA) SAMU-TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3610062.06,
+      "resultado": "ok",
+      "monto_final": 3610062.06,
+      "observacion": ""
+    },
+    {
+      "cui": 2636150,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE HARDWARE GENERAL, IMPRESORA MULTIFUNCIONAL, PROYECTOR MULTIMEDIA Y SWITCH; ADEMÁS DE OTROS ACTIVOS EN EL(LA) DIRECCION REGIONAL DE AGRICULTURA DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 2570864.91,
+      "resultado": "ok",
+      "monto_final": 2570864.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2637402,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DE LOS SERVICIOS ECOSISTÉMICOS EN BOSQUES RELICTO ALTOANDINO (POLYLEPIS) DE LA CUENCA LOCUMBA, SAMA Y CAPLINA EN LAS PROVINCIAS DE CANDARAVE Y TARATA DISTRITO DE PACHIA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 12245929.34,
+      "resultado": "ok",
+      "monto_final": 12245929.34,
+      "observacion": ""
+    },
+    {
+      "cui": 2637896,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PROVISIÓN DE AGUA PARA RIEGO EN INFRAESTRUCTURA DE ALMACENAMIENTO Y/O REGULACION DISTRITO DE SUSAPAYA DE LA PROVINCIA DE TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 21600014.55,
+      "resultado": "ok",
+      "monto_final": 21600014.55,
+      "observacion": ""
+    },
+    {
+      "cui": 2642575,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE ESTERILIZADOR CON GENERADOR ELECTRICO DE VAPOR (INS), LAVADOR DESINFECTADOR, EQUIPO DE OTROS ACTIVOS COMPLEMENTARIOS Y MOBILIARIO DE OTROS ACTIVOS COMPLEMENTARIOS; EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5207737.35,
+      "resultado": "ok",
+      "monto_final": 5207737.35,
+      "observacion": ""
+    },
+    {
+      "cui": 2644818,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIO DE MOVILIDAD URBANA EN LAS VÍAS URBANAS EN EL PROVIDIT BOHEMIA TACNEÑA Y LOTE Y, DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 12519558.77,
+      "resultado": "ok",
+      "monto_final": 12519558.77,
+      "observacion": ""
+    },
+    {
+      "cui": 2645857,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE AMBULANCIA URBANA Y COBERTURA PARA PROTECCION DE ESTRUCTURAS; EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1803431.15,
+      "resultado": "ok",
+      "monto_final": 1803431.15,
+      "observacion": ""
+    },
+    {
+      "cui": 2646615,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE APOYO AL DESARROLLO PRODUCTIVO EN 16 UNIDADES PRODUCTORAS 16 DISTRITOS DE 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 16814525.52,
+      "resultado": "ok",
+      "monto_final": 16814525.52,
+      "observacion": ""
+    },
+    {
+      "cui": 2648640,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACION PRIMARIA EN I.E. OLGA GROHMANN DE BASADRE DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 16234601.35,
+      "resultado": "ok",
+      "monto_final": 16234601.35,
+      "observacion": ""
+    },
+    {
+      "cui": 2649675,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PRÁCTICA DEPORTIVA Y/O RECREATIVA EN 123 UNIDADES PRODUCTORAS 23 DISTRITOS DE 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8146686.38,
+      "resultado": "ok",
+      "monto_final": 8146686.38,
+      "observacion": ""
+    },
+    {
+      "cui": 2652174,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE EDUCACIÓN INICIAL EN I.E. 346 DE CENTRO POBLADO SANTA CRUZ DISTRITO DE CANDARAVE DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 1716619.64,
+      "resultado": "ok",
+      "monto_final": 1716619.64,
+      "observacion": ""
+    },
+    {
+      "cui": 2652607,
+      "recien_insertado": false,
+      "nombre_inversion": "CREACION DEL SERVICIOS DE ESPACIOS PÚBLICOS URBANOS EN EL SECTOR CERRO INTIORKO DISTRITO DE ALTO DE LA ALIANZA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 18336471.33,
+      "resultado": "ok",
+      "monto_final": 18336471.33,
+      "observacion": ""
+    },
+    {
+      "cui": 2652912,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE ATENCIÓN DE SALUD BÁSICOS EN 9 UNIDADES PRODUCTORAS 9 DISTRITOS DE 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 22948900.24,
+      "resultado": "ok",
+      "monto_final": 22948900.24,
+      "observacion": ""
+    },
+    {
+      "cui": 2653120,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE EDUCACIÓN INICIAL EN I.E. 481 DE CENTRO POBLADO VIÑANI DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2606142.7,
+      "resultado": "ok",
+      "monto_final": 2606142.7,
+      "observacion": ""
+    },
+    {
+      "cui": 2653162,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE EDUCACIÓN INICIAL EN I.E. 229-A MAFALDA CESPEDES QUELOPANA DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5004528.28,
+      "resultado": "ok",
+      "monto_final": 5004528.28,
+      "observacion": ""
+    },
+    {
+      "cui": 2653285,
+      "recien_insertado": false,
+      "nombre_inversion": "REMODELACION DE OBRAS DE ARTE; EN EL(LA) CANAL CANO SALADO EN EL SECTOR HIDRAULICO MAYOR ALTO LOCUMBA CLASE A DISTRITO DE SUSAPAYA, PROVINCIA TARATA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 3213767.24,
+      "resultado": "ok",
+      "monto_final": 3213767.24,
+      "observacion": ""
+    },
+    {
+      "cui": 2653525,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE CANAL DE RIEGO; EN EL(LA) CANAL PATAPUJO EN EL TRAMO (KM 46+362 AL KM 48+826), GRADERIAS, DEL SECTOR HIDRAULICO MAYOR UCHUSUMA CAPLINA - CLASE B DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 2633363.93,
+      "resultado": "ok",
+      "monto_final": 2633363.93,
+      "observacion": ""
+    },
+    {
+      "cui": 2654114,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE INTERPRETACIÓN CULTURAL EN LA CATEDRAL DE TACNA , DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 15673089.99,
+      "resultado": "ok",
+      "monto_final": 15673089.99,
+      "observacion": ""
+    },
+    {
+      "cui": 2654115,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DEL SERVICIO DE INTERPRETACIÓN CULTURAL EN EL MONUMENTO INTEGRANTE DEL PATRIMONIO CULTURAL DE LA NACION UBICADO EN LA CALLE INCLAN SUB LOTE B, DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8780507.34,
+      "resultado": "ok",
+      "monto_final": 8780507.34,
+      "observacion": ""
+    },
+    {
+      "cui": 2654118,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE APOYO AL DESARROLLO PRODUCTIVO EN 11 UNIDADES PRODUCTORAS 11 DISTRITOS DE 4 PROVINCIAS DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19410428.15,
+      "resultado": "ok",
+      "monto_final": 19410428.15,
+      "observacion": ""
+    },
+    {
+      "cui": 2655364,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS OPERATIVOS O MISIONALES INSTITUCIONALES EN GERENCIA REGIONAL DE DESARROLLO E INCLUSIÓN SOCIAL DISTRITO DE TACNA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1741653.0,
+      "resultado": "ok",
+      "monto_final": 1741653.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2655457,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE SISTEMA DE VIDEO GASTROENDOSCOPIA, ELECTROBISTURI, MONITOR MULTI PARAMETRO Y EQUIPO DE OTROS ACTIVOS COMPLEMENTARIOS; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 5324558.08,
+      "resultado": "ok",
+      "monto_final": 5324558.08,
+      "observacion": ""
+    },
+    {
+      "cui": 2656966,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DEL SERVICIO DE PROVISIÓN DE AGUA PARA RIEGO EN EL SISTEMA DE CONDUCCION DEL CANAL CHAULLANI SECTOR TIERRAS NUEVAS DEL CENTRO POBLADO SAN PEDRO DISTRITO DE CANDARAVE DE LA PROVINCIA DE CANDARAVE DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 14894663.98,
+      "resultado": "ok",
+      "monto_final": 14894663.98,
+      "observacion": ""
+    },
+    {
+      "cui": 2658446,
+      "recien_insertado": false,
+      "nombre_inversion": "PROYECTOS PARA EL DESARROLLO LOCAL",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 2659383,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE ATENCIÓN DE SALUD BÁSICOS EN CENTRO DE SALUD MENTAL COMUNITARIO VALLE POCOLLAY DISTRITO DE POCOLLAY DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 18628172.66,
+      "resultado": "ok",
+      "monto_final": 18628172.66,
+      "observacion": ""
+    },
+    {
+      "cui": 2660121,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE HARDWARE GENERAL, IMPRESORA MULTIFUNCIONAL, GENERADOR ELECTRICO Y MOBILIARIO DE OFICINA; ADEMÁS DE OTROS ACTIVOS EN EL(LA) DIRECCION REGIONAL DE COMERCIO EXTERIOR Y TURISMO DEL GOBIERNO REGIONAL DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO TEMPORAL",
+      "monto_inversion": 1546641.07,
+      "resultado": "ok",
+      "monto_final": 1546641.07,
+      "observacion": ""
+    },
+    {
+      "cui": 2662171,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE CAMA CAMILLA MULTIPROPOSITO, CAMA CAMILLA MULTIPROPOSITO TIPO UCI, CAMA CAMILLA PARA RECUPERACION Y CAMA CUNA METALICA RODABLE CON BARANDAS; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "DESACTIVADO PERMANENTE",
+      "monto_inversion": 7558371.98,
+      "resultado": "ok",
+      "monto_final": 7558371.98,
+      "observacion": ""
+    },
+    {
+      "cui": 2662373,
+      "recien_insertado": false,
+      "nombre_inversion": "REMODELACION DE ZONA DE CAMPAMENTO; EN EL(LA) INFRAESTRUCTURAS HIDRAULICAS DEL AYRO, KOVIRE Y CORACORANI DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 4206625.97,
+      "resultado": "ok",
+      "monto_final": 4206625.97,
+      "observacion": ""
+    },
+    {
+      "cui": 2670931,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DEL SERVICIO DE SIEMBRA Y COSECHA DE AGUA EN LAS UNIDADES HIDROGRAFICAS: CAÑO, UCHUSUMA, MAURI EN EL TERRITORIO HIDRICO PRODUCTIVO DE LA COMUNIDAD CAMPESINA DE ANCOMARCA, DISTRITO DE PALCA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 10590961.32,
+      "resultado": "ok",
+      "monto_final": 10590961.32,
+      "observacion": ""
+    },
+    {
+      "cui": 2680337,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LOS SERVICIOS DE ADMINISTRACIÓN DE JUSTICIA EN LOS ORGANOS JURISDICCIONALES DE LA ESPECIALIDAD DE FAMILIA DE LA CORTE SUPERIOR DE JUSTICIA DE TACNA DISTRITO DE CORONEL GREGORIO ALBARRACIN LANCHIPA DE LA PROVINCIA DE TACNA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 18016788.91,
+      "resultado": "ok",
+      "monto_final": 18016788.91,
+      "observacion": ""
+    },
+    {
+      "cui": 2687310,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE EQUIPO DE CIRUGIA LAPAROSCOPICA, MICROSCOPIO QUIRURGICO, ELECTROBISTURI Y MAQUINA DE ANESTESIA; ADEMÁS DE OTROS ACTIVOS EN EL(LA) HOSPITAL HIPOLITO UNANUE DE TACNA DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 19875042.9,
+      "resultado": "ok",
+      "monto_final": 19875042.9,
+      "observacion": ""
+    },
+    {
+      "cui": 2688881,
+      "recien_insertado": false,
+      "nombre_inversion": "REFORZAMIENTO ESTRUCTURAL DE DIQUE; EN EL(LA) REPRESA PAUCARANI DISTRITO DE PALCA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 9176929.36,
+      "resultado": "ok",
+      "monto_final": 9176929.36,
+      "observacion": ""
+    },
+    {
+      "cui": 2696123,
+      "recien_insertado": false,
+      "nombre_inversion": "RENOVACION DE VÍA FÉRREA Y SISTEMA DE DRENAJE; EN EL(LA) SISTEMA FERROVIARIO INTERURBANO FERROCARRIL TACNA - ARICA, DISTRITO DE TACNA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 1659782.61,
+      "resultado": "ok",
+      "monto_final": 1659782.61,
+      "observacion": ""
+    },
+    {
+      "cui": 2696210,
+      "recien_insertado": false,
+      "nombre_inversion": "REPARACION DE AREA DE TAREAS PREVIAS AL DESPACHO; REMODELACION DE AMBIENTE COMPLEMENTARIO; RENOVACION DE SISTEMA DE CADENA DE FRIO; EN EL(LA) DESEMBARCADERO PESQUERO ARTESANAL MORRO SAMA DISTRITO DE SAMA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 8898340.79,
+      "resultado": "ok",
+      "monto_final": 8898340.79,
+      "observacion": ""
+    },
+    {
+      "cui": 2698938,
+      "recien_insertado": false,
+      "nombre_inversion": "RECUPERACION DEL SERVICIO DE SIEMBRA Y COSECHA DE AGUA EN LA UNIDAD HIDROGRAFICA MAURI EN EL TERRITORIO HIDRICO PRODUCTIVO DE LAS COMUNIDADES CAMPESINAS DE CHILUYO , PAMPAHUYUNI UBICADO EN EL DISTRITO DE TARATA DE LA PROVINCIA DE TARATA DEL DEPARTAMENTO DE TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 7113743.77,
+      "resultado": "ok",
+      "monto_final": 7113743.77,
+      "observacion": ""
+    },
+    {
+      "cui": 2709909,
+      "recien_insertado": false,
+      "nombre_inversion": "ADQUISICION DE SISTEMA DE BOMBEO; EN EL(LA) SISTEMA DE CAPTACION DEL SERVICIO DE AGUA POTABLE RURAL EN EL CENTRO POBLADO BOCA DEL RIO, DISTRITO DE SAMA, PROVINCIA TACNA, DEPARTAMENTO TACNA",
+      "estado_ssi": "ACTIVO",
+      "monto_inversion": 206340.44,
+      "resultado": "ok",
+      "monto_final": 206340.44,
+      "observacion": ""
+    },
+    {
+      "cui": 2732238,
+      "recien_insertado": false,
+      "nombre_inversion": "MEJORAMIENTO DE LA COMPETITIVIDAD PRODUCTIVA DEL CULTIVO NARANJA WASHINGTON NAVEL EN LA ASOCIACION ECOAGROPECUARIA VALLE NUEVO DE TACNA DEL DISTRITO CORONEL GREGORIO ALBARRACIN LANCHIPA, PROVINCIA TACNA Y REGION DE TACNA",
+      "estado_ssi": "NO REGISTRADO EN EL INVIERTE",
+      "monto_inversion": 0.0,
+      "resultado": "ok",
+      "monto_final": 0.0,
+      "observacion": ""
+    },
+    {
+      "cui": 3000882,
+      "recien_insertado": false,
+      "nombre_inversion": "",
+      "estado_ssi": "",
+      "monto_inversion": null,
+      "resultado": "el SSI no encuentra este CUI",
+      "monto_final": null,
+      "observacion": ""
+    },
+    {
+      "cui": 3999999,
+      "recien_insertado": false,
+      "nombre_inversion": "",
+      "estado_ssi": "",
+      "monto_inversion": null,
+      "resultado": "el SSI no encuentra este CUI",
+      "monto_final": null,
+      "observacion": ""
+    }
+  ]
+}
