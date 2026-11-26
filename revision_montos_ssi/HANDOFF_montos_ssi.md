@@ -27,11 +27,11 @@ Falta programarlo a las 6:45 en el Programador de tareas de Windows (no pedido a
 | Qué | Dónde |
 |---|---|
 | Programa | `4-script\cuis_desde_sheets.py` (≈800 líneas, todo en un archivo) |
-| Pruebas sin red | `4-script\pruebas_sin_red.py` (cada función por separado), `pruebas_integracion_sin_red.py` (la corrida de punta a punta) y `pruebas_cola_gs.js` (la cola del guion de Google, con `node`) |
+| Pruebas sin red | `4-script\pruebas_sin_red.py` (cada función por separado), `pruebas_integracion_sin_red.py` (la corrida de punta a punta) y `pruebas_cola_gs.js` (el histórico de CUI del guion de Google, con `node`) |
 | Excel de variaciones | `...\monto_ssi\variacion_montos_AAAA-MM-DD_HHMMSS.xlsx` (solo si cambió algún monto) |
 | Pedidos de la usuaria | `nata_apuntes\prompt1.md`, `prompt2.md`, `prompt3.md` (hechos); `prompt_xall.md` (ideas sin pedir) |
 | Listas de CUI por corrida | `nata_apuntes\test_responses\cuis_AAAA-MM-DD_HHMMSS.json` |
-| Histórico de insertados | `C:\Users\HP\Documents\drives_exclusivos_descarga\insertados_historico.csv` (una línea por CUI nuevo, con su fecha de inserción y qué quedó por completar a mano) |
+| Registro de insertados procesados | `C:\Users\HP\Documents\drives_exclusivos_descarga\insertados_historico.csv`. Una línea por CUI nuevo, con qué se le escribió y qué quedó por completar a mano. **Es también lo que marca un CUI como procesado**: sin este archivo el programa no sabría cuáles de la columna A ya trabajó. No borrarlo ni moverlo |
 | Montos por corrida | `C:\Users\HP\Documents\drives_exclusivos_descarga\monto_ssi\monto_ssi_AAAA-MM-DD_HHMMSS.json` y `.csv` (separador `;`, coma decimal) |
 | Credencial de Google | `credenciales\credenciales.json` (cuenta de servicio, ya compartida como editora del libro: escribió bien) |
 | Avisos no enviados | `nata_apuntes\test_responses\AVISO_NO_ENVIADO_*.txt` (solo si falla el correo) |
@@ -57,13 +57,21 @@ Configuración al inicio del programa: `ID_LIBRO`, nombres de hojas, `CORREO_AVI
 posiciones de títulos, `CUIS_SIN_AVISO`.
 
 ### Paso 1 – leer las listas (una sola lectura del libro)
-- `recien_insertados` = PIM-diario, columna A desde A3, con su fecha de inserción en la columna B.
-  Es una **cola**: el guion de Google **agrega** al final los CUI que inserta y no reemplaza la
-  lista; este programa los consume, los archiva en `insertados_historico.csv` y **recién entonces
-  borra A3:B**. Así, si la PC estuvo apagada el día que entró un CUI nuevo, la lista espera a la
-  próxima corrida en vez de perderse. Un CUI es "recién insertado" exactamente una vez.
-  Si la escritura en Proyección26 no se hace (SSI caído, ceros masivos, filas corridas), la cola
-  **no se borra** y se avisa: los CUI quedan esperando.
+- PIM-diario columna A (desde A3), con su fecha de inserción en la columna B, es un **histórico
+  acumulado**: el guion de Google **agrega** al final los CUI que inserta (sin duplicar) y
+  **nadie la borra nunca**. Queda como registro a la vista en la hoja.
+- `recien_insertados` = los de esa columna que **todavía no figuran** en
+  `insertados_historico.csv`. Ese archivo es lo único que distingue un CUI nuevo de uno ya
+  procesado, así que es parte del funcionamiento, no solo un registro.
+- Un CUI se procesa **exactamente una vez**: se le escribe UEI y Etapa, se anota en el archivo y no
+  se vuelve a tocar. Si la PC estuvo apagada el día que entró, espera hasta que una corrida lo
+  procese, en vez de perderse.
+- Solo se anota **después** de escribir en Proyección26. Si la escritura no se hizo (SSI caído,
+  ceros masivos, filas corridas) no se anota nada y se avisa: esos CUI se procesan en la corrida
+  siguiente.
+- Si el archivo existe pero no se puede leer, se avisa y **no se procesa ningún insertado** en esa
+  corrida (los montos sí se escriben): tomar todo el histórico como nuevo reescribiría la UEI y la
+  Etapa de todas las filas viejas de Proyección26.
 - `todos_cuis` = Proyección26, columna A desde A3, solo filas con Etapa (columna F) distinta de "PC"
   (Etapa vacía sí entra; "pc " con espacios o minúscula cuenta como PC).
 - Controles que DETIENEN sin escribir nada (con correo): Proyección26 A2 ≠ "CUI" o F2 ≠ "Etapa";
@@ -106,15 +114,15 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
   Etapa dice otra cosa", para marcarlos a mano. Mientras no se marquen, se siguen consultando y
   siguen apareciendo en ese aviso.
 - **Recién insertado sin ficha del SSI**: se queda sin UEI ni Etapa **y se avisa**. Un CUI es
-  "recién insertado" una sola vez (la corrida consume la cola y la borra), así que si ese día falla
-  el SSI esas celdas ya no se llenan solas: hay que completarlas a mano o quedan vacías. Es un aviso
+  "recién insertado" una sola vez (al terminar queda anotado como procesado), así que si ese día
+  falla el SSI esas celdas ya no se llenan solas: hay que completarlas a mano o quedan vacías. Es un aviso
   distinto del de "el estado del SSI no se traduce a ninguna etiqueta": aquel es "respondió y no se
   sabe traducir", este es "no respondió". En los dos casos queda anotado en el histórico, columna
   `falta_completar_a_mano`, que es donde mirar para completar lo que quedó pendiente.
-- **Al final, si se escribió**: se agrega al histórico una línea por cada recién insertado (fecha de
+- **Al final, si se escribió**: se agrega al registro una línea por cada recién insertado (fecha de
   corrida, CUI, fecha de inserción, fila de Proyección26, estado y tipo del SSI, UEI que llegó, UEI
-  y Etapa que se escribieron, monto, resultado y qué falta completar) y se borra A3:B de PIM-diario.
-  Si el histórico no se puede escribir, **no se borra la cola**: no se borra lo que no se archivó.
+  y Etapa que se escribieron, monto, resultado y qué falta completar). Esa línea es además lo que
+  lo marca como procesado. La columna A de PIM-diario no se toca.
 - **Solo se escriben las celdas que CAMBIAN**, agrupadas en tramos de filas consecutivas. Una celda
   que no corresponde actualizar no entra en el envío: así no se pisa nada ni se congela una fórmula.
 - Cualquier título de A2, D2, F2 o I2 que no coincida exactamente: **se detiene y se avisa**, no se

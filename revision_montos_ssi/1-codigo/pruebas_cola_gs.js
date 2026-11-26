@@ -1,7 +1,7 @@
 /**
- * Pruebas de la cola de CUI insertados de apps_script_vigente_descarga_diaria.gs, con una hoja
+ * Pruebas del histórico de CUI insertados de apps_script_vigente_descarga_diaria.gs, con una hoja
  * simulada. No usa Google: comprueba la parte delicada de escribirListasPIM_ (dónde empieza a
- * agregar, que no duplique, que no borre la cola y que sí reemplace la columna N).
+ * agregar, que no duplique, que no borre el histórico y que sí reemplace la columna N).
  *
  *     node pruebas_cola_gs.js
  */
@@ -51,7 +51,7 @@ const colA = () => hoja.celdas.slice(2).map(r => r[0]).filter(x => x !== '');
 const colB = () => hoja.celdas.slice(2).map(r => r[1]).filter(x => x !== '');
 const ok = (a, b, q) => { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error(q + ': ' + JSON.stringify(a) + ' != ' + JSON.stringify(b)); };
 
-console.log('== cola vacía: se agregan los nuevos desde A3, con fecha en B');
+console.log('== columna A vacía: se agregan los nuevos desde A3, con fecha en B');
 hoja = Hoja(300, 17);
 escribirListasPIM_([2064096, 2410530], [1111111, 2222222]);
 ok(colA(), [2064096, 2410530], 'A');
@@ -60,21 +60,22 @@ ok(hoja.celdas[1][1], 'fecha_insercion', 'título B2');
 ok(hoja.celdas[1][0], '', 'A2 sigue vacía (ancla de Python)');
 ok(hoja.celdas[0][13], 'CUI_proyeccion26_noPC', 'título N1');
 
-console.log('== segunda corrida, Python NO consumió: se AGREGAN debajo, sin borrar');
+console.log('== segunda corrida: se AGREGAN debajo, sin borrar lo anterior (es un histórico)');
 Utilities.formatDate = () => '2026-11-27';
 escribirListasPIM_([3000333], [1111111]);
 ok(colA(), [2064096, 2410530, 3000333], 'A acumulada');
 ok(colB(), ['2026-11-26', '2026-11-26', '2026-11-27'], 'cada uno con SU fecha');
 
-console.log('== un CUI que ya está en la cola no se duplica');
+console.log('== un CUI que ya está en la columna no se duplica');
 escribirListasPIM_([2410530, 3000333], [1111111]);
 ok(colA(), [2064096, 2410530, 3000333], 'sin duplicados');
+ok(colB(), ['2026-11-26', '2026-11-26', '2026-11-27'], 'ni se les cambia la fecha');
 
-console.log('== sin CUI nuevos: la cola queda intacta (no se borra)');
+console.log('== sin CUI nuevos: la columna queda intacta (no se borra)');
 escribirListasPIM_([], [1111111]);
 ok(colA(), [2064096, 2410530, 3000333], 'intacta');
 
-console.log('== después de que Python borra A3:B, la cola arranca de nuevo en A3');
+console.log('== si alguien vacía A3:B a mano, se vuelve a agregar desde A3');
 hoja.getRange(3, 1, hoja.getMaxRows() - 2, 2).clearContent();
 Utilities.formatDate = () => '2026-11-28';
 escribirListasPIM_([2555555], [1111111]);
@@ -95,4 +96,4 @@ try { escribirListasPIM_([2777777], []); throw new Error('debió lanzar'); }
 catch (e) { if (!/vino vacía/.test(e.message)) throw e; }
 ok(JSON.stringify(hoja.celdas), antes, 'hoja sin cambios');
 
-console.log('\nTODAS LAS PRUEBAS DE LA COLA (.gs) PASARON');
+console.log('\nTODAS LAS PRUEBAS DEL .gs PASARON');

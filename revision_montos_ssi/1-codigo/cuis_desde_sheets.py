@@ -1,10 +1,11 @@
 """
 Paso 1 del flujo de montos SSI: leer del libro de Google las dos listas de CUI y guardarlas en un archivo.
 
-  recien_insertados = hoja PIM-diario, columna A desde A3 hacia abajo (su fecha de inserción en B).
-                      Es una COLA: el guion de Google agrega los CUI nuevos al final, esta corrida
-                      los consume, los archiva en ARCHIVO_HISTORICO y recién entonces borra A3:B.
-                      Si la PC estuvo apagada, la lista espera en vez de perderse.
+  recien_insertados = los CUI de PIM-diario columna A (desde A3, con su fecha de inserción en B)
+                      que todavía NO figuran en ARCHIVO_HISTORICO. Esa columna es un HISTÓRICO
+                      acumulado: el guion de Google agrega al final los CUI que inserta y nadie la
+                      borra, así que el archivo es lo que distingue un CUI nuevo de uno ya
+                      procesado. Si la PC estuvo apagada, un CUI nuevo espera hasta procesarse.
   todos_cuis        = hoja Proyección26, columna A (título "CUI" en A2) desde A3,
                       solo las filas cuya Etapa (columna F, título "Etapa" en F2) NO es "PC"
                       (la Etapa vacía también entra)
@@ -56,8 +57,9 @@ Paso 3: escritura en Proyección26, ubicando cada fila por su CUI de la columna 
   - PIM-diario ya no se escribe; sus columnas O, P y Q se vacían (LIMPIAR_PIM_OPQ) para que no
     queden montos viejos engañando a las fórmulas.
   - Al final, si se escribió en Proyección26: se agrega al histórico una línea por cada recién
-    insertado (con su fecha de inserción y qué quedó por completar a mano) y se borra A3:B de
-    PIM-diario. Si no se escribió, la lista NO se borra y se avisa.
+    insertado (con su fecha de inserción y qué quedó por completar a mano), lo que además lo marca
+    como procesado. Si no se escribió, no se anota nada y se avisa: esos CUI se procesan en la
+    corrida siguiente. La columna A de PIM-diario nunca se borra.
   - CUIS_SIN_AVISO (3000882 y 3999999): no generan aviso aunque el SSI no los encuentre.
 
 Comparación con la corrida anterior (último monto_ssi_*.json de CARPETA_MONTOS)
@@ -115,7 +117,9 @@ CARPETA_SALIDA = CARPETA_BASE / 'nata_apuntes' / 'test_responses'
 CARPETA_MONTOS = Path(r'C:\Users\HP\Documents\drives_exclusivos_descarga\monto_ssi')
 CARPETA_RESPALDO = Path(r'C:\Users\HP\Downloads')   # si CARPETA_MONTOS no está disponible (se avisa)
 CARPETA_HISTORICO = Path(r'C:\Users\HP\Documents\drives_exclusivos_descarga')
-ARCHIVO_HISTORICO = CARPETA_HISTORICO / 'insertados_historico.csv'   # una línea por CUI recién insertado
+# Una línea por CUI recién insertado. Además de registro, es lo que DISTINGUE un CUI nuevo de uno
+# ya procesado: la columna A de PIM-diario es un histórico acumulado que no se borra nunca.
+ARCHIVO_HISTORICO = CARPETA_HISTORICO / 'insertados_historico.csv'
 ARCHIVO_BLOQUEO = CARPETA_BASE / 'nata_apuntes' / 'corrida_en_curso.lock'
 BLOQUEO_MAX_MIN = 30     # un .lock más viejo que esto se considera abandonado y se reusa
 
@@ -145,10 +149,10 @@ ETAPA_EXCLUIDA = 'PC'
 PIM_CELDA_TIT_CUI, PIM_TIT_CUI = 'C1', 'CUI' # ancla: si alguien inserta una fila arriba, C1 deja de decir CUI
 PIM_FILA_INI = 3                              # A3 hacia abajo: insertados (A1 = fecha, A2 vacía)
 PIM_COL_FECHA_INS = 2                         # B: fecha en que el guion de Google insertó ese CUI
-# La lista de insertados es una COLA: el guion de Google agrega los CUI nuevos al final, y esta
-# corrida los consume (escribe UEI y Etapa), los archiva en ARCHIVO_HISTORICO y recién entonces
-# borra este rango. Así, si la PC estuvo apagada, la lista espera en vez de perderse.
-PIM_RANGO_INSERTADOS = f'A{PIM_FILA_INI}:B'
+# La columna A es un HISTÓRICO acumulado: el guion de Google agrega al final los CUI que inserta
+# (con su fecha en B) y nadie la borra. Los que todavía no figuran en ARCHIVO_HISTORICO son los
+# "recién insertados" de esta corrida; los demás ya se procesaron antes y no se vuelven a tocar.
+# Así, si la PC estuvo apagada, un CUI nuevo espera hasta que se procese una vez.
 # Las columnas O, P y Q de PIM-diario ya no se usan (el monto ahora va a Proyección26 I).
 # Con esto en True se vacían una vez por corrida para que no queden montos viejos engañando a las fórmulas.
 LIMPIAR_PIM_OPQ = True
@@ -463,7 +467,7 @@ def validar_y_armar(hp, hr, vr):
 
     fecha_pim = fecha_serial(celda(fila1, 0))
     resumen = {
-        'recien_insertados': len(insertados),
+        'cuis_en_columna_A_pim': len(insertados),   # histórico acumulado; los nuevos se separan después
         'todos_cuis': len(todos),
         'filas_con_cui_en_proyeccion26': n_filas,
         'excluidos_por_etapa_PC': n_pc,
@@ -761,14 +765,40 @@ def limpiar_pim_opq(hp):
     hp.batch_clear([PIM_RANGO_MUERTO])
 
 
+def cuis_ya_procesados():
+    """
+    CUI que ya se procesaron en corridas anteriores, según ARCHIVO_HISTORICO. La columna A de
+    PIM-diario no se borra, así que este archivo es lo único que distingue un CUI recién insertado
+    de uno ya procesado. Devuelve (conjunto, None) o (None, aviso).
+    Si el archivo existe pero no se puede leer, devuelve aviso y None: el llamador NO debe procesar
+    ningún insertado, porque tomar todo el histórico como nuevo reescribiría la UEI y la Etapa de
+    todas las filas viejas de Proyección26.
+    """
+    if not ARCHIVO_HISTORICO.exists():
+        return set(), None
+    try:
+        with open(ARCHIVO_HISTORICO, newline='', encoding='utf-8-sig') as fh:
+            lineas = list(csv.reader(fh, delimiter=';'))
+        if not lineas or celda(lineas[0], 1).strip().lower() != 'cui':
+            raise ValueError('el encabezado no es el esperado: ' + str(lineas[0][:3] if lineas else lineas))
+        return {c for c in (como_cui(celda(r, 1)) for r in lineas[1:]) if c is not None}, None
+    except Exception as e:
+        return None, (f'No se pudo leer {ARCHIVO_HISTORICO} ({type(e).__name__}: {e}). Ese archivo es lo que '
+                      f'distingue un CUI recién insertado de uno ya procesado, así que esta corrida NO '
+                      f'escribió UEI ni Etapa en {HOJA_PROY} (los montos sí se escribieron). Los CUI nuevos '
+                      f'siguen en la columna A de {HOJA_PIM} y se procesan en cuanto el archivo se pueda '
+                      'leer de nuevo.')
+
+
 def guardar_historico_insertados(filas, insertados, fechas_ins, filas_proy, ahora):
     """
-    Agrega al histórico una línea por cada recién insertado de esta corrida, ANTES de borrar la
-    columna A de PIM-diario. Es la única memoria de qué se pudo escribir para cada CUI nuevo: la
-    lista de la hoja se consume y se borra, así que sin esto no quedaría cómo llegó cada uno.
-    La columna falta_completar_a_mano dice qué quedó sin resolver (UEI sin equivalencia, Etapa que
-    no se deduce del SSI, o ficha que el SSI no dio).
-    Si esto falla, el llamador NO borra la columna A: no se borra lo que no se archivó.
+    Agrega una línea por cada recién insertado de esta corrida. Cumple dos funciones:
+      1) deja constancia de qué se pudo escribir para cada CUI nuevo y qué quedó sin resolver
+         (columna falta_completar_a_mano: UEI sin equivalencia, Etapa que no se deduce del SSI,
+         ficha que el SSI no dio, o que el CUI no tiene fila en Proyección26);
+      2) marca ese CUI como procesado, así que no se vuelve a tocar en las corridas siguientes.
+    Por (2) solo se llama cuando la escritura en Proyección26 se hizo: marcar como procesado un CUI
+    al que no se le llegó a escribir nada lo dejaría sin UEI para siempre.
     """
     if not insertados:
         return None
@@ -804,16 +834,6 @@ def guardar_historico_insertados(filas, insertados, fechas_ins, filas_proy, ahor
                         '' if monto is None else f'{monto:.2f}'.replace('.', ','),
                         f.get('resultado', 'no se consultó'), ', '.join(falta)])
     return ARCHIVO_HISTORICO
-
-
-def limpiar_insertados(hp):
-    """
-    Vacía la cola de recién insertados (columna A y su fecha en B) una vez consumida y archivada.
-    Borrar acá es lo que cierra el ciclo y hace que un CUI sea "recién insertado" exactamente una
-    vez: el guion de Google agrega al final y no reemplaza la lista, así que si esta corrida no
-    llegara a escribir, la lista sigue esperando.
-    """
-    hp.batch_clear([PIM_RANGO_INSERTADOS])
 
 
 def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
@@ -859,9 +879,9 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
 
         if f['resultado'] != 'ok':
             # Sin ficha del SSI no hay UEI ni Etapa que escribir. En un recién insertado eso no se
-            # arregla solo: esta corrida consume la lista de insertados y la borra, así que un CUI
-            # es "recién insertado" una sola vez. Hay que avisar para completarlas a mano (y queda
-            # anotado en ARCHIVO_HISTORICO, columna falta_completar_a_mano).
+            # arregla solo: al terminar queda anotado en ARCHIVO_HISTORICO como procesado, así que
+            # no se vuelve a intentar. Hay que avisar para poder completarlo a mano (queda señalado
+            # en la columna falta_completar_a_mano del histórico).
             if es_insertado and f['cui'] not in CUIS_SIN_AVISO:
                 sin_ficha_ins.append((f['cui'], f['resultado']))
             continue
@@ -896,8 +916,8 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
                       + '\n'.join(f'- {c}' for c in sin_monto))
     if sin_ficha_ins:
         avisos.append(f'{len(sin_ficha_ins)} recién insertado(s) se quedaron SIN UEI ni Etapa porque el SSI '
-                      'no dio su ficha. Un CUI es "recién insertado" una sola vez (esta corrida consume la '
-                      f'lista y la borra), así que esas celdas de {col_letra(PROY_COL_UEI)} y '
+                      'no dio su ficha. Un CUI se procesa una sola vez (al terminar queda anotado como '
+                      f'procesado en el histórico), así que esas celdas de {col_letra(PROY_COL_UEI)} y '
                       f'{col_letra(PROY_COL_ETAPA)} ya NO se van a llenar solas: hay que completarlas a mano '
                       f'o se quedan vacías. Quedan anotados en {ARCHIVO_HISTORICO.name}:\n'
                       + '\n'.join(f'- {c}: {r}' for c, r in sin_ficha_ins))
@@ -1011,7 +1031,7 @@ def corrida():
     hp = hr = None
     try:
         libro, hp, hr, vr = leer()
-        (insertados, todos, obs, repetidos, resumen, fecha_pim,
+        (col_a_historico, todos, obs, repetidos, resumen, fecha_pim,
          filas_proy, fechas_ins) = validar_y_armar(hp, hr, vr)
     except Detener as e:
         cuerpo = ('El programa se DETUVO y no generó el archivo de CUI.\n\n'
@@ -1028,12 +1048,27 @@ def corrida():
         print(cuerpo)
         return 3 if enviar_correo('Error al leer el libro de Google', cuerpo) else 4
 
+    # La columna A de PIM-diario es un histórico acumulado que no se borra. Los "recién insertados"
+    # de esta corrida son los que todavía no figuran en ARCHIVO_HISTORICO.
+    avisos, asuntos, codigo = [], [], 0
+    procesados, aviso_hist = cuis_ya_procesados()
+    if aviso_hist:
+        insertados = []                 # antes que reescribir filas viejas, no procesar ninguna
+        avisos.append(aviso_hist)
+        asuntos.append('no se pudo leer el histórico de insertados')
+    else:
+        insertados = [c for c in col_a_historico if c not in procesados]
+    resumen['recien_insertados'] = len(insertados)
+    resumen['ya_procesados_en_corridas_anteriores'] = len(col_a_historico) - len(insertados)
+    print('Recién insertados:', insertados or '(ninguno)')
+
     salida = {
         'generado': ahora.strftime('%Y-%m-%d %H:%M:%S'),
         'libro': {'id': ID_LIBRO, 'titulo': libro.title},
         'fecha_descarga_pim_diario_A1': fecha_pim,
         'resumen': resumen,
         'recien_insertados': insertados,
+        'cuis_en_columna_A_pim': col_a_historico,
         'fechas_insercion': {str(c): f for c, f in fechas_ins.items()},
         'todos_cuis': todos,
         'observaciones': obs,
@@ -1046,7 +1081,6 @@ def corrida():
     print('Resumen:', json.dumps(resumen, ensure_ascii=False))
 
     # ---- paso 2: SSI ----
-    avisos, asuntos, codigo = [], [], 0
     f_var = f_json = None
     try:
         carpeta, aviso_carpeta = carpeta_montos()
@@ -1168,23 +1202,22 @@ def corrida():
                 asuntos.append('error al escribir en ' + hr.title)
                 codigo = 3
 
-        # La cola de recién insertados se consume UNA sola vez: primero se archiva, después se
-        # borra. Si no se escribió en Proyección26, no se borra nada y la lista espera.
-        if consumido:
+        # Recién al final se marcan como procesados, y solo si la escritura se hizo: anotar un CUI
+        # al que no se le escribió nada lo dejaría sin UEI para siempre. La columna A no se toca.
+        if consumido and insertados:
             try:
                 f_hist = guardar_historico_insertados(filas, insertados, fechas_ins, filas_proy, ahora)
-                if f_hist:
-                    print('Histórico:', f_hist)
-                limpiar_insertados(hp)
+                print('Histórico:', f_hist)
             except Exception as e:
-                avisos.append(f'No se pudo archivar en {ARCHIVO_HISTORICO} o borrar '
-                              f'{PIM_RANGO_INSERTADOS} de "{hp.title}". La lista de recién insertados queda '
-                              'como está y se vuelve a procesar en la próxima corrida (puede que algunos CUI '
-                              f'salgan dos veces en el histórico).\nDetalle: {type(e).__name__}: {e}')
-                asuntos.append('no se pudo cerrar la lista de insertados')
+                avisos.append(f'No se pudo anotar en {ARCHIVO_HISTORICO} los {len(insertados)} CUI recién '
+                              'insertados de esta corrida. Sí se les escribió UEI y Etapa, pero como ese '
+                              'archivo es lo que los marca como procesados, la próxima corrida los va a '
+                              f'volver a procesar.\nDetalle: {type(e).__name__}: {e}')
+                asuntos.append('no se pudo anotar el histórico de insertados')
         elif insertados:
-            avisos.append(f'Los {len(insertados)} CUI recién insertados de "{hp.title}" NO se procesaron y la '
-                          f'lista NO se borró: quedan en {PIM_RANGO_INSERTADOS} esperando la próxima corrida.')
+            avisos.append(f'Los {len(insertados)} CUI recién insertados NO se procesaron. Siguen en la '
+                          f'columna A de "{hp.title}" sin anotarse en el histórico, así que se procesan en '
+                          'la próxima corrida.')
 
         if LIMPIAR_PIM_OPQ:
             try:

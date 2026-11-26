@@ -10,8 +10,9 @@
  *   1) descargaDiaria   -> correr una vez a mano para probar (y autorizar permisos)
  *   2) instalarHorario  -> correr una vez; deja la descarga diaria cerca de las 6:20 (hora de Lima)
  *   3) probarProyeccion -> lo mismo a mano (descargaDiaria ya lo hace solo):
- *        · columna A (desde A3): COLA de CUI insertados, con su fecha de inserción en B.
- *          Se AGREGAN al final; el programa de Python los consume, los archiva y borra A3:B.
+ *        · columna A (desde A3): HISTÓRICO de CUI insertados, con su fecha de inserción en B.
+ *          Se AGREGAN al final y no se borran nunca; el programa de Python procesa los que
+ *          todavía no estén en su archivo insertados_historico.csv.
  *        · columna N (desde N2): los CUI de Proyección26 cuya Etapa (col. F) no es "PC"
  */
 
@@ -45,7 +46,7 @@ const TITULOS_M_AA = [
 ];
 
 // Dónde se pegan las listas de CUI en PIM-diario
-const FILA_INI_INSERTADOS = 3;   // columna A, desde A3: cola de CUI insertados en Proyección26
+const FILA_INI_INSERTADOS = 3;   // columna A, desde A3: histórico de CUI insertados en Proyección26
 const COL_FECHA_INS = 2;         // columna B: fecha en que se insertó ese CUI
 const TITULO_FECHA_INS = 'fecha_insercion';
 const COL_NOPC = 14;             // columna N, desde N2: CUI de Proyección26 con Etapa ≠ "PC"
@@ -56,7 +57,7 @@ const ZONA = 'America/Lima';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 
 // Columnas A y B no se tocan con la descarga (A1 = fecha y hora de la descarga; B2 = título;
-// A3 hacia abajo = cola de CUI insertados y su fecha de inserción en B).
+// A3 hacia abajo = histórico de CUI insertados y su fecha de inserción en B).
 // Los datos van de C a L.
 const ENCABEZADOS = ['', '', 'CUI', 'Inversión', 'PIA', 'PIM', 'Certificación',
   'Compromiso Anual', 'Atención de Compromiso Mensual', 'Devengado', 'Girado', 'Avance %'];
@@ -430,11 +431,11 @@ function cuisNoPC_(hoja) {
 
 /**
  * Pega en PIM-diario:
- *   - columnas A y B desde A3: COLA de CUI insertados, con su fecha de inserción al lado.
- *     NO se reemplaza la lista: se AGREGAN al final los que todavía no estén en la cola. El
- *     programa de Python los consume (escribe UEI y Etapa en Proyección26), los archiva en
- *     insertados_historico.csv y recién entonces borra A3:B. Así, si la PC estuvo apagada el día
- *     que entró un CUI nuevo, la lista espera a la próxima corrida en vez de perderse.
+ *   - columnas A y B desde A3: HISTÓRICO de CUI insertados, con su fecha de inserción al lado.
+ *     NO se reemplaza ni se borra: se AGREGAN al final los que todavía no estén. El programa de
+ *     Python procesa los que no figuren en su insertados_historico.csv (escribe UEI y Etapa en
+ *     Proyección26) y los anota ahí. Así, si la PC estuvo apagada el día que entró un CUI nuevo,
+ *     ese CUI espera hasta que una corrida lo procese, en vez de perderse.
  *   - columna N: título en N1 y, desde N2, los CUI que no son PC (esa sí se reemplaza entera).
  *   - columnas O, P y Q: se vacían (ya no se usan).
  */
@@ -454,11 +455,11 @@ function escribirListasPIM_(insertados, noPC) {
   if (COL_NOPC > hoja.getMaxColumns()) hoja.insertColumnsAfter(hoja.getMaxColumns(), COL_NOPC - hoja.getMaxColumns());
   let maxFilas = hoja.getMaxRows();
 
-  // Columnas A y B: agregar al final de la cola los CUI que no estén ya esperando
-  const enCola = hoja.getRange(FILA_INI_INSERTADOS, 1, maxFilas - FILA_INI_INSERTADOS + 1, 1).getValues();
+  // Columnas A y B: agregar al final del histórico los CUI que todavía no estén
+  const enHoja = hoja.getRange(FILA_INI_INSERTADOS, 1, maxFilas - FILA_INI_INSERTADOS + 1, 1).getValues();
   let ocupadas = 0;
   const yaEstan = new Set();
-  enCola.forEach((f, i) => {
+  enHoja.forEach((f, i) => {
     if (esCui_(f[0])) { ocupadas = i + 1; yaEstan.add(Number(String(f[0]).trim())); }
   });
   const nuevos = [...insertados].sort((a, b) => a - b).filter(c => !yaEstan.has(c));

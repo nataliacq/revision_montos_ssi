@@ -60,8 +60,10 @@ DATOS_PROY = [
     [3000882, 'x', '', '',    '', 'ET', '', '', 50.0],    # no existe en el SSI (CUIS_SIN_AVISO)
 ]
 CAB_PIM = [[46349.3, '', 'CUI'], ['', '', 'x']]
-# La cola de recién insertados: CUI en A y su fecha de inserción en B
-COL_A_PIM = [[2094012, '2026-11-25']]
+# El histórico acumulado de PIM-diario: CUI en A y su fecha de inserción en B. No se borra; el
+# archivo insertados_historico.csv es lo que dice cuál ya se procesó.
+COL_A_PIM = [[2064096, '2026-11-02'],    # ya procesado antes (está en el CSV de abajo)
+             [2094012, '2026-11-25']]    # este es el nuevo de esta corrida
 
 GRI = 'GERENCIA REGIONAL DE INFRAESTRUCTURA'
 PET = 'PROYECTO ESPECIAL AFIANZAMIENTO Y AMPLIACION DE LOS RECURSOS HIDRICOS DE TACNA'
@@ -99,6 +101,12 @@ with tempfile.TemporaryDirectory() as tmp:
     m.ARCHIVO_BLOQUEO = t / 'corrida.lock'
     m.CARPETA_HISTORICO = t / 'historico'
     m.ARCHIVO_HISTORICO = m.CARPETA_HISTORICO / 'insertados_historico.csv'
+    m.CARPETA_HISTORICO.mkdir(parents=True)
+    m.ARCHIVO_HISTORICO.write_text(
+        'fecha_corrida;cui;fecha_insercion;fila_proyeccion26;estado_ssi;tipo_inversion;uei_ssi;'
+        'uei_escrita;etapa_escrita;monto;resultado;falta_completar_a_mano\n'
+        '2026-11-02 06:45:00;2064096;2026-11-02;3;ACTIVO;PROYECTO;;GRI;;100,50;ok;\n',
+        encoding='utf-8-sig')
     lib = Libro()
     m.leer = lambda: (lib, HP, HR, (CAB_PIM, COL_A_PIM, [TITULOS], DATOS_PROY))
     m.consultar_ssi = responder(FICHAS_BASE)
@@ -123,13 +131,16 @@ with tempfile.TemporaryDirectory() as tmp:
     assert 'reporta como PROCOMPITE' in cuerpo and '2158997' in cuerpo, cuerpo
     assert 'POCOLLAY' in cuerpo, cuerpo
     print('PIM-diario limpiado:', HP.limpiados)
-    # se archiva la cola y DESPUÉS se borra A3:B; O2:Q se vacía porque ya no se usa
-    assert sorted(HP.limpiados) == ['A3:B', 'O2:Q'], HP.limpiados
+    # la columna A NO se borra: solo se vacía O2:Q, que ya no se usa
+    assert HP.limpiados == ['O2:Q'], HP.limpiados
+    # 2064096 ya estaba en el CSV: no se reprocesa. Solo se anota el nuevo.
     hist = m.ARCHIVO_HISTORICO.read_text(encoding='utf-8-sig').splitlines()
-    assert len(hist) == 2, hist                       # encabezado + el único insertado
-    assert hist[1].split(';')[1] == '2094012' and hist[1].split(';')[2] == '2026-11-25', hist[1]
-    assert 'UEI' in hist[1].split(';')[-1], hist[1]   # su UEI no tuvo equivalencia
-    print('histórico:', hist[1][:120])
+    assert len(hist) == 3, hist          # encabezado + el ya procesado + el nuevo de hoy
+    assert hist[2].split(';')[1] == '2094012' and hist[2].split(';')[2] == '2026-11-25', hist[2]
+    assert 'UEI' in hist[2].split(';')[-1], hist[2]   # su UEI no tuvo equivalencia
+    print('histórico (línea nueva):', hist[2][:120])
+    # 2064096 es fila vieja ya procesada: no recibe D ni F aunque su UEI del SSI sí tenga sigla
+    assert not any(r.startswith('D3') or r.startswith('F3') for r in lib.escrito), lib.escrito
     print('correo ->', asunto)
     for linea in cuerpo.split('\n')[:10]:
         print('   ', linea[:110])
@@ -147,20 +158,29 @@ with tempfile.TemporaryDirectory() as tmp:
     base = viejo.parent / f'monto_ssi_{ayer}_064500.json'
     viejo.rename(base)
 
-    titulo('3) el recién insertado se queda sin ficha del SSI (su único día en la lista)')
+    titulo('3) un recién insertado se queda sin ficha del SSI (se procesa una sola vez)')
+    # 2094012 ya quedó anotado en la corrida 1, así que para tener un insertado nuevo se agrega
+    # otro al histórico de la hoja, como lo haría el guion de Google
+    COL_A_PIM.append([2410530, '2026-11-26'])
     lib.escrito = None
-    m.consultar_ssi = responder(FICHAS_BASE, caidos={2094012})
+    m.consultar_ssi = responder(FICHAS_BASE, caidos={2410530})
     codigo = m.corrida()
     asunto, cuerpo = ultimo_correo()
     print('código de salida:', codigo)
     print('enviado a Proyección26:', lib.escrito)
-    assert not any(r.startswith('D5') or r.startswith('F5') for r in (lib.escrito or {})), lib.escrito
-    assert 'SIN UEI ni Etapa' in cuerpo and '2094012' in cuerpo, cuerpo
+    assert not any(r.startswith('D4') or r.startswith('F4') for r in (lib.escrito or {})), lib.escrito
+    assert 'SIN UEI ni Etapa' in cuerpo and '2410530' in cuerpo, cuerpo
+    # queda anotado como procesado, con la causa, así que no se vuelve a intentar
+    hist = m.ARCHIVO_HISTORICO.read_text(encoding='utf-8-sig').splitlines()
+    assert hist[-1].split(';')[1] == '2410530' and 'no dio su ficha' in hist[-1], hist[-1]
     aviso = [b for b in cuerpo.split('\n\n') if 'SIN UEI ni Etapa' in b][0]
     print('correo ->', asunto)
     print('   ', aviso.replace('\n', ' | ')[:230])
 
-    titulo('4) las filas se corrieron: no se escribe y la cola NO se borra')
+    titulo('4) las filas se corrieron: no se escribe y el CUI nuevo no se anota')
+    # un insertado nuevo, para comprobar que una escritura abortada NO lo marca como procesado
+    COL_A_PIM.append([3000882, '2026-11-26'])
+    lineas_antes = len(m.ARCHIVO_HISTORICO.read_text(encoding='utf-8-sig').splitlines())
     lib.correr_filas = True
     lib.escrito = None
     HP.limpiados = []
@@ -168,10 +188,11 @@ with tempfile.TemporaryDirectory() as tmp:
     asunto, cuerpo = ultimo_correo()
     print('código de salida:', codigo)
     assert lib.escrito is None, 'no se debe escribir nada'
-    assert 'A3:B' not in HP.limpiados, HP.limpiados
-    assert 'NO se procesaron y la lista NO se borró' in cuerpo, cuerpo
+    assert 'NO se procesaron' in cuerpo, cuerpo
+    # no se anotó nada: el CUI sigue pendiente y se procesa en la próxima corrida
+    assert len(m.ARCHIVO_HISTORICO.read_text(encoding='utf-8-sig').splitlines()) == lineas_antes
     print('correo ->', asunto)
-    print('   ', [b for b in cuerpo.split('\n\n') if 'NO se borró' in b][0][:170])
+    print('   ', [b for b in cuerpo.split('\n\n') if 'NO se procesaron' in b][0][:200])
     lib.correr_filas = False
 
     titulo('5) el SSI trae 0 en todo: freno por ceros masivos')
@@ -191,7 +212,8 @@ with tempfile.TemporaryDirectory() as tmp:
     assert codigo == 6, codigo
     assert lib.escrito is None, 'no se debe escribir nada en la hoja'
     assert 'DETENIDO' in asunto, asunto
-    assert 'A3:B' not in HP.limpiados, 'la cola no se borra si no se escribió'
+    assert len(m.ARCHIVO_HISTORICO.read_text(encoding='utf-8-sig').splitlines()) == lineas_antes, \
+        'tampoco se anota cuando se frena por ceros masivos'
     print('enviado a Proyección26:', lib.escrito, '<- nada')
     print('correo ->', asunto)
 

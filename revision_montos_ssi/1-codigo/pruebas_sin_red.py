@@ -444,11 +444,61 @@ def prueba_historico_insertados():
         assert m.guardar_historico_insertados(filas, [], {}, filas_proy, datetime.now()) is None
         assert not m.ARCHIVO_HISTORICO.exists()
 
-    caso('cola: limpiar_insertados vacía A3:B de verdad (batch_clear, no "")')
-    HP.limpiado = None
-    m.limpiar_insertados(HP)
-    assert HP.limpiado == ['A3:B'], HP.limpiado
-    assert m.PIM_RANGO_INSERTADOS == 'A3:B', m.PIM_RANGO_INSERTADOS
+def prueba_ya_procesados():
+    """La columna A no se borra: el CSV es lo que distingue un CUI nuevo de uno ya procesado."""
+    from datetime import datetime
+    filas = [{'cui': c, 'resultado': 'ok', 'monto_inversion': 1.0, 'monto_final': 1.0,
+              'uei': 'GERENCIA REGIONAL DE INFRAESTRUCTURA', 'tipo_inversion': 'PROYECTO',
+              'estado_ssi': 'ACTIVO'} for c in (2064096, 2410530, 2173274)]
+    filas_proy = {c: {'fila': i + 3, 'uei': '', 'etapa': '', 'monto': ''}
+                  for i, c in enumerate((2064096, 2410530, 2173274))}
+
+    with tempfile.TemporaryDirectory() as tmp:
+        m.CARPETA_HISTORICO = Path(tmp)
+        m.ARCHIVO_HISTORICO = Path(tmp) / 'insertados_historico.csv'
+
+        caso('procesados: sin archivo todavía, todos los de la columna A son nuevos')
+        procesados, aviso = m.cuis_ya_procesados()
+        assert procesados == set() and aviso is None, (procesados, aviso)
+
+        caso('procesados: después de anotar dos, solo el tercero queda como nuevo')
+        m.guardar_historico_insertados(filas[:2], [2064096, 2410530], {}, filas_proy,
+                                       datetime(2026, 11, 26, 6, 45))
+        procesados, aviso = m.cuis_ya_procesados()
+        assert procesados == {2064096, 2410530} and aviso is None, procesados
+        col_a = [2064096, 2410530, 2173274]          # el histórico acumulado de la hoja
+        nuevos = [c for c in col_a if c not in procesados]
+        assert nuevos == [2173274], nuevos
+        print('   columna A:', col_a, '-> nuevos:', nuevos)
+
+        caso('procesados: un CUI anotado NO se vuelve a procesar aunque siga en la columna A')
+        m.guardar_historico_insertados(filas[2:], [2173274], {}, filas_proy,
+                                       datetime(2026, 11, 27, 6, 45))
+        procesados, _ = m.cuis_ya_procesados()
+        assert [c for c in col_a if c not in procesados] == [], procesados
+
+        caso('procesados: archivo ilegible -> aviso y NO se procesa ningún insertado')
+        m.ARCHIVO_HISTORICO.write_text('esto no es el csv del histórico\n', encoding='utf-8')
+        procesados, aviso = m.cuis_ya_procesados()
+        assert procesados is None and aviso, (procesados, aviso)
+        assert 'NO' in aviso and 'montos sí' in aviso, aviso
+        print('   ', aviso[:150])
+
+        caso('procesados: se ignoran las líneas con un CUI que no es válido')
+        m.ARCHIVO_HISTORICO.write_text(
+            'fecha_corrida;cui;fecha_insercion\n2026-11-26;2064096;\n2026-11-26;basura;\n',
+            encoding='utf-8-sig')
+        procesados, aviso = m.cuis_ya_procesados()
+        assert procesados == {2064096} and aviso is None, (procesados, aviso)
+
+
+def prueba_no_se_borra_la_columna_a():
+    caso('columna A: el programa ya no la borra (solo vacía O:Q, que no se usa)')
+    assert not hasattr(m, 'limpiar_insertados'), 'limpiar_insertados debe haberse quitado'
+    assert not hasattr(m, 'PIM_RANGO_INSERTADOS'), 'ya no hay rango de borrado'
+    HP.limpiados = []
+    m.limpiar_pim_opq(HP)
+    assert HP.limpiados == ['O2:Q'], HP.limpiados
 
 
 def prueba_bloqueo():
@@ -493,6 +543,8 @@ if __name__ == '__main__':
     prueba_comparacion()
     prueba_ceros_masivos()
     prueba_historico_insertados()
+    prueba_ya_procesados()
+    prueba_no_se_borra_la_columna_a()
     prueba_bloqueo()
     prueba_carpeta_respaldo()
     print('\nTODAS LAS PRUEBAS PASARON')
