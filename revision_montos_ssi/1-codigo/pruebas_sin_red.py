@@ -139,57 +139,95 @@ class Libro:
 
 
 def prueba_escritura():
-    # filas 3 a 7 de Proyección26
+    # filas 3 a 8 de Proyección26. Solo 2094012 y 2173274 son recién insertados.
     filas_proy = {
-        2064096: {'fila': 3, 'uei': '', 'etapa': 'ET', 'monto': ''},          # todo nuevo
-        2410530: {'fila': 4, 'uei': 'GRI', 'etapa': 'ET', 'monto': 7.0},      # ya está igual
+        2064096: {'fila': 3, 'uei': '', 'etapa': 'ET', 'monto': ''},          # fila VIEJA, todo nuevo
+        2410530: {'fila': 4, 'uei': 'GRI', 'etapa': 'ET', 'monto': 7.0},      # fila VIEJA, ya igual
         3999999: {'fila': 5, 'uei': '', 'etapa': '', 'monto': 500.0},         # el SSI no lo encuentra
-        2094012: {'fila': 6, 'uei': '', 'etapa': 'EF', 'monto': 80.0},        # UEI sin equivalencia
-        2158997: {'fila': 7, 'uei': '', 'etapa': 'ET', 'monto': 10.0},        # PROCOMPITE
+        2094012: {'fila': 6, 'uei': '', 'etapa': '', 'monto': 80.0},          # INSERTADO, UEI sin match
+        2158997: {'fila': 7, 'uei': '', 'etapa': 'ET', 'monto': 10.0},        # fila VIEJA, PROCOMPITE
+        2173274: {'fila': 8, 'uei': '', 'etapa': '', 'monto': ''},            # INSERTADO completo
     }
-    col_a = [[2064096], [2410530], [3999999], [2094012], [2158997]]
+    col_a = [[2064096], [2410530], [3999999], [2094012], [2158997], [2173274]]
+    gri = 'GERENCIA REGIONAL DE INFRAESTRUCTURA'
     filas = [
         {'cui': 2064096, 'resultado': 'ok', 'monto_inversion': 100.5, 'monto_final': 100.5,
-         'uei': 'GERENCIA REGIONAL DE INFRAESTRUCTURA', 'tipo_inversion': 'PROYECTO', 'estado_ssi': 'ACTIVO'},
+         'uei': gri, 'tipo_inversion': 'PROYECTO', 'estado_ssi': 'ACTIVO'},
         {'cui': 2410530, 'resultado': 'ok', 'monto_inversion': 7.0, 'monto_final': 7.0,
-         'uei': 'GERENCIA REGIONAL DE INFRAESTRUCTURA', 'tipo_inversion': 'PROYECTO', 'estado_ssi': 'ACTIVO'},
+         'uei': gri, 'tipo_inversion': 'PROYECTO', 'estado_ssi': 'ACTIVO'},
         {'cui': 3999999, 'resultado': 'el SSI no encuentra este CUI', 'monto_inversion': None,
          'monto_final': None, 'uei': None, 'tipo_inversion': None, 'estado_ssi': ''},
         {'cui': 2094012, 'resultado': 'ok', 'monto_inversion': 80.0, 'monto_final': 80.0,
          'uei': 'MUNICIPALIDAD DISTRITAL DE POCOLLAY', 'tipo_inversion': 'PROYECTO', 'estado_ssi': 'ACTIVO'},
         {'cui': 2158997, 'resultado': 'ok', 'monto_inversion': 0.0, 'monto_final': 999.0,
          'uei': 'DIRECCION REGIONAL DE SALUD', 'tipo_inversion': 'PROYECTO PROCOMPITE', 'estado_ssi': 'ACTIVO'},
+        {'cui': 2173274, 'resultado': 'ok', 'monto_inversion': 55.0, 'monto_final': 55.0,
+         'uei': 'DIRECCION REGIONAL DE AGRICULTURA', 'tipo_inversion': 'PROYECTO',
+         'estado_ssi': 'DESACTIVADO TEMPORAL'},
     ]
+    insertados = [2094012, 2173274]
 
-    caso('escritura: solo se envían las celdas que cambian, en tramos')
+    caso('escritura: el monto va a TODAS las filas de la lista, no solo a las insertadas')
     lib = Libro(col_a)
-    av, res = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados=[2094012])
+    av, res = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados)
     print('   enviado:', lib.escrito)
-    # monto: 2064096 (vacío -> 100.5) y 2158997 (10 -> 999). 2410530 ya tenía 7.0: no se reescribe.
-    assert lib.escrito['I3:I3'] == [100.5], lib.escrito
-    assert lib.escrito['I7:I7'] == [999.0], lib.escrito
-    # la fila 5 (monto null) y la 4 (sin cambio) NO aparecen en ningún rango
-    assert not any('I4' in r or 'I5' in r for r in lib.escrito), lib.escrito
-    # UEI: 2064096 -> GRI, 2158997 -> DIRESA. 2410530 ya decía GRI. 2094012 sin equivalencia.
-    assert lib.escrito['D3:D3'] == ['GRI'] and lib.escrito['D7:D7'] == ['DIRESA'], lib.escrito
-    assert not any('D4' in r or 'D6' in r for r in lib.escrito), lib.escrito
-    # Etapa: solo el PROCOMPITE de la fila 7
-    assert lib.escrito['F7:F7'] == ['PC'], lib.escrito
-    assert res['escrito'] and res['montos_actualizados'] == 2 and res['uei_sin_equivalencia'] == 1, res
+    assert lib.escrito['I3:I3'] == [100.5], lib.escrito          # fila vieja: sí recibe monto
+    assert lib.escrito['I7:I8'] == [999.0, 55.0], lib.escrito    # vieja + insertada, en un tramo
+    # 2410530 ya tenía 7.0 y 2094012 ya tenía 80.0: no se reescriben. 3999999 sin monto: no se toca.
+    assert not any(r.startswith('I4') or r.startswith('I5') or r.startswith('I6')
+                   for r in lib.escrito), lib.escrito
+    assert res['montos_actualizados'] == 3, res
 
-    caso('escritura: avisos de UEI sin equivalencia, etapa rara y marcado PC')
+    caso('escritura: D y F SOLO en las filas recién insertadas')
+    # fila 3 (vieja) tiene UEI vacía y el SSI da GRI, pero NO se escribe: no es insertada
+    assert not any(r.startswith('D3') or r.startswith('D4') or r.startswith('D7')
+                   for r in lib.escrito), lib.escrito
+    assert not any(r.startswith('F3') or r.startswith('F4') or r.startswith('F7')
+                   for r in lib.escrito), lib.escrito
+    # fila 8 (insertada) sí recibe D y F
+    assert lib.escrito['D8:D8'] == ['DRAT'], lib.escrito
+    assert lib.escrito['F8:F8'] == ['Desactivado'], lib.escrito
+    assert res['uei_actualizadas'] == 1 and res['etapas_actualizadas'] == 1, res
+
+    caso('escritura: PROCOMPITE en fila vieja -> no se escribe, se reporta para marcar a mano')
+    assert not any(r.startswith('F7') for r in lib.escrito), lib.escrito
+    assert res['procompite_por_marcar_a_mano'] == 1, res
+    reporte = [a for a in av if 'reporta como PROCOMPITE' in a]
+    assert len(reporte) == 1 and '2158997' in reporte[0] and 'ahora dice "ET"' in reporte[0], av
+    print('   ', reporte[0].replace('\n', ' | ')[:150])
+
+    caso('escritura: UEI sin equivalencia solo se reporta si es recién insertado')
     assert any('POCOLLAY' in a for a in av), av
-    assert any('2158997' in a and 'PC' in a for a in av), av
-    assert any('3999999' not in a for a in av)              # está en CUIS_SIN_AVISO
-    for a in av:
-        print('   -', a.split('\n')[0][:105])
+    assert res['uei_sin_equivalencia'] == 1, res
 
-    caso('escritura: un CUI recién insertado sin etapa deducible sí se reporta')
-    assert any('2094012' in a and 'Etapa' in a for a in av), av
+    caso('escritura: un recién insertado cuyo estado no se traduce a etapa se reporta')
+    lib2 = Libro(col_a)
+    raro = dict(filas[3], estado_ssi='CERRADO', tipo_inversion='IOARR')
+    av_r, res_r = m.escribir_proyeccion(lib2, HR, [raro], filas_proy, [2094012])
+    assert any('2094012' in a and 'no se puede deducir' in a for a in av_r), av_r
+
+    caso('escritura: un recién insertado sin ficha del SSI se avisa (su único día en la lista)')
+    lib3 = Libro(col_a)
+    caido = {'cui': 2173274, 'resultado': 'sin respuesta del servicio: no respondió a tiempo',
+             'monto_inversion': None, 'monto_final': None, 'uei': None, 'tipo_inversion': None,
+             'estado_ssi': ''}
+    av_c, res_c = m.escribir_proyeccion(lib3, HR, [caido], filas_proy, [2173274])
+    assert res_c['insertados_sin_ficha_del_ssi'] == 1, res_c
+    assert lib3.escrito is None, lib3.escrito
+    aviso = [a for a in av_c if 'SIN UEI ni Etapa' in a]
+    assert len(aviso) == 1 and '2173274' in aviso[0] and 'a mano' in aviso[0], av_c
+    print('   ', aviso[0].replace('\n', ' | ')[:190])
+
+    caso('escritura: un CUI de CUIS_SIN_AVISO sin ficha NO genera ese aviso aunque sea insertado')
+    lib4 = Libro(col_a)
+    av_s, res_s = m.escribir_proyeccion(
+        lib4, HR, [dict(caido, cui=3999999)], filas_proy, [3999999])
+    assert res_s['insertados_sin_ficha_del_ssi'] == 0, res_s
+    assert not any('SIN UEI ni Etapa' in a for a in av_s), av_s
 
     caso('escritura: las filas se corrieron -> no se escribe nada')
     lib = Libro([[9999999]] + col_a)      # alguien insertó una fila arriba
-    av2, res2 = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados=[])
+    av2, res2 = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados)
     assert lib.escrito is None and not res2['escrito'], res2
     assert any('se corrieron' in a for a in av2), av2
     print('   ', [a.split('\n')[0][:95] for a in av2 if 'corrieron' in a][0])
@@ -197,7 +235,7 @@ def prueba_escritura():
     caso('escritura: una columna se movió durante la corrida -> no se escribe nada')
     lib = Libro(col_a, tits=['CUI', 'Inversión', 'ID', 'Modalidad', 'UEI', 'Etapa', '', '',
                              '(A) Monto de inversión'])
-    av3, res3 = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados=[])
+    av3, res3 = m.escribir_proyeccion(lib, HR, filas, filas_proy, insertados)
     assert lib.escrito is None and not res3['escrito'], res3
     assert any('D2' in a for a in av3), av3
 

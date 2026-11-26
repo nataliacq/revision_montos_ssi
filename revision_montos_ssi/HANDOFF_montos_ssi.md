@@ -6,9 +6,12 @@ Sesión de Claude Code: "monto inversion ssi" (25/11) + revisión y cambios del 
 ## Objetivo
 Cada día, para los CUI del libro de Google (hojas Proyección26 y PIM-diario), traer del SSI del MEF
 (https://ofi5.mef.gob.pe/ssi/) y escribir **en Proyección26**, ubicando cada fila por su CUI (columna A):
-- **I** "(A) Monto de inversión" = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO (S/) (a+b+c+d);
-- **D** "UEI" = la sigla equivalente a la UEI del SSI (GRI, GRDE, GRDIS, GRRNyGA, PET, DIRESA, DRAT, DRTYC);
-- **F** "Etapa" = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado.
+- **I** "(A) Monto de inversión" = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO (S/) (a+b+c+d), para
+  **todos** los CUI de la lista (los que no son PC);
+- **D** "UEI" = la sigla equivalente a la UEI del SSI (GRI, GRDE, GRDIS, GRRNyGA, PET, DIRESA, DRAT,
+  DRTYC), **solo en las filas de los recién insertados**;
+- **F** "Etapa" = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado,
+  **solo en las filas de los recién insertados**.
 
 Cambio del 26/11: antes se escribía en PIM-diario (columnas O, P y Q) para después llevarlo a
 Proyección26 con fórmulas. Se escribe directo en Proyección26 porque PIM-diario se rearma cada día
@@ -77,8 +80,13 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
   monto 0, sin aviso (si no, llegaría un correo cada día), marcados en el archivo.
 
 ### Paso 3 – escribir en Proyección26 (ubicando cada fila por su CUI de la columna A)
-- **I** `(A) Monto de inversión`: si el SSI no dio monto, la celda **no se toca** (nunca se pisa un
-  dato bueno con 0 ni con vacío). No se le cambia el formato de número: es una columna de la hoja.
+- **I** `(A) Monto de inversión`, en **todas** las filas de la lista (los CUI que no son PC): si el
+  SSI no dio monto, la celda **no se toca** (nunca se pisa un dato bueno con 0 ni con vacío). No se
+  le cambia el formato de número: es una columna de la hoja.
+- **D** `UEI` y **F** `Etapa`, **solo en las filas de los recién insertados**. Esto hace que la
+  garantía de no pisar nada sea **estructural** y no una comparación de valores: el guion de Google,
+  al insertar una fila en Proyección26, escribe únicamente A y B y copia formato y fórmulas de
+  M:AA, así que D y F llegan vacías. En una fila que ya estaba, esas dos celdas no se tocan nunca.
 - **D** `UEI`: la sigla equivalente (tabla `UEI_EQUIVALENCIAS`). Si el texto del SSI no coincide con
   ninguna, la celda **no se toca** y se avisa con el texto que llegó, para agregar la equivalencia.
 - **F** `Etapa`: "PC" si `TIPO_FORMATO` es PROYECTO PROCOMPITE; "Desactivado" si `ESTADO` empieza
@@ -86,6 +94,15 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
   celdas **no se tocan**, y solo se avisa de los **recién insertados** (los demás no interesan).
   **OJO:** marcar "PC" saca a ese CUI de las corridas siguientes (la Etapa PC lo excluye de la
   lista). Cada marcado va en el correo.
+- **PROCOMPITE en una fila que ya estaba**: no se le escribe la Etapa (manda la restricción), pero
+  el dato no se pierde: va al correo en una sección aparte, "el SSI los reporta como PROCOMPITE y su
+  Etapa dice otra cosa", para marcarlos a mano. Mientras no se marquen, se siguen consultando y
+  siguen apareciendo en ese aviso.
+- **Recién insertado sin ficha del SSI**: se queda sin UEI ni Etapa **y se avisa**. Un CUI es
+  "recién insertado" un solo día (el guion rearma A3:A en cada corrida), así que si ese día falla el
+  SSI esas celdas ya no se llenan solas: hay que completarlas a mano o quedan vacías. Es un aviso
+  distinto del de "el estado del SSI no se traduce a ninguna etiqueta": aquel es "respondió y no se
+  sabe traducir", este es "no respondió".
 - **Solo se escriben las celdas que CAMBIAN**, agrupadas en tramos de filas consecutivas. Una celda
   que no corresponde actualizar no entra en el envío: así no se pisa nada ni se congela una fórmula.
 - Cualquier título de A2, D2, F2 o I2 que no coincida exactamente: **se detiene y se avisa**, no se
@@ -177,8 +194,15 @@ Decisiones confirmadas por la usuaria en la revisión del 26/11:
    conocido y aceptado: si un costo de verdad pasa a 0, la hoja conserva el valor viejo.
 5. **5 ceros o más = falla del MEF**: no se escribe nada (`MAX_CEROS_SOSPECHOSOS`, código 6).
 6. **Base de comparación = la última corrida de un día anterior**, y se avisa si falta algún día hábil.
-7. **Marcar Etapa "PC" saca al CUI de las corridas siguientes.** Confirmado por la usuaria; cada
-   marcado va en el correo para que quede a la vista.
+7. **D (UEI) y F (Etapa) solo en las filas de los recién insertados**; el monto (I) en todas las
+   filas de la lista. La restricción hace estructural la garantía de no pisar nada: el guion de
+   Google deja D y F vacías en la fila que inserta, así que una fila vieja no se toca nunca.
+   - Marcar Etapa "PC" saca al CUI de las corridas siguientes. Confirmado; cada marcado va al correo.
+   - Un PROCOMPITE que **ya estaba** en la lista no se marca (es fila vieja), así que nunca saldría
+     de las consultas por sí solo: se reporta por correo, en una sección aparte, para marcarlo a
+     mano. Mientras no se marque, sigue apareciendo en ese aviso en cada corrida.
+   - Un recién insertado para el que el SSI no respondió se queda sin UEI ni Etapa y **se avisa**:
+     es su único día en la lista, así que esas celdas ya no se llenan solas.
 8. **Las etapas que no sean PROCOMPITE ni desactivado no se tocan**, y solo se avisan si el CUI es
    un recién insertado. Derivar ET, EF, L... del SSI queda pendiente.
 9. **UEI vacía en un recién insertado no se avisa**: es común (pedido de la usuaria).

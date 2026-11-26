@@ -31,13 +31,21 @@ Paso 2: descarga del SSI del MEF (servicio traeDetInvSSI, el mismo de la pantall
   - El SSI bloquea a los servidores de Google: por eso esto corre en la PC y no en Apps Script.
 
 Paso 3: escritura en Proyección26, ubicando cada fila por su CUI de la columna A
-  - I  "(A) Monto de inversión" = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO. Si el SSI no dio
-       monto, la celda NO se toca (nunca se pisa un dato bueno con 0 ni con vacío).
+  - I  "(A) Monto de inversión" = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO, para TODOS los CUI de
+       la lista (los que no son PC). Si el SSI no dio monto, la celda NO se toca (nunca se pisa un
+       dato bueno con 0 ni con vacío).
   - D  "UEI" = la sigla de Proyección26 equivalente al texto del SSI (GRI, GRDE, GRDIS,
-       GRRNyGA, PET, DIRESA, DRAT, DRTYC). Si no hay equivalencia, la celda no se toca y se avisa.
-  - F  "Etapa" = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado.
-       Las demás etapas todavía no se saben derivar del SSI: esas celdas no se tocan (solo se
-       avisa de los recién insertados). OJO: marcar "PC" saca a ese CUI de las corridas siguientes.
+       GRRNyGA, PET, DIRESA, DRAT, DRTYC), SOLO en las filas de los recién insertados.
+  - F  "Etapa" = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado,
+       SOLO en las filas de los recién insertados. Las demás etapas todavía no se saben derivar
+       del SSI y no se tocan. OJO: marcar "PC" saca a ese CUI de las corridas siguientes.
+  - D y F solo en las filas recién insertadas porque el guion de Google, al insertar una fila,
+    escribe únicamente A y B y copia formato y fórmulas de M:AA: D y F llegan vacías. Así la
+    garantía de no pisar nada es estructural y no depende de comparar valores. Lo que el SSI dice
+    de las filas viejas no se pierde: va al correo (PROCOMPITE que no está marcado como PC).
+  - Un recién insertado para el que el SSI no respondió se queda sin UEI ni Etapa y se avisa: es
+    su único día en la lista (A3:A se rearma cada corrida), así que esas celdas ya no se llenan
+    solas y hay que completarlas a mano.
   - Solo se escriben las celdas que CAMBIAN, en tramos de filas consecutivas. Una celda que no
     corresponde actualizar no entra en el envío, así no se pisa ni se congela ninguna fórmula.
   - Justo antes de escribir se vuelve a leer la columna A y los títulos: si las filas se
@@ -737,11 +745,18 @@ def limpiar_pim_opq(hp):
 def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
     """
     Escribe en Proyección26 ubicando cada fila por su CUI (columna A), no por posición:
-      D  UEI    = sigla equivalente a la UEI del SSI; si no hay equivalencia NO se toca la celda
-                  y se avisa (así no se pisa con vacío lo que haya escrito a mano).
-      F  Etapa  = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado.
-                  Las demás etapas todavía no se saben derivar: esas celdas no se tocan.
-      I  Monto  = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO. Si no hay monto nuevo no se toca.
+      I  Monto  = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO, para TODOS los CUI de la lista (los
+                  que no son PC). Si no hay monto nuevo, la celda no se toca.
+      D  UEI    = sigla equivalente a la UEI del SSI, SOLO en las filas de los recién insertados.
+      F  Etapa  = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado,
+                  SOLO en las filas de los recién insertados.
+
+    Por qué D y F solo en los recién insertados: el guion de Google, al insertar una fila nueva en
+    Proyección26, escribe únicamente A y B y copia formato y fórmulas de M:AA, así que D y F llegan
+    vacías. Restringir la escritura a esas filas convierte la garantía de "no pisar nada" en algo
+    estructural y no en una comparación de valores: en una fila vieja esas celdas no se tocan nunca.
+    Lo que el SSI dice de las filas viejas no se pierde, va al correo (ver procompite_viejos).
+
     Solo se escriben las celdas que cambian, en tramos de filas consecutivas: una celda que no
     corresponde actualizar no entra en el envío, así no se pisa ni se congela nada.
     Devuelve (avisos, resumen).
@@ -750,6 +765,7 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
     set_ins = set(insertados)
     por_fila = {PROY_COL_UEI: {}, PROY_COL_ETAPA: {}, PROY_COL_MONTO: {}}
     sin_uei, etapa_rara, etapa_cambios, marcados_pc, sin_monto = [], [], [], [], []
+    sin_ficha_ins, procompite_viejos = [], []
     avisos = []
 
     for f in filas:
@@ -757,7 +773,9 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
         if ref is None:
             continue                      # CUI sin fila en Proyección26; se avisa aparte
         fila = ref['fila']
+        es_insertado = f['cui'] in set_ins
 
+        # --- monto (columna I): para todos los CUI de la lista ---
         monto = f.get('monto_final', f['monto_inversion'])
         if monto is None:
             if f['cui'] not in CUIS_SIN_AVISO:
@@ -766,31 +784,58 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
             por_fila[PROY_COL_MONTO][fila] = monto
 
         if f['resultado'] != 'ok':
-            continue                      # sin ficha del SSI no hay UEI ni etapa que escribir
+            # Sin ficha del SSI no hay UEI ni Etapa que escribir. En un recién insertado eso no se
+            # arregla solo: el guion de Google rearma A3:A en cada corrida, así que un CUI es
+            # "recién insertado" un solo día. Si hoy falló el SSI, su UEI y su Etapa no se van a
+            # escribir nunca; hay que avisar para poder completarlas a mano.
+            if es_insertado and f['cui'] not in CUIS_SIN_AVISO:
+                sin_ficha_ins.append((f['cui'], f['resultado']))
+            continue
 
+        # --- UEI (columna D) y Etapa (columna F): solo en las filas recién insertadas ---
         sigla = codigo_uei(f.get('uei'))
         if sigla is None:
-            if not vacio(f.get('uei')):
+            if es_insertado and not vacio(f.get('uei')):
                 sin_uei.append((f['cui'], str(f.get('uei'))[:60]))
-        elif norm(ref['uei']) != norm(sigla):
+        elif es_insertado and norm(ref['uei']) != norm(sigla):
             por_fila[PROY_COL_UEI][fila] = sigla
 
         etapa = etapa_desde_ssi(f)
         if etapa is None:
-            if f['cui'] in set_ins:       # solo interesan los recién insertados
+            if es_insertado:              # solo interesan los recién insertados
                 etapa_rara.append((f['cui'], f.get('estado_ssi'), f.get('tipo_inversion')))
-        elif norm(ref['etapa']) != norm(etapa):
+        elif norm(ref['etapa']) == norm(etapa):
+            pass                          # la celda ya dice lo que corresponde
+        elif es_insertado:
             por_fila[PROY_COL_ETAPA][fila] = etapa
             etapa_cambios.append((f['cui'], str(ref['etapa']), etapa))
             if etapa == ETAPA_VALOR_PROCOMPITE:
                 marcados_pc.append(f['cui'])
+        elif etapa == ETAPA_VALOR_PROCOMPITE:
+            # Fila que ya estaba en la lista: no se le toca la Etapa, pero el dato no se pierde.
+            # Mientras no se marque a mano, este CUI se sigue consultando en cada corrida.
+            procompite_viejos.append((f['cui'], str(ref['etapa'])))
 
     if sin_monto:
         avisos.append(f'{len(sin_monto)} CUI sin monto nuevo (el SSI no los encontró o no respondió). '
                       f'Su celda de {col_letra(PROY_COL_MONTO)} quedó como estaba, no se pisó con 0:\n'
                       + '\n'.join(f'- {c}' for c in sin_monto))
+    if sin_ficha_ins:
+        avisos.append(f'{len(sin_ficha_ins)} recién insertado(s) se quedaron SIN UEI ni Etapa porque el SSI '
+                      'no dio su ficha. Un CUI es "recién insertado" un solo día (el guion de Google rearma '
+                      f'A{PIM_FILA_INI}:A en cada corrida), así que esas celdas de {col_letra(PROY_COL_UEI)} y '
+                      f'{col_letra(PROY_COL_ETAPA)} ya NO se van a llenar solas: hay que completarlas a mano '
+                      'o se quedan vacías:\n'
+                      + '\n'.join(f'- {c}: {r}' for c, r in sin_ficha_ins))
+    if procompite_viejos:
+        avisos.append(f'{len(procompite_viejos)} CUI que el SSI reporta como PROCOMPITE y cuya Etapa en "{t}" '
+                      f'dice otra cosa. NO se tocó la celda (la Etapa solo se escribe en las filas recién '
+                      'insertadas). Si corresponde, marcarlos a mano como '
+                      f'"{ETAPA_VALOR_PROCOMPITE}": mientras no se haga, se siguen consultando al SSI y '
+                      'siguen apareciendo en este aviso:\n'
+                      + '\n'.join(f'- {c}: ahora dice "{e if e else "(vacía)"}"' for c, e in procompite_viejos))
     if sin_uei:
-        avisos.append(f'{len(sin_uei)} UEI del SSI que no coinciden con ninguna sigla de "{t}". '
+        avisos.append(f'{len(sin_uei)} UEI del SSI de recién insertados que no coinciden con ninguna sigla de "{t}". '
                       f'Esas celdas de {col_letra(PROY_COL_UEI)} NO se tocaron (hay que completarlas a mano '
                       'o agregar la equivalencia en UEI_EQUIVALENCIAS):\n'
                       + '\n'.join(f'- {c}: "{u}"' for c, u in sin_uei))
@@ -818,7 +863,8 @@ def escribir_proyeccion(libro, hr, filas, filas_proy, insertados):
                'montos_actualizados': len(por_fila[PROY_COL_MONTO]),
                'uei_actualizadas': len(por_fila[PROY_COL_UEI]),
                'etapas_actualizadas': len(por_fila[PROY_COL_ETAPA]),
-               'uei_sin_equivalencia': len(sin_uei), 'rangos_enviados': len(datos)}
+               'uei_sin_equivalencia': len(sin_uei), 'insertados_sin_ficha_del_ssi': len(sin_ficha_ins),
+               'procompite_por_marcar_a_mano': len(procompite_viejos), 'rangos_enviados': len(datos)}
     if not datos:
         print('No había nada que actualizar en', t)
         return avisos, resumen
