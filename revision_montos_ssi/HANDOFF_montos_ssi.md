@@ -1,13 +1,19 @@
 # HANDOFF – Montos de inversión, UEI y tipo de inversión desde el SSI del MEF
 
-Última actualización: 2026-11-25 (15:40)
-Sesión de Claude Code: "monto inversion ssi"
+Última actualización: 2026-11-26
+Sesión de Claude Code: "monto inversion ssi" (25/11) + revisión y cambios del 26/11
 
 ## Objetivo
 Cada día, para los CUI del libro de Google (hojas Proyección26 y PIM-diario), traer del SSI del MEF
-(https://ofi5.mef.gob.pe/ssi/) y escribir en PIM-diario:
-- para todos los CUI que no son PC: el monto de inversión = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO (S/) (a+b+c+d);
-- para los CUI recién insertados, además: UNIDAD EJECUTORA DE INVERSIONES (UEI) y TIPO DE INVERSIÓN.
+(https://ofi5.mef.gob.pe/ssi/) y escribir **en Proyección26**, ubicando cada fila por su CUI (columna A):
+- **I** "(A) Monto de inversión" = COSTO TOTAL DE LA INVERSIÓN ACTUALIZADO (S/) (a+b+c+d);
+- **D** "UEI" = la sigla equivalente a la UEI del SSI (GRI, GRDE, GRDIS, GRRNyGA, PET, DIRESA, DRAT, DRTYC);
+- **F** "Etapa" = "PC" si el SSI dice PROYECTO PROCOMPITE, "Desactivado" si está desactivado.
+
+Cambio del 26/11: antes se escribía en PIM-diario (columnas O, P y Q) para después llevarlo a
+Proyección26 con fórmulas. Se escribe directo en Proyección26 porque PIM-diario se rearma cada día
+y los valores de los insertados del día anterior se perdían. Las columnas O, P y Q de PIM-diario
+ya no se usan y se vacían.
 
 ## Estado en una línea
 **Programa de Python terminado y probado contra el libro real** (prompts 1, 2 y 3 de `nata_apuntes`).
@@ -25,7 +31,7 @@ Falta programarlo a las 6:45 en el Programador de tareas de Windows (no pedido a
 | Montos por corrida | `C:\Users\HP\Documents\drives_exclusivos_descarga\monto_ssi\monto_ssi_AAAA-MM-DD_HHMMSS.json` y `.csv` (separador `;`, coma decimal) |
 | Credencial de Google | `credenciales\credenciales.json` (cuenta de servicio, ya compartida como editora del libro: escribió bien) |
 | Avisos no enviados | `nata_apuntes\test_responses\AVISO_NO_ENVIADO_*.txt` (solo si falla el correo) |
-| Guion de Apps Script vigente | `descarga_diaria_mef_23_11_26_3pm.gs` (llena PIM-diario C:L, A1, A3:A y N2:N) |
+| Guion de Apps Script vigente | `descarga_diaria_mef_23_11_26_3pm.gs` (llena PIM-diario C:L, A1, A3:A y N2:N, y vacía O:Q) |
 | Apps Script de montos (abandonado) | `4-script\montos_ssi.gs`: el SSI bloquea a Google, ver sección 5 |
 | Excel puntual del 12/11 | `C:\Users\HP\OneDrive\ssi monto inv\2 cuis-montos.xlsx` (359 CUI, montos + devengado 2025) |
 
@@ -36,7 +42,10 @@ python cuis_desde_sheets.py                 # corrida completa (~10 s)
 python cuis_desde_sheets.py --probar-correo # solo manda un correo de prueba
 ```
 Códigos de salida: 0 bien (aunque haya avisos enviados); 2 detenido por títulos o estructura;
-3 error inesperado; 4 no se pudo enviar el correo; 5 el SSI no respondió para ningún CUI.
+3 error inesperado; 4 no se pudo enviar el correo; 5 el SSI no respondió para ningún CUI;
+6 detenido por ceros masivos (MAX_CEROS_SOSPECHOSOS, data basura del SSI).
+Solo corre una instancia a la vez (`nata_apuntes\corrida_en_curso.lock`): si la tarea programada y
+una prueba manual coinciden, la segunda no hace nada.
 Requiere Python con `gspread` (6.2.1 instalado) y `curl.exe` de Windows.
 
 ## 3. Qué hace (3 pasos)
@@ -67,21 +76,37 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
 - "NO REGISTRADO EN EL INVIERTE" (hoy 6, p. ej. los genéricos 2000270, 2000351, 2001621, 2016766):
   monto 0, sin aviso (si no, llegaría un correo cada día), marcados en el archivo.
 
-### Paso 3 – escribir en PIM-diario (una lectura y una escritura, solo O, P y Q)
-- Tabla de N a Q, **una fila por CUI de la columna N** (`CUI_proyeccion26_noPC`), ubicada por CUI,
-  no por posición. Decisión de diseño de Claude (la usuaria no la objetó; confirmar si se cambia):
-  - O `COSTO_TOTAL_INVERSION_ACTUALIZADO (a+b+c+d)` = monto de ese CUI, formato `#,##0.00`.
-    Si el monto es null, se deja el valor que ya tenía la celda (no se pisa con 0).
-  - P `UEI` y Q `TIPO_INVERSION` = solo en filas de recién insertados; las demás quedan vacías.
-- Título de O, P o Q que no coincide: esa columna no se escribe, las otras sí, con aviso.
-  N1 que no coincide: no se escribe nada, con aviso.
-- Filas sobrantes de corridas anteriores (si N se acortó) se limpian.
+### Paso 3 – escribir en Proyección26 (ubicando cada fila por su CUI de la columna A)
+- **I** `(A) Monto de inversión`: si el SSI no dio monto, la celda **no se toca** (nunca se pisa un
+  dato bueno con 0 ni con vacío). No se le cambia el formato de número: es una columna de la hoja.
+- **D** `UEI`: la sigla equivalente (tabla `UEI_EQUIVALENCIAS`). Si el texto del SSI no coincide con
+  ninguna, la celda **no se toca** y se avisa con el texto que llegó, para agregar la equivalencia.
+- **F** `Etapa`: "PC" si `TIPO_FORMATO` es PROYECTO PROCOMPITE; "Desactivado" si `ESTADO` empieza
+  con DESACTIVADO. Las demás etiquetas (ET, EF, L...) todavía no se saben derivar del SSI: esas
+  celdas **no se tocan**, y solo se avisa de los **recién insertados** (los demás no interesan).
+  **OJO:** marcar "PC" saca a ese CUI de las corridas siguientes (la Etapa PC lo excluye de la
+  lista). Cada marcado va en el correo.
+- **Solo se escriben las celdas que CAMBIAN**, agrupadas en tramos de filas consecutivas. Una celda
+  que no corresponde actualizar no entra en el envío: así no se pisa nada ni se congela una fórmula.
+- Cualquier título de A2, D2, F2 o I2 que no coincida exactamente: **se detiene y se avisa**, no se
+  escribe nada (antes la columna con el título malo se saltaba y las otras sí se escribían).
+- **Justo antes de escribir** se vuelve a leer la columna A y los títulos. Si las filas se corrieron
+  o una columna se movió durante la corrida (el Apps Script inserta filas en Proyección26), no se
+  escribe nada y se avisa: escribir habría puesto cada monto en el CUI equivocado.
 - Si el SSI se cayó entero, no se escribe nada.
-- Recién insertado que no está en N: queda sin UEI ni tipo y se avisa.
+- PIM-diario ya no se escribe. Sus columnas O, P y Q se vacían con `batch_clear` (`LIMPIAR_PIM_OPQ`)
+  porque escribir `''` deja un texto vacío y `ESBLANCO()` devuelve FALSO (comprobado en la hoja).
 
-### Comparación con la corrida anterior (agregado 25/11 tarde)
-- Base = último `monto_ssi_*.json` de la carpeta de montos (la corrida anterior, aunque sea una prueba del
-  mismo día). Compara su `monto_final` (o `monto_inversion` en archivos viejos) con lo descargado hoy.
+### Comparación con la corrida anterior (agregado 25/11 tarde, corregido 26/11)
+- Base = último `monto_ssi_*.json` de un **día anterior** a hoy. Las corridas del mismo día ya no
+  sirven de base (una prueba de la mañana no debe ser la referencia de la tarde).
+- Si la base no es del **día hábil previo**, se avisa por correo y se dice qué días faltan. Sábado y
+  domingo no cuentan como falta (la PC está apagada), así que un lunes contra viernes no avisa.
+- Si el archivo de la corrida anterior está dañado, se usa uno más viejo **y se avisa** (antes solo
+  se imprimía en consola, que nadie ve en una tarea programada).
+- Si no hay ninguna corrida anterior, se avisa: sin base, un 0 erróneo del SSI entraría a la hoja
+  sin que nada lo detecte.
+- Compara el `monto_final` de la base (o `monto_inversion` en archivos viejos) con lo descargado hoy.
 - Montos que cambiaron -> `variacion_montos_AAAA-MM-DD_HHMMSS.xlsx` en la misma carpeta (solo si hubo
   cambios): CUI, nombre de la inversión (`NOMBRE_INVERSION`, ahora se descarga), monto anterior, monto
   actual, % de variación con signo (negativo = bajó). Filas resaltadas si pasan el umbral o si antes era 0
@@ -94,11 +119,20 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
   usuaria: no repetir el aviso a diario); queda anotado en el campo `observacion` del archivo. Se detecta
   porque la corrida anterior tiene `monto_inversion` = 0 y `monto_final` > 0. Si el SSI no da dato,
   también se mantiene el anterior. El archivo guarda ambos: `monto_inversion` (descargado) y `monto_final` (usado).
+- **Freno por ceros masivos** (`MAX_CEROS_SOSPECHOSOS = 5`): si 5 o más CUI que ayer tenían monto
+  llegan hoy en 0, eso no es un cambio real sino una falla de la página del MEF. **No se escribe
+  nada en la hoja** y se avisa (código 6). Uno o dos ceros siguen pasando como alerta nomás.
+- Si `CARPETA_MONTOS` no está disponible, los archivos se guardan en `C:\Users\HP\Downloads` y se
+  avisa. Un fallo al generar el Excel de variaciones ya **no** tumba la corrida (antes se perdían
+  los montos y no se escribía en la hoja).
 - Probado con corridas anteriores simuladas en `pruebas_sin_red.py` (alza 5 %, baja 15 %, caída a 0,
   0 repetido el día 2 sin alerta, recuperación el día 3, sin dato, antes 0, igual, nuevo) y en real a
   las 15:24 y 15:34 (0 cambios, sin Excel ni correo, como corresponde).
 
 ### Correo
+- El correo del Apps Script se lee de **Configuración del proyecto > Propiedades de la secuencia de
+  comandos**, propiedad `CORREO_USUARIO`. Antes la constante decía `PONER_AQUI_TU_CORREO`, así que
+  **ningún aviso del guion de Google llegaba** (fallaban todos en silencio).
 - Un solo correo por corrida con todos los avisos (asunto `[CUI PIM-diario] ...`), por Gmail SMTP
   (smtp.gmail.com:465). Usuario y destinatario = `CORREO_AVISO` (el primero envía).
 - Contraseña: variable de usuario de Windows `GMAIL_APP_PASSWORD` (creada con `setx`); si la ventana
@@ -132,28 +166,37 @@ posiciones de títulos, `CUIS_SIN_AVISO`.
 - Receta del devengado por año (ícono btn_finan): POST `/invierteWS/Dashboard/traeDevengSSI` con
   `id=<CUI>&tipo=DEV2`; sumar orígenes del mismo año.
 
-## 6. Para la revisión (decisiones y riesgos que conviene mirar con lupa)
-Decisiones tomadas por Claude, no pedidas literalmente por la usuaria:
-1. **Alineación de O, P y Q por el CUI de la columna N** (tabla N:Q). Alternativa descartada: alinear P y Q
-   con la columna A. Riesgo: si N está desactualizada respecto de Proyección26 (la llena el Apps Script en
-   otro momento), algunos CUI descargados no tienen fila; hoy se avisa.
-2. **Monto null conserva el valor anterior** en vez de poner 0 (para no pisar datos buenos si el MEF falla).
-3. **Cero sospechoso = de > 0 a 0.** Riesgo conocido: si un costo de verdad pasa a 0, la hoja conservará el
-   valor viejo indefinidamente y solo se avisa el primer día. Un cero en un CUI que antes era 0 (p. ej. los
-   "no registrados") no es sospechoso.
-4. **Base de comparación = el último archivo de la carpeta**, aunque sea una prueba del mismo día. No hay
-   distinción entre corridas de prueba y la diaria.
-5. **Los "NO REGISTRADO EN EL INVIERTE" no avisan** (monto 0 legítimo, hoy 6).
-6. **Un solo correo por corrida**; si el correo falla, el aviso queda en un .txt.
+## 6. Decisiones vigentes (revisadas el 26/11)
+Decisiones confirmadas por la usuaria en la revisión del 26/11:
+1. **Se escribe en Proyección26, ubicando por el CUI de la columna A** (no en PIM-diario por posición).
+   Esto quita de raíz el riesgo de desalineación: PIM-diario se rearma cada día y su columna N se
+   corre cuando entra un CUI nuevo, pero Proyección26 se escribe fila por fila buscando el CUI.
+2. **Solo se escriben las celdas que cambian**; lo que no corresponde actualizar no se envía.
+3. **Monto null o sin equivalencia: la celda no se toca.** Nunca se pisa un dato bueno con 0 ni con vacío.
+4. **Cero sospechoso = de > 0 a 0**, se mantiene el anterior y se avisa solo la primera vez. Riesgo
+   conocido y aceptado: si un costo de verdad pasa a 0, la hoja conserva el valor viejo.
+5. **5 ceros o más = falla del MEF**: no se escribe nada (`MAX_CEROS_SOSPECHOSOS`, código 6).
+6. **Base de comparación = la última corrida de un día anterior**, y se avisa si falta algún día hábil.
+7. **Marcar Etapa "PC" saca al CUI de las corridas siguientes.** Confirmado por la usuaria; cada
+   marcado va en el correo para que quede a la vista.
+8. **Las etapas que no sean PROCOMPITE ni desactivado no se tocan**, y solo se avisan si el CUI es
+   un recién insertado. Derivar ET, EF, L... del SSI queda pendiente.
+9. **UEI vacía en un recién insertado no se avisa**: es común (pedido de la usuaria).
+10. **Los "NO REGISTRADO EN EL INVIERTE" no avisan** (monto 0 legítimo, hoy 6).
+11. **Un solo correo por corrida**; si el correo falla, el aviso queda en un .txt.
 
-Puntos técnicos a revisar:
+Puntos técnicos:
 - Lectura de la hoja con `UNFORMATTED_VALUE` y validación de CUI (`como_cui`: int, float entero o texto de
-  7 dígitos).
-- Escritura con `valueInputOption RAW` de O2:Q(n) en una sola llamada; limpieza de filas sobrantes.
+  7 dígitos). Ojo: `UNFORMATTED_VALUE` devuelve el **resultado** de una fórmula, no su texto.
+- Escritura con `valueInputOption RAW` en tramos de filas consecutivas, en una sola llamada.
+- Vaciado real de celdas con `batch_clear`: escribir `''` deja un texto vacío y `ESBLANCO()` da FALSO.
 - `consultar_ssi`: clasifica respuesta (lista vacía = no existe; error de red, HTTP ≠ 200 o no-JSON = falla),
   3 intentos con pausa. Depende de `curl.exe` (solo Windows).
-- No hay bloqueo contra dos corridas simultáneas (p. ej. la tarea programada y una prueba manual).
+- Bloqueo de corridas simultáneas con `nata_apuntes\corrida_en_curso.lock` (se reusa si tiene más de
+  `BLOQUEO_MAX_MIN` minutos, para que una corrida interrumpida no bloquee para siempre).
 - La contraseña del correo se lee de la variable `GMAIL_APP_PASSWORD` o del registro de Windows.
+- `num()` devuelve 0.0 si el importe llega como texto con separador de miles (`'1,234.56'`). Hoy el SSI
+  manda números; si algún día cambia, el freno por ceros masivos lo atajaría.
 - `pruebas_sin_red.py` no cubre la consulta real al SSI, la lectura real del libro ni el envío del correo.
 
 ## 7. Pendientes
@@ -163,11 +206,18 @@ Puntos técnicos a revisar:
 2. **Confirmar el libro**: `ID_LIBRO` apunta a "Copia de Drives exclusivos 19.11". Si el definitivo es
    otro, cambiar la constante y compartir ese libro con la cuenta de servicio (correo en
    `credenciales\correo iam.txt`).
-3. **Seguridad**: la contraseña de aplicación de Gmail está en texto plano en
+3. **Verificar en el libro real** que Proyección26 tenga `UEI` en **D2** y `(A) Monto de inversión`
+   en **I2** (los títulos se comparan exactos, sin tildes ni mayúsculas). Si no coinciden, el
+   programa se detiene y avisa sin escribir nada.
+4. **Poner `CORREO_USUARIO`** en las propiedades del proyecto de Apps Script (sin eso, los avisos
+   del guion de Google solo quedan en el registro de ejecuciones).
+5. **Seguridad**: la contraseña de aplicación de Gmail está en texto plano en
    `nata_apuntes\apuntes ssi monto script.txt` y `nata_apuntes\mail_notif_daily_script.md` (OneDrive) y
    pasó por el chat. Recomendado: borrarla de esos archivos, generar una nueva y volver a `setx`.
-4. Ideas en `prompt_xall.md`, no pedidas aún (la comparación por CUI con la corrida anterior ya está
+6. Ideas en `prompt_xall.md`, no pedidas aún (la comparación por CUI con la corrida anterior ya está
    hecha): revisar devengado acumulado exorbitante, ver qué fórmulas dependen de
    las columnas que se modifican, "si no está la columna Etapa, buscarla en la fila" (hoy se detiene).
-5. Corregir o quitar de Proyección26 los CUI 3000882 y 3999999 (no existen en el SSI).
-6. `4-script\montos_ssi.gs` ya no sirve (bloqueo); se puede borrar del proyecto de Apps Script.
+7. Corregir o quitar de Proyección26 los CUI 3000882 y 3999999 (no existen en el SSI).
+8. Completar a mano las UEI que el SSI trae con un nombre que no está en `UEI_EQUIVALENCIAS`
+   (el correo las lista con el texto exacto que llegó, para poder agregar la equivalencia).
+9. `4-script\montos_ssi.gs` ya no sirve (bloqueo); se puede borrar del proyecto de Apps Script.

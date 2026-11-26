@@ -1,11 +1,16 @@
 # Paquete para revisión – programa de montos del SSI (25/11/2026)
 
+> **Estado al 26/11/2026:** la revisión se hizo y los cambios acordados ya están aplicados en
+> `1-codigo/`. El programa ahora escribe en **Proyección26** (columnas D, F e I), no en PIM-diario.
+> Ver la sección 6 del HANDOFF para las decisiones vigentes. Lo de abajo es el pedido original.
+
 ## Qué se pide revisar
 El programa `1-codigo/cuis_desde_sheets.py`, que cada día:
 1. lee dos listas de CUI de un libro de Google (hojas Proyección26 y PIM-diario) con validaciones;
 2. consulta el SSI del MEF por cada CUI (monto de inversión, UEI y tipo);
 3. compara con la corrida anterior (Excel de variaciones, alerta > 10 %, ceros sospechosos);
-4. escribe las columnas O, P y Q de PIM-diario y manda un solo correo con los avisos.
+4. escribe las columnas D (UEI), F (Etapa) e I (monto) de Proyección26, ubicando cada fila por su
+   CUI, y manda un solo correo con los avisos.
 
 Buscar: errores de lógica, casos borde no cubiertos, riesgos de pisar datos buenos en la hoja, y si las
 decisiones de la sección 6 del HANDOFF son razonables. Devolver hallazgos concretos (línea, caso que falla,

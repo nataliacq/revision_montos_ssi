@@ -15,7 +15,9 @@
  */
 
 const ANIO = 2026;  // cambiar cada 1 de enero
-const CORREO_AVISO = 'PONER_AQUI_TU_CORREO';  // puedes poner varios separados por coma
+// El correo de avisos NO va escrito aquí: se lee de las propiedades del proyecto de Apps Script
+// (Configuración del proyecto > Propiedades de la secuencia de comandos), con el nombre CORREO_USUARIO.
+const PROP_CORREO = 'CORREO_USUARIO';
 const NOMBRE_HOJA = 'PIM-diario';          // donde se pega dato del dia
 const MIN_FILAS = 150;           // si llegan menos, se considera descarga fallida y no se toca la hoja
 const CELDA_EJECUCION = 'A1';    // aquí se escribe la fecha y hora de la última descarga buena
@@ -25,6 +27,12 @@ const HOJA_PROY = 'Proyección26';
 const COL_FORM_INI = 13;  // M
 const COL_FORM_FIN = 27;  // AA
 const COL_ETAPA = 6;      // F en Proyección26 (título esperado: "Etapa")
+// Los títulos de Proyección26 están en la fila 2, EXACTAMENTE ahí. Si se movieron (alguien
+// insertó o borró una fila arriba) no se sabe dónde empieza la lista: se detiene y se reporta,
+// igual que hace cuis_desde_sheets.py. Antes se buscaban en las primeras 30 filas, así que este
+// guion seguía trabajando y rearmaba la columna N mientras el de Python se detenía.
+const PROY_FILA_TITULOS = 2;
+const PROY_TITULOS = [[1, 'CUI'], [2, 'Inversión'], [COL_ETAPA, 'Etapa']];
 // Títulos esperados de M a AA (deben coincidir al 100%)
 const TITULOS_M_AA = [
   'PIA', 'PIM', 'Por Cert.\n(PIM-Cert)', 'Certificación',
@@ -64,13 +72,15 @@ function descargaDiaria() {
     // Primero se descarga; si falla, la hoja se queda con la última descarga buena
     const datos = descargarMEF_(ANIO);
     escribirHoja_(datos, momento);
+    // Las listas de CUI se rearman en la MISMA corrida. Antes esto solo pasaba al correr
+    // probarProyeccion a mano, así que la columna N se quedaba congelada y los CUI nuevos de
+    // Proyección26 nunca entraban: el disparador diario solo llenaba C:L y A1.
+    agregarCuisNuevos_(datos.map(f => [f[0], f[1]]));
   } catch (e) {
     console.error(e);
-    MailApp.sendEmail(CORREO_AVISO,
-      'Falló la descarga diaria del MEF',
+    avisar_('Falló la descarga diaria del MEF',
       'La hoja no se actualizó (se quedó con la última descarga buena).' +
-      '\n\nDetalle: ' + e.message +
-      '\n\nLibro: ' + SpreadsheetApp.getActive().getUrl());
+      '\n\nDetalle: ' + e.message);
   } finally {
     lock.releaseLock();
   }
@@ -192,30 +202,50 @@ function probarProyeccion() {
  */
 function agregarCuisNuevos_(proyectos) {
   const insertados = [];   // se va llenando a medida que se insertan filas
-  let noPC = null;         // null = no se pudo calcular (la columna N queda vacía)
 
   const hoja = SpreadsheetApp.getActive().getSheetByName(HOJA_PROY);
   if (!hoja) {
     avisar_('Proyección26: no existe la hoja',
-      'No se encontró la hoja "' + HOJA_PROY + '". No se insertó nada y las listas de CUI de "' +
-      NOMBRE_HOJA + '" (columnas A y N) quedaron vacías.');
-  } else {
-    try {
-      insertarCuisNuevos_(hoja, proyectos, insertados);
-    } catch (e) {
-      console.error(e);
-      avisar_('Proyección26: error al insertar CUIs nuevos',
-        'La descarga a PIM-diario sí se hizo, pero falló la actualización de Proyección26.\n\nDetalle: ' + e.message +
-        (insertados.length ? '\n\nAlcanzaron a insertarse estos CUI:\n' + insertados.join('\n') : ''));
-    }
-    try {
-      noPC = cuisNoPC_(hoja);
-    } catch (e) {
-      console.error(e);
-      avisar_('Proyección26: error al leer la Etapa',
-        'No se pudo armar la lista de CUI que no son PC; la columna N de "' + NOMBRE_HOJA +
-        '" quedó vacía.\n\nDetalle: ' + e.message);
-    }
+      'No se encontró la hoja "' + HOJA_PROY + '". NO se tocaron las listas de CUI de "' +
+      NOMBRE_HOJA + '" (columnas A y N): se quedaron como estaban. Revisar el nombre de la pestaña.');
+    return;
+  }
+
+  // Los títulos tienen que estar exactamente en la fila PROY_FILA_TITULOS. Si no, se para aquí
+  // SIN tocar PIM-diario: vaciar la columna N dejaría la hoja sin la lista que todo lo demás usa.
+  const faltas = verificarTitulosProy_(hoja);
+  if (faltas.length) {
+    avisar_('Proyección26: los títulos no están donde deben',
+      'Los títulos deben estar en la fila ' + PROY_FILA_TITULOS + ' de "' + HOJA_PROY + '":\n\n' +
+      faltas.join('\n') +
+      '\n\nPuede que se haya insertado o borrado una fila arriba, o que se haya movido una columna. ' +
+      'No se insertó ningún CUI y NO se tocaron las listas de "' + NOMBRE_HOJA + '" (columnas A y N), ' +
+      'que se quedaron como estaban. Corregir los títulos y volver a correr.');
+    return;
+  }
+
+  try {
+    insertarCuisNuevos_(hoja, proyectos, insertados);
+  } catch (e) {
+    console.error(e);
+    avisar_('Proyección26: error al insertar CUIs nuevos',
+      'La descarga a PIM-diario sí se hizo, pero falló la actualización de Proyección26.\n\nDetalle: ' + e.message +
+      (insertados.length ? '\n\nAlcanzaron a insertarse estos CUI:\n' + insertados.join('\n') : ''));
+  }
+
+  let noPC = null;
+  try {
+    noPC = cuisNoPC_(hoja);
+  } catch (e) {
+    console.error(e);
+    noPC = null;
+  }
+  if (noPC === null || !noPC.length) {
+    avisar_('Proyección26: no se pudo armar la lista de CUI que no son PC',
+      'NO se tocaron las listas de "' + NOMBRE_HOJA + '" (columnas A y N): se quedaron como estaban. ' +
+      'Vaciar la columna N habría borrado la lista con la que trabaja el programa de montos.' +
+      (insertados.length ? '\n\nCUI insertados en Proyección26:\n' + insertados.join('\n') : ''));
+    return;
   }
 
   try {
@@ -229,20 +259,28 @@ function agregarCuisNuevos_(proyectos) {
   }
 }
 
+
+/** Títulos que faltan o están mal en la fila PROY_FILA_TITULOS de Proyección26 (lista vacía = todo bien). */
+function verificarTitulosProy_(hoja) {
+  const ultCol = Math.max(hoja.getLastColumn(), COL_ETAPA);
+  if (hoja.getLastRow() < PROY_FILA_TITULOS) {
+    return ['la hoja tiene menos de ' + PROY_FILA_TITULOS + ' filas'];
+  }
+  const fila = hoja.getRange(PROY_FILA_TITULOS, 1, 1, ultCol).getValues()[0];
+  return PROY_TITULOS
+    .filter(([c, t]) => normCmp_(fila[c - 1]) !== normCmp_(t))
+    .map(([c, t]) => colLetra_(c) + PROY_FILA_TITULOS + ': se esperaba "' + t +
+                     '" y dice "' + (normCmp_(fila[c - 1]) || '(vacía)') + '"');
+}
+
 /** Inserta en Proyección26 los CUI que falten. Cada CUI insertado se agrega al arreglo `insertados`. */
 function insertarCuisNuevos_(hoja, proyectos, insertados) {
   const ultFila = hoja.getLastRow();
   const ultCol = Math.max(hoja.getLastColumn(), COL_FORM_FIN);
   const valores = hoja.getRange(1, 1, ultFila, ultCol).getValues();
 
-  // 1) Buscar la fila de títulos con "CUI" en la columna A
-  const filaTit = buscarFilaTitulos_(valores);
-  if (filaTit < 0) {
-    avisar_('Proyección26: no se encontró la columna CUI',
-      'En las primeras 30 filas de la columna A de "' + HOJA_PROY + '" no hay un título "CUI". ' +
-      'Puede que la columna se haya movido. No se insertó nada.');
-    return;
-  }
+  // 1) Los títulos ya se verificaron en agregarCuisNuevos_: están en la fila PROY_FILA_TITULOS
+  const filaTit = PROY_FILA_TITULOS;
 
   // 2) Ubicar el primer y el último CUI (pueden haber filas vacías o con otro texto antes/después)
   const existentes = [];   // [{fila, cui}]
@@ -267,15 +305,7 @@ function insertarCuisNuevos_(hoja, proyectos, insertados) {
     .filter(p => !ya.has(p[0]) && !vistos.has(p[0]) && vistos.add(p[0]));
   if (!nuevos.length) return;
 
-  // 4) ¿La columna "Inversión" está al lado (columna B)?
-  if (norm_(valores[filaTit - 1][1]) !== 'Inversión') {
-    avisar_('Proyección26: "Inversión" no está junto a CUI',
-      'En la fila ' + filaTit + ', la columna B dice "' + valores[filaTit - 1][1] +
-      '" en vez de "Inversión". No se agregaron los CUIs nuevos:\n\n' + listar_(nuevos));
-    return;
-  }
-
-  // 5) ¿Los títulos de M a AA coinciden al 100%?
+  // 4) ¿Los títulos de M a AA coinciden al 100%?
   const titActuales = valores[filaTit - 1].slice(COL_FORM_INI - 1, COL_FORM_FIN).map(norm_);
   const difs = [];
   TITULOS_M_AA.forEach((t, k) => {
@@ -285,7 +315,7 @@ function insertarCuisNuevos_(hoja, proyectos, insertados) {
   });
   const copiarFormulas = difs.length === 0;
 
-  // 6) Insertar de abajo hacia arriba (así las posiciones no se corren)
+  // 5) Insertar de abajo hacia arriba (así las posiciones no se corren)
   nuevos.sort((a, b) => b[0] - a[0]);
   const alFinal = [];
   const enDuro = new Map();      // celdas de referencia con valor en duro
@@ -378,19 +408,7 @@ function cuisNoPC_(hoja) {
   if (ultFila < 1) return null;
   const valores = hoja.getRange(1, 1, ultFila, COL_ETAPA).getValues();
 
-  const filaTit = buscarFilaTitulos_(valores);
-  if (filaTit < 0) return null;   // ya se avisó al intentar insertar (no se encontró "CUI")
-
-  const titF = norm_(valores[filaTit - 1][COL_ETAPA - 1]);
-  if (titF.toLowerCase() !== 'etapa') {
-    avisar_('Proyección26: la columna F no tiene el dato de Etapa',
-      'En la fila de títulos (fila ' + filaTit + ') de "' + HOJA_PROY + '", la columna ' +
-      colLetra_(COL_ETAPA) + ' dice "' + (titF || '(vacía)') + '" en vez de "Etapa".\n\n' +
-      'Sin ese dato no se puede saber qué proyectos no son PC, así que la columna ' +
-      colLetra_(COL_NOPC) + ' de "' + NOMBRE_HOJA + '" (' + TITULO_NOPC + ') quedó vacía.\n\n' +
-      'Revisar si la columna Etapa se movió o cambió de nombre.');
-    return null;
-  }
+  const filaTit = PROY_FILA_TITULOS;   // ya verificado en agregarCuisNuevos_
 
   const lista = [];
   const vistos = new Set();
@@ -418,6 +436,10 @@ function escribirListasPIM_(insertados, noPC) {
 
   const listaA = [...insertados].sort((a, b) => a - b);
   const listaN = noPC || [];
+  // Red de seguridad: sin lista nueva NO se vacía la columna N. Antes se hacía clearContent()
+  // de N2:N siempre y solo se reponía la lista si se había podido calcular, así que un error
+  // en Proyección26 dejaba la columna N vacía.
+  if (!listaN.length) throw new Error('la lista de CUI que no son PC vino vacía: no se tocó nada');
 
   // que haya filas y columnas suficientes (solo se agregan, nunca se borran)
   const necesarias = Math.max(FILA_INI_INSERTADOS, FILA_INI_INSERTADOS - 1 + listaA.length, 1 + listaN.length);
@@ -435,27 +457,41 @@ function escribirListasPIM_(insertados, noPC) {
   // Columna N: título, borrar la lista anterior y pegar la nueva
   hoja.getRange(1, COL_NOPC).setValue(TITULO_NOPC).setFontWeight('bold');
   hoja.getRange(2, COL_NOPC, maxFilas - 1, 1).clearContent();
-  if (listaN.length) {
-    hoja.getRange(2, COL_NOPC, listaN.length, 1)
-      .setValues(listaN.map(c => [c])).setNumberFormat('0');
-  }
-  SpreadsheetApp.flush();
-}
+  hoja.getRange(2, COL_NOPC, listaN.length, 1)
+    .setValues(listaN.map(c => [c])).setNumberFormat('0');
 
-/** Fila (1, 2, ...) donde la columna A dice "CUI", buscando en las primeras 30 filas; -1 si no está. */
-function buscarFilaTitulos_(valores) {
-  for (let i = 0; i < Math.min(30, valores.length); i++) {
-    if (norm_(valores[i][0]).toUpperCase() === 'CUI') return i + 1;
-  }
-  return -1;
+  // Columnas O, P y Q: ya no se usan. El monto ahora se escribe en Proyección26 (columna I),
+  // así que lo que quede aquí es de corridas viejas y solo puede engañar a una fórmula.
+  hoja.getRange(2, COL_NOPC + 1, maxFilas - 1, 3).clearContent();
+  SpreadsheetApp.flush();
 }
 
 function esCui_(v) { return /^\d{7}$/.test(String(v).trim().replace(/\.0+$/, '')); }
 function norm_(t) { return String(t).replace(/\r\n/g, '\n').trim(); }
 
+/** Para comparar títulos: sin tildes, sin espacios de más y en mayúsculas (igual que el Python). */
+function normCmp_(t) {
+  return String(t === null || t === undefined ? '' : t)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ').trim().toUpperCase();
+}
+
+/** Correo de avisos, desde las propiedades del proyecto de Apps Script. */
+function correoUsuario_() {
+  const c = PropertiesService.getScriptProperties().getProperty(PROP_CORREO);
+  if (!c) throw new Error('Falta la propiedad "' + PROP_CORREO + '" en Configuración del proyecto > ' +
+                          'Propiedades de la secuencia de comandos.');
+  return c;
+}
+
 function avisar_(asunto, cuerpo) {
-  MailApp.sendEmail(CORREO_AVISO, asunto,
-    cuerpo + '\n\nLibro: ' + SpreadsheetApp.getActive().getUrl());
+  const texto = cuerpo + '\n\nLibro: ' + SpreadsheetApp.getActive().getUrl();
+  try {
+    MailApp.sendEmail(correoUsuario_(), asunto, texto);
+  } catch (e) {
+    // que el aviso no se pierda del todo si el correo no está configurado o falla el envío
+    console.error('NO se pudo avisar por correo (' + e.message + ')\n' + asunto + '\n\n' + texto);
+  }
 }
 function listar_(lista) { return lista.map(p => p[0] + ' – ' + p[1]).join('\n'); }
 function colLetra_(c) { let s = ''; while (c > 0) { const m = (c - 1) % 26; s = String.fromCharCode(65 + m) + s; c = Math.floor((c - m) / 26); } return s; }
