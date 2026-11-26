@@ -35,7 +35,9 @@ consecuencia) antes que sugerencias de estilo.
 ## Cómo correr las pruebas (sin red ni credenciales)
 ```
 cd 1-codigo
-python pruebas_sin_red.py        # termina con "TODAS LAS PRUEBAS PASARON"
+python pruebas_sin_red.py              # cada función por separado
+python pruebas_integracion_sin_red.py  # la corrida de punta a punta, simulada
+node pruebas_cola_gs.js                # la cola de CUI del guion de Google
 ```
 Requiere Python 3 con `gspread` y `openpyxl` instalados (el módulo importa gspread aunque las pruebas no
 se conectan). La corrida completa del programa NO se puede hacer fuera de la PC de la usuaria: necesita la

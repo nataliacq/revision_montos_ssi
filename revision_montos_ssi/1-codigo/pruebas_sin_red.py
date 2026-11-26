@@ -27,6 +27,7 @@ class Hoja:
 
     def batch_clear(self, rangos):
         self.limpiado = rangos
+        self.limpiados = getattr(self, 'limpiados', []) + list(rangos)
 
 
 HP, HR = Hoja('PIM-diario', 37269580), Hoja('Proyección26', 1133143073)
@@ -45,14 +46,19 @@ def prueba_listas():
              ['2000351', '', '', '', '', 'PC'], [2001621.0, '', '', '', '', ''],
              ['20016', '', '', '', '', 'ET'], ['abc', '', '', '', '', 'EF'], [], ['', '', '', '', '', 'L'],
              [2000270, '', '', '', '', 'EF'], [' 2064096 ', '', '', '', '', 'pc ']]
-    col_a = [[2000270], ['2000351 '], ['hola'], [], [12345678]]
+    # 46346 es el 20/11/2026 como número de serie de la hoja; la otra fila lo trae como texto
+    col_a = [[2000270, 46346.0], ['2000351 ', '2026-11-20'], ['hola'], [], [12345678]]
 
     caso('listas: valores raros, PC con espacios, repetidos, vacíos')
-    ins, todos, obs, rep, res, _, filas_proy = m.validar_y_armar(HP, HR, (OK_CAB, col_a, OK_TIT, datos))
+    (ins, todos, obs, rep, res, _, filas_proy,
+     fechas_ins) = m.validar_y_armar(HP, HR, (OK_CAB, col_a, OK_TIT, datos))
     assert ins == [2000270, 2000351], ins
     assert todos == [2000270, 2001621], todos
     assert [o['celda'] for o in obs] == ['A5', 'A7', 'A6', 'A7', 'A9'], obs
     assert [(r['celda'], r['cui']) for r in rep] == [('A10', 2000270)], rep
+
+    caso('listas: se guarda la fecha de inserción de cada recién insertado (columna B)')
+    assert fechas_ins == {2000270: '2026-11-20', 2000351: '2026-11-20'}, fechas_ins
 
     caso('listas: se guarda la fila y el contenido actual de D, F e I de cada CUI')
     assert filas_proy[2000270] == {'fila': 3, 'uei': 'GRI', 'etapa': 'ET', 'monto': 100.0}, filas_proy[2000270]
@@ -370,6 +376,81 @@ def prueba_ceros_masivos():
         print(f'   {len(ceros)} ceros >= {m.MAX_CEROS_SOSPECHOSOS}: no se escribe nada en la hoja (código 6)')
 
 
+def prueba_historico_insertados():
+    """El histórico es la única memoria de la cola: se archiva antes de borrar A3:B."""
+    filas = [
+        {'cui': 2064096, 'resultado': 'ok', 'monto_inversion': 100.5, 'monto_final': 100.5,
+         'uei': 'GERENCIA REGIONAL DE INFRAESTRUCTURA', 'tipo_inversion': 'PROYECTO',
+         'estado_ssi': 'DESACTIVADO TEMPORAL'},                       # todo resuelto
+        {'cui': 2094012, 'resultado': 'ok', 'monto_inversion': 80.0, 'monto_final': 80.0,
+         'uei': 'MUNICIPALIDAD DISTRITAL DE POCOLLAY', 'tipo_inversion': 'PROYECTO',
+         'estado_ssi': 'ACTIVO'},                                     # falta UEI y Etapa
+        {'cui': 2173274, 'resultado': 'sin respuesta del servicio: no respondió a tiempo',
+         'monto_inversion': None, 'monto_final': None, 'uei': None, 'tipo_inversion': None,
+         'estado_ssi': ''},                                           # el SSI no dio ficha
+        {'cui': 2999888, 'resultado': 'ok', 'monto_inversion': 5.0, 'monto_final': 5.0,
+         'uei': 'DIRECCION REGIONAL DE SALUD', 'tipo_inversion': 'PROYECTO',
+         'estado_ssi': 'ACTIVO'},                                     # sin fila en Proyección26
+    ]
+    filas_proy = {2064096: {'fila': 3, 'uei': '', 'etapa': '', 'monto': ''},
+                  2094012: {'fila': 4, 'uei': '', 'etapa': '', 'monto': ''},
+                  2173274: {'fila': 5, 'uei': '', 'etapa': '', 'monto': ''}}
+    insertados = [2064096, 2094012, 2173274, 2999888]
+    fechas = {2064096: '2026-11-20', 2094012: '2026-11-25', 2173274: '2026-11-26'}
+
+    with tempfile.TemporaryDirectory() as tmp:
+        m.CARPETA_HISTORICO = Path(tmp)
+        m.ARCHIVO_HISTORICO = Path(tmp) / 'insertados_historico.csv'
+
+        caso('histórico: una línea por recién insertado, con lo que falta completar a mano')
+        from datetime import datetime
+        ruta = m.guardar_historico_insertados(filas, insertados, fechas, filas_proy,
+                                              datetime(2026, 11, 26, 6, 45, 0))
+        import csv as _csv
+        with open(ruta, newline='', encoding='utf-8-sig') as fh:
+            lineas = list(_csv.reader(fh, delimiter=';'))
+        assert lineas[0][:4] == ['fecha_corrida', 'cui', 'fecha_insercion', 'fila_proyeccion26'], lineas[0]
+        por_cui = {r[1]: dict(zip(lineas[0], r)) for r in lineas[1:]}
+        assert len(por_cui) == 4, por_cui
+        for cui, fila in por_cui.items():
+            print(f'   {cui}  uei={fila["uei_escrita"]:7} etapa={fila["etapa_escrita"]:12} '
+                  f'falta: {fila["falta_completar_a_mano"] or "(nada)"}')
+        assert por_cui['2064096']['uei_escrita'] == 'GRI'
+        assert por_cui['2064096']['etapa_escrita'] == 'Desactivado'
+        assert por_cui['2064096']['falta_completar_a_mano'] == ''
+        assert por_cui['2064096']['fecha_insercion'] == '2026-11-20'
+        assert por_cui['2064096']['monto'] == '100,50', por_cui['2064096']
+        # sin equivalencia de UEI y con estado que no se traduce: faltan las dos
+        assert por_cui['2094012']['falta_completar_a_mano'] == 'UEI, Etapa', por_cui['2094012']
+        assert por_cui['2094012']['uei_ssi'] == 'MUNICIPALIDAD DISTRITAL DE POCOLLAY'
+        # el SSI no respondió: no se intenta deducir nada
+        assert 'no dio su ficha' in por_cui['2173274']['falta_completar_a_mano']
+        assert por_cui['2173274']['uei_escrita'] == '' and por_cui['2173274']['monto'] == ''
+        # no tiene fila donde escribir
+        assert 'no tiene fila' in por_cui['2999888']['falta_completar_a_mano'], por_cui['2999888']
+        assert por_cui['2999888']['fila_proyeccion26'] == ''
+
+        caso('histórico: la segunda corrida AGREGA, no reescribe el archivo')
+        m.guardar_historico_insertados(filas[:1], [2064096], fechas, filas_proy,
+                                       datetime(2026, 11, 27, 6, 45, 0))
+        with open(ruta, newline='', encoding='utf-8-sig') as fh:
+            lineas2 = list(_csv.reader(fh, delimiter=';'))
+        assert len(lineas2) == len(lineas) + 1, (len(lineas), len(lineas2))
+        assert lineas2.count(lineas[0]) == 1, 'el encabezado va una sola vez'
+        print('   ', len(lineas2) - 1, 'líneas de datos tras dos corridas')
+
+        caso('histórico: sin recién insertados no se crea archivo')
+        m.ARCHIVO_HISTORICO = Path(tmp) / 'otro.csv'
+        assert m.guardar_historico_insertados(filas, [], {}, filas_proy, datetime.now()) is None
+        assert not m.ARCHIVO_HISTORICO.exists()
+
+    caso('cola: limpiar_insertados vacía A3:B de verdad (batch_clear, no "")')
+    HP.limpiado = None
+    m.limpiar_insertados(HP)
+    assert HP.limpiado == ['A3:B'], HP.limpiado
+    assert m.PIM_RANGO_INSERTADOS == 'A3:B', m.PIM_RANGO_INSERTADOS
+
+
 def prueba_bloqueo():
     with tempfile.TemporaryDirectory() as tmp:
         m.ARCHIVO_BLOQUEO = Path(tmp) / 'corrida.lock'
@@ -411,6 +492,7 @@ if __name__ == '__main__':
     prueba_escritura()
     prueba_comparacion()
     prueba_ceros_masivos()
+    prueba_historico_insertados()
     prueba_bloqueo()
     prueba_carpeta_respaldo()
     print('\nTODAS LAS PRUEBAS PASARON')

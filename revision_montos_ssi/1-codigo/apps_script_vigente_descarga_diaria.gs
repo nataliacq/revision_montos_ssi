@@ -9,8 +9,9 @@
  * Uso:
  *   1) descargaDiaria   -> correr una vez a mano para probar (y autorizar permisos)
  *   2) instalarHorario  -> correr una vez; deja la descarga diaria cerca de las 6:20 (hora de Lima)
- *   3) probarProyeccion -> agrega a Proyección26 los CUI que falten y pega en PIM-diario:
- *        · columna A (desde A3): los CUI insertados en esta corrida
+ *   3) probarProyeccion -> lo mismo a mano (descargaDiaria ya lo hace solo):
+ *        · columna A (desde A3): COLA de CUI insertados, con su fecha de inserción en B.
+ *          Se AGREGAN al final; el programa de Python los consume, los archiva y borra A3:B.
  *        · columna N (desde N2): los CUI de Proyección26 cuya Etapa (col. F) no es "PC"
  */
 
@@ -44,7 +45,9 @@ const TITULOS_M_AA = [
 ];
 
 // Dónde se pegan las listas de CUI en PIM-diario
-const FILA_INI_INSERTADOS = 3;   // columna A, desde A3: CUI insertados en Proyección26
+const FILA_INI_INSERTADOS = 3;   // columna A, desde A3: cola de CUI insertados en Proyección26
+const COL_FECHA_INS = 2;         // columna B: fecha en que se insertó ese CUI
+const TITULO_FECHA_INS = 'fecha_insercion';
 const COL_NOPC = 14;             // columna N, desde N2: CUI de Proyección26 con Etapa ≠ "PC"
 const TITULO_NOPC = 'CUI_proyeccion26_noPC';
 
@@ -52,7 +55,8 @@ const TITULO_NOPC = 'CUI_proyeccion26_noPC';
 const ZONA = 'America/Lima';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 
-// Columnas A y B no se tocan con la descarga (A1 = fecha y hora; A3 hacia abajo = CUI insertados).
+// Columnas A y B no se tocan con la descarga (A1 = fecha y hora de la descarga; B2 = título;
+// A3 hacia abajo = cola de CUI insertados y su fecha de inserción en B).
 // Los datos van de C a L.
 const ENCABEZADOS = ['', '', 'CUI', 'Inversión', 'PIA', 'PIM', 'Certificación',
   'Compromiso Anual', 'Atención de Compromiso Mensual', 'Devengado', 'Girado', 'Avance %'];
@@ -426,15 +430,18 @@ function cuisNoPC_(hoja) {
 
 /**
  * Pega en PIM-diario:
- *   - columna A desde A3: CUI insertados en esta corrida (de menor a mayor)
- *   - columna N: título en N1 y, desde N2, los CUI que no son PC (vacía si noPC es null)
- * Antes borra el contenido anterior de A3:A y N2:N.
+ *   - columnas A y B desde A3: COLA de CUI insertados, con su fecha de inserción al lado.
+ *     NO se reemplaza la lista: se AGREGAN al final los que todavía no estén en la cola. El
+ *     programa de Python los consume (escribe UEI y Etapa en Proyección26), los archiva en
+ *     insertados_historico.csv y recién entonces borra A3:B. Así, si la PC estuvo apagada el día
+ *     que entró un CUI nuevo, la lista espera a la próxima corrida en vez de perderse.
+ *   - columna N: título en N1 y, desde N2, los CUI que no son PC (esa sí se reemplaza entera).
+ *   - columnas O, P y Q: se vacían (ya no se usan).
  */
 function escribirListasPIM_(insertados, noPC) {
   const hoja = SpreadsheetApp.getActive().getSheetByName(NOMBRE_HOJA);
   if (!hoja) throw new Error('No existe la hoja "' + NOMBRE_HOJA + '". Revisar el nombre de la pestaña.');
 
-  const listaA = [...insertados].sort((a, b) => a - b);
   const listaN = noPC || [];
   // Red de seguridad: sin lista nueva NO se vacía la columna N. Antes se hacía clearContent()
   // de N2:N siempre y solo se reponía la lista si se había podido calcular, así que un error
@@ -442,17 +449,30 @@ function escribirListasPIM_(insertados, noPC) {
   if (!listaN.length) throw new Error('la lista de CUI que no son PC vino vacía: no se tocó nada');
 
   // que haya filas y columnas suficientes (solo se agregan, nunca se borran)
-  const necesarias = Math.max(FILA_INI_INSERTADOS, FILA_INI_INSERTADOS - 1 + listaA.length, 1 + listaN.length);
+  const necesarias = Math.max(FILA_INI_INSERTADOS, 1 + listaN.length);
   if (necesarias > hoja.getMaxRows()) hoja.insertRowsAfter(hoja.getMaxRows(), necesarias - hoja.getMaxRows());
   if (COL_NOPC > hoja.getMaxColumns()) hoja.insertColumnsAfter(hoja.getMaxColumns(), COL_NOPC - hoja.getMaxColumns());
-  const maxFilas = hoja.getMaxRows();
+  let maxFilas = hoja.getMaxRows();
 
-  // Columna A: borrar la lista anterior y pegar la nueva
-  hoja.getRange(FILA_INI_INSERTADOS, 1, maxFilas - FILA_INI_INSERTADOS + 1, 1).clearContent();
-  if (listaA.length) {
-    hoja.getRange(FILA_INI_INSERTADOS, 1, listaA.length, 1)
-      .setValues(listaA.map(c => [c])).setNumberFormat('0');
+  // Columnas A y B: agregar al final de la cola los CUI que no estén ya esperando
+  const enCola = hoja.getRange(FILA_INI_INSERTADOS, 1, maxFilas - FILA_INI_INSERTADOS + 1, 1).getValues();
+  let ocupadas = 0;
+  const yaEstan = new Set();
+  enCola.forEach((f, i) => {
+    if (esCui_(f[0])) { ocupadas = i + 1; yaEstan.add(Number(String(f[0]).trim())); }
+  });
+  const nuevos = [...insertados].sort((a, b) => a - b).filter(c => !yaEstan.has(c));
+  if (nuevos.length) {
+    const primeraLibre = FILA_INI_INSERTADOS + ocupadas;
+    const falta = primeraLibre + nuevos.length - 1 - maxFilas;
+    if (falta > 0) { hoja.insertRowsAfter(maxFilas, falta); maxFilas = hoja.getMaxRows(); }
+    const hoy = Utilities.formatDate(new Date(), ZONA, 'yyyy-MM-dd');
+    hoja.getRange(primeraLibre, 1, nuevos.length, 2).setValues(nuevos.map(c => [c, hoy]));
+    hoja.getRange(primeraLibre, 1, nuevos.length, 1).setNumberFormat('0');
+    hoja.getRange(primeraLibre, COL_FECHA_INS, nuevos.length, 1).setNumberFormat('dd/mm/yyyy');
   }
+  // Título de la fecha en B2 (A2 se deja vacía: es el ancla que usa el programa de Python)
+  hoja.getRange(FILA_INI_INSERTADOS - 1, COL_FECHA_INS).setValue(TITULO_FECHA_INS).setFontWeight('bold');
 
   // Columna N: título, borrar la lista anterior y pegar la nueva
   hoja.getRange(1, COL_NOPC).setValue(TITULO_NOPC).setFontWeight('bold');
